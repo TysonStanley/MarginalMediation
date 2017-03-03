@@ -1,4 +1,4 @@
 library(testthat)
-library(marginsMediation)
+library(MarginalMediation)
 
-test_check("marginsMediation")
+test_check("MarginalMediation")
