@@ -79,7 +79,6 @@ frames = function(model, boot=100, ci=.975){
   return(.ame)
 }
 
-#' @title Print Method for Marginal Effects
 #' @export
 print.ame = function(x, ...){
   cat("--- \n Average Marginal Effects \n")
