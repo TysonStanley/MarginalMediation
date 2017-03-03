@@ -7,7 +7,8 @@ Description: The package provides the ability to perform "Marginal Mediation"--m
 Depends: stats
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    furniture
 VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-2
