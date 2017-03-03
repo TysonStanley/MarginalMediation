@@ -1,0 +1,15 @@
+Package: marginsMediation
+Title: Marginal Mediation
+Version: 0.1.0
+Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
+Description: The package provides the ability to perform "Marginal Mediation"--mediation
+   where the indirect effect is in terms of the average marginal effects.
+Depends: stats
+Suggests: testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Encoding: UTF-8
+License: GPL-2
+LazyData: true
+RoxygenNote: 6.0.1
