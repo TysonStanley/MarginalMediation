@@ -1,0 +1,68 @@
+---
+title: "Marginal Mediation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Furniture}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(furniture)
+library(MarginalMediation)
+```
+
+# What is "Marginal Mediation"
+
+Marginal Mediation is the general method of interpreting indirect and direct effects in terms of the average marginal effects. When the mediator(s) and outcome are continuous, this is the same as the normal `a x b` method. When either the mediator(s) or outcome is dichotomous, then it allows a simple transformation from the log-odds scale to probability. 
+
+For example, when the mediator is dichotomous and the outcome is continuous, we have a probability times a value in the unit of the outcome. Simply, the resulting indirect or total effect is in the units of the outcome.
+
+# How to Use `MarginalMediation`
+
+To demonstrate the main functions in `MarginalMediation`, we are going to use a data set from the `furniture` package called `nhanes10`.
+
+```{r}
+library(furniture)
+data(nhanes10)
+names(nhanes10)
+```
+
+## `margins_mediation()`
+
+
+```{r}
+margins_mediation(nhanes10,
+                  income ~ hinsur + gender + age + fmsize,
+                  hinsur ~ gender + age + fmsize,
+                  family = c("gaussian", "binomial"),
+                  ind_effects = c("genderFemale-hinsur",
+                                  "age-hinsur",
+                                  "fmsize-hinsur"),
+                  boot = 500)
+```
+
+
+## `frames()`
+
+This function provides the average marginal effects of a GLM model's parameters.
+
+```{r}
+fit = glm(hinsur ~ gender + age + fmsize, data = nhanes10, family = "binomial")
+frames(fit, boot = 100)
+
+fit2 = glm(income ~ hinsur + gender + age + fmsize, data = nhanes10)
+frames(fit2, boot = 100)
+```
+
+We can compare these results to those from `margins` found at [https://github.com/leeper/margins](https://github.com/leeper/margins) from Thomas Leeper. We won't show them here, but the estimates are the same as those from the `frames()` function.
+```{r, eval=FALSE}
+devtools::install_github("leeper/margins")
+library(margins)
+summary(margins(fit))
+summary(margins(fit2))
+```
+The differences are mainly in the confidence intervals since they are based on two different methods. I highly recommend looking into both the delta method (as used in `margins` and Stata) as well as the bootstrapping method as used in `MarginalMediation`.
+
