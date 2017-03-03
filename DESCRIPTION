@@ -1,4 +1,4 @@
-Package: marginsMediation
+Package: MarginalMediation
 Title: Marginal Mediation
 Version: 0.1.0
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
