@@ -36,4 +36,6 @@ The `ind_effects` is a vector of requested mediated paths. These estimates are i
 
 Future developments will allow more than two formulas (i.e., multiple mediators). Currently, the function can do covariates and moderation (interactions). 
 
+### Conclusions
 
+This is currently beta but I am excited to provide an initial working release. LEt me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).

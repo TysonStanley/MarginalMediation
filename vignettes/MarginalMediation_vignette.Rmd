@@ -14,13 +14,13 @@ library(furniture)
 library(MarginalMediation)
 ```
 
-# What is "Marginal Mediation"
+## What is "Marginal Mediation"
 
 Marginal Mediation is the general method of interpreting indirect and direct effects in terms of the average marginal effects. When the mediator(s) and outcome are continuous, this is the same as the normal `a x b` method. When either the mediator(s) or outcome is dichotomous, then it allows a simple transformation from the log-odds scale to probability. 
 
 For example, when the mediator is dichotomous and the outcome is continuous, we have a probability times a value in the unit of the outcome. Simply, the resulting indirect or total effect is in the units of the outcome.
 
-# How to Use `MarginalMediation`
+## How to Use `MarginalMediation`
 
 To demonstrate the main functions in `MarginalMediation`, we are going to use a data set from the `furniture` package called `nhanes10`.
 
@@ -30,8 +30,9 @@ data(nhanes10)
 names(nhanes10)
 ```
 
-## `margins_mediation()`
+### `margins_mediation()`
 
+This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.
 
 ```{r}
 margins_mediation(nhanes10,
@@ -44,8 +45,9 @@ margins_mediation(nhanes10,
                   boot = 500)
 ```
 
+The output is simple, with the `a` path and `b` path average marginal effect estimates, the indirect (`a x b`) average marginal effect estimate along with the bootstrapped lower and upper bounds.
 
-## `frames()`
+### `frames()`
 
 This function provides the average marginal effects of a GLM model's parameters.
 
@@ -65,4 +67,9 @@ summary(margins(fit))
 summary(margins(fit2))
 ```
 The differences are mainly in the confidence intervals since they are based on two different methods. I highly recommend looking into both the delta method (as used in `margins` and Stata) as well as the bootstrapping method as used in `MarginalMediation`.
+
+
+### Conclusions
+
+This is currently beta but I am excited to provide an initial working release. LEt me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
 
