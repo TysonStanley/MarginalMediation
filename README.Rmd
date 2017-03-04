@@ -38,4 +38,4 @@ Future developments will allow more than two formulas (i.e., multiple mediators)
 
 ### Conclusions
 
-This is currently beta but I am excited to provide an initial working release. LEt me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
+This is currently beta but I am excited to provide an initial working release. Let me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).

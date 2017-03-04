@@ -26,3 +26,7 @@ margins_mediation(data,
 The `ind_effects` is a vector of requested mediated paths. These estimates are in terms of the average marginal effects using the `a x b` method of estimating indirect paths. Any number of these can be included, although it is limited to the number of variables available in the models.
 
 Future developments will allow more than two formulas (i.e., multiple mediators). Currently, the function can do covariates and moderation (interactions).
+
+### Conclusions
+
+This is currently beta but I am excited to provide an initial working release. Let me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).

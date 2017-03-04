@@ -71,5 +71,5 @@ The differences are mainly in the confidence intervals since they are based on t
 
 ### Conclusions
 
-This is currently beta but I am excited to provide an initial working release. LEt me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
+This is currently beta but I am excited to provide an initial working release. Let me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
 

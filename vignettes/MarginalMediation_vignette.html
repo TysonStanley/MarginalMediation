@@ -99,9 +99,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                       APath  BPath Indirect   Lower   Upper
-## genderFemale-hinsur  0.0213 0.9162   0.0195 -0.0034  0.0411
-## age-hinsur          -0.0302 0.9162  -0.0277 -0.0338 -0.0219
-## fmsize-hinsur       -0.0242 0.9162  -0.0222 -0.0311 -0.0137</code></pre>
+## genderFemale-hinsur  0.0213 0.9162   0.0195 -0.0003  0.0408
+## age-hinsur          -0.0302 0.9162  -0.0277 -0.0338 -0.0214
+## fmsize-hinsur       -0.0242 0.9162  -0.0222 -0.0322 -0.0140</code></pre>
 <p>The output is simple, with the <code>a</code> path and <code>b</code> path average marginal effect estimates, the indirect (<code>a x b</code>) average marginal effect estimate along with the bootstrapped lower and upper bounds.</p>
 </div>
 <div id="frames" class="section level3">
@@ -112,20 +112,20 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower   Upper
-## (Intercept)   0.7821  0.6879  0.8721
-## genderFemale  0.0213 -0.0039  0.0431
-## age          -0.0302 -0.0347 -0.0240
-## fmsize       -0.0242 -0.0328 -0.0166</code></pre>
+## (Intercept)   0.7821  0.6976  0.8549
+## genderFemale  0.0213  0.0057  0.0455
+## age          -0.0302 -0.0347 -0.0253
+## fmsize       -0.0242 -0.0353 -0.0165</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2 =<span class="st"> </span><span class="kw">glm</span>(income ~<span class="st"> </span>hinsur +<span class="st"> </span>gender +<span class="st"> </span>age +<span class="st"> </span>fmsize, <span class="dt">data =</span> nhanes10)
 <span class="kw">frames</span>(fit2, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower  Upper
-## (Intercept)   1.4044  1.1078 1.7945
-## hinsur        0.9162  0.8022 1.0169
-## genderFemale -0.0923 -0.1734 0.0203
-## age          -0.0124 -0.0310 0.0042
-## fmsize        0.0769  0.0383 0.1094</code></pre>
+## (Intercept)   1.4044  0.9469 1.7426
+## hinsur        0.9162  0.8284 1.0094
+## genderFemale -0.0923 -0.1839 0.0019
+## age          -0.0124 -0.0313 0.0093
+## fmsize        0.0769  0.0514 0.1073</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code>frames()</code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;leeper/margins&quot;</span>)
 <span class="kw">library</span>(margins)
@@ -135,7 +135,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </div>
 <div id="conclusions" class="section level3">
 <h3>Conclusions</h3>
-<p>This is currently beta but I am excited to provide an initial working release. LEt me know if you find any bugs or want to discuss the method (<a href="mailto:t.barrett@aggiemail.usu.edu">t.barrett@aggiemail.usu.edu</a>).</p>
+<p>This is currently beta but I am excited to provide an initial working release. Let me know if you find any bugs or want to discuss the method (<a href="mailto:t.barrett@aggiemail.usu.edu">t.barrett@aggiemail.usu.edu</a>).</p>
 </div>
 </div>
 
