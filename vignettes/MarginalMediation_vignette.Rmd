@@ -35,13 +35,13 @@ names(nhanes_2010)
 This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.
 
 ```{r}
-mma(nhanes10,
-    income ~ hinsur + gender + age + fmsize,
-    hinsur ~ gender + age + fmsize,
-    family = c(gaussian, binomial),
-    ind_effects = c("genderFemale-hinsur",
-                    "age-hinsur",
-                    "fmsize-hinsur"),
+mma(nhanes_2010,
+    marijuana ~ home_meals + gender + age + asthma,
+    home_meals ~ gender + age + asthma,
+    family = c(binomial, gaussian, gaussian),
+    ind_effects = c("genderFemale-home_meals",
+                    "age-home_meals",
+                    "asthmaNo-home_meals"),
     boot = 500)
 ```
 
@@ -52,10 +52,10 @@ The output is simple, with the `a` path and `b` path average marginal effect est
 This function provides the average marginal effects of a GLM model's parameters.
 
 ```{r}
-fit = glm(hinsur ~ gender + age + fmsize, data = nhanes10, family = "binomial")
+fit = glm(marijuana ~ home_meals + gender + age + asthma, data = nhanes_2010, family = "binomial")
 frames(fit, boot = 100)
 
-fit2 = glm(income ~ hinsur + gender + age + fmsize, data = nhanes10)
+fit2 = glm(home_meals ~ gender + age + asthma, data = nhanes_2010)
 frames(fit2, boot = 100)
 ```
 

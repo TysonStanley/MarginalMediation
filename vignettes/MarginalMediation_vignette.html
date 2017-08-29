@@ -4,14 +4,14 @@
 
 <head>
 
-<meta charset="utf-8">
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<meta name="date" content="2017-03-03" />
+<meta name="date" content="2017-08-28" />
 
 <title>Marginal Mediation</title>
 
@@ -68,7 +68,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 
 <h1 class="title toc-ignore">Marginal Mediation</h1>
-<h4 class="date"><em>2017-03-03</em></h4>
+<h4 class="date"><em>2017-08-28</em></h4>
 
 
 
@@ -81,53 +81,58 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2>How to Use <code>MarginalMediation</code></h2>
 <p>To demonstrate the main functions in <code>MarginalMediation</code>, we are going to use a data set from the <code>furniture</code> package called <code>nhanes10</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(furniture)
-<span class="kw">data</span>(nhanes10)
-<span class="kw">names</span>(nhanes10)</code></pre></div>
-<pre><code>##  [1] &quot;seqn&quot;    &quot;year&quot;    &quot;gender&quot;  &quot;raceth&quot;  &quot;age&quot;     &quot;income&quot;  &quot;fmsize&quot; 
-##  [8] &quot;limits&quot;  &quot;medcond&quot; &quot;hinsur&quot;</code></pre>
+<span class="kw">data</span>(<span class="st">&quot;nhanes_2010&quot;</span>)
+<span class="kw">names</span>(nhanes_<span class="dv">2010</span>)</code></pre></div>
+<pre><code>##  [1] &quot;id&quot;         &quot;gen_health&quot; &quot;mod_active&quot; &quot;vig_active&quot; &quot;home_meals&quot;
+##  [6] &quot;gender&quot;     &quot;age&quot;        &quot;marijuana&quot;  &quot;illicit&quot;    &quot;rehab&quot;     
+## [11] &quot;asthma&quot;     &quot;overweight&quot; &quot;cancer&quot;     &quot;low_int&quot;    &quot;down&quot;      
+## [16] &quot;sleeping&quot;   &quot;low_energy&quot; &quot;appetite&quot;   &quot;feel_bad&quot;   &quot;no_con&quot;    
+## [21] &quot;speak_move&quot; &quot;dead&quot;       &quot;difficulty&quot; &quot;active&quot;</code></pre>
 <div id="margins_mediation" class="section level3">
 <h3><code>margins_mediation()</code></h3>
 <p>This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">margins_mediation</span>(nhanes10,
-                  income ~<span class="st"> </span>hinsur +<span class="st"> </span>gender +<span class="st"> </span>age +<span class="st"> </span>fmsize,
-                  hinsur ~<span class="st"> </span>gender +<span class="st"> </span>age +<span class="st"> </span>fmsize,
-                  <span class="dt">family =</span> <span class="kw">c</span>(<span class="st">&quot;gaussian&quot;</span>, <span class="st">&quot;binomial&quot;</span>),
-                  <span class="dt">ind_effects =</span> <span class="kw">c</span>(<span class="st">&quot;genderFemale-hinsur&quot;</span>,
-                                  <span class="st">&quot;age-hinsur&quot;</span>,
-                                  <span class="st">&quot;fmsize-hinsur&quot;</span>),
-                  <span class="dt">boot =</span> <span class="dv">500</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mma</span>(nhanes_<span class="dv">2010</span>,
+    marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
+    home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
+    <span class="dt">family =</span> <span class="kw">c</span>(binomial, gaussian, gaussian),
+    <span class="dt">ind_effects =</span> <span class="kw">c</span>(<span class="st">&quot;genderFemale-home_meals&quot;</span>,
+                    <span class="st">&quot;age-home_meals&quot;</span>,
+                    <span class="st">&quot;asthmaNo-home_meals&quot;</span>),
+    <span class="dt">boot =</span> <span class="dv">500</span>)</code></pre></div>
 <pre><code>## --- 
-##  Average Marginal Effects 
-##                       APath  BPath Indirect   Lower   Upper
-## genderFemale-hinsur  0.0213 0.9162   0.0195 -0.0003  0.0408
-## age-hinsur          -0.0302 0.9162  -0.0277 -0.0338 -0.0214
-## fmsize-hinsur       -0.0242 0.9162  -0.0222 -0.0322 -0.0140</code></pre>
+##  Marginal Mediation 
+##                            Apath    Bpath Estimate    Lower   Upper
+## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00468 0.02355
+## age-home_meals          -0.05689 -0.00972  0.00055 -0.00006 0.00136
+## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00581 0.00679
+## ---
+##  Confidence Interval at 0.95</code></pre>
 <p>The output is simple, with the <code>a</code> path and <code>b</code> path average marginal effect estimates, the indirect (<code>a x b</code>) average marginal effect estimate along with the bootstrapped lower and upper bounds.</p>
 </div>
 <div id="frames" class="section level3">
 <h3><code>frames()</code></h3>
 <p>This function provides the average marginal effects of a GLM model’s parameters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit =<span class="st"> </span><span class="kw">glm</span>(hinsur ~<span class="st"> </span>gender +<span class="st"> </span>age +<span class="st"> </span>fmsize, <span class="dt">data =</span> nhanes10, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit =<span class="st"> </span><span class="kw">glm</span>(marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, <span class="dt">data =</span> nhanes_<span class="dv">2010</span>, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)
 <span class="kw">frames</span>(fit, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower   Upper
-## (Intercept)   0.7821  0.6976  0.8549
-## genderFemale  0.0213  0.0057  0.0455
-## age          -0.0302 -0.0347 -0.0253
-## fmsize       -0.0242 -0.0353 -0.0165</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2 =<span class="st"> </span><span class="kw">glm</span>(income ~<span class="st"> </span>hinsur +<span class="st"> </span>gender +<span class="st"> </span>age +<span class="st"> </span>fmsize, <span class="dt">data =</span> nhanes10)
+## (Intercept)  -0.0943 -0.2514  0.0874
+## home_meals   -0.0097 -0.0153 -0.0028
+## genderFemale  0.1033  0.0541  0.1489
+## age           0.0007 -0.0061  0.0059
+## asthmaNo     -0.0017 -0.0664  0.0539</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2 =<span class="st"> </span><span class="kw">glm</span>(home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, <span class="dt">data =</span> nhanes_<span class="dv">2010</span>)
 <span class="kw">frames</span>(fit2, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
 <pre><code>## --- 
 ##  Average Marginal Effects 
-##                  AME   Lower  Upper
-## (Intercept)   1.4044  0.9469 1.7426
-## hinsur        0.9162  0.8284 1.0094
-## genderFemale -0.0923 -0.1839 0.0019
-## age          -0.0124 -0.0313 0.0093
-## fmsize        0.0769  0.0514 0.1073</code></pre>
+##                  AME   Lower   Upper
+## (Intercept)   6.5688  5.3364  7.9907
+## genderFemale -1.3483 -1.7446 -0.8816
+## age          -0.0569 -0.1143 -0.0091
+## asthmaNo     -0.0043 -0.5371  0.6174</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code>frames()</code> function.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools::<span class="kw">install_github</span>(<span class="st">&quot;leeper/margins&quot;</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;leeper/margins&quot;</span>)
 <span class="kw">library</span>(margins)
 <span class="kw">summary</span>(<span class="kw">margins</span>(fit))
 <span class="kw">summary</span>(<span class="kw">margins</span>(fit2))</code></pre></div>
@@ -146,7 +151,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

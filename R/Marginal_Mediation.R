@@ -39,6 +39,7 @@ pdfed = function(model){
 #' @param family the family of the model
 #' 
 #' @import stats
+#' @import magrittr
 #' 
 #' @export
 run_mod = function(data, indices, formula, family){
@@ -146,6 +147,6 @@ print.mma = function(x, ...){
   cat("\n Confidence Interval at", x$Level[1], "\n")
 }
 
-#' @export
+
 `%>%` = magrittr::`%>%`
 
