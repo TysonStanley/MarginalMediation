@@ -7,7 +7,7 @@ Description: The package provides the ability to perform "Marginal Mediation"--m
    less than 1.0.0 is considered beta.
 Imports: stats,
          magrittr,
-         dplyr
+         boot
 Suggests: testthat,
     knitr,
     rmarkdown,
