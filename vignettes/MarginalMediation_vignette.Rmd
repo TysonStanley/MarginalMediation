@@ -26,8 +26,8 @@ To demonstrate the main functions in `MarginalMediation`, we are going to use a 
 
 ```{r}
 library(furniture)
-data(nhanes10)
-names(nhanes10)
+data("nhanes_2010")
+names(nhanes_2010)
 ```
 
 ### `margins_mediation()`
@@ -35,14 +35,14 @@ names(nhanes10)
 This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.
 
 ```{r}
-margins_mediation(nhanes10,
-                  income ~ hinsur + gender + age + fmsize,
-                  hinsur ~ gender + age + fmsize,
-                  family = c("gaussian", "binomial"),
-                  ind_effects = c("genderFemale-hinsur",
-                                  "age-hinsur",
-                                  "fmsize-hinsur"),
-                  boot = 500)
+mma(nhanes10,
+    income ~ hinsur + gender + age + fmsize,
+    hinsur ~ gender + age + fmsize,
+    family = c(gaussian, binomial),
+    ind_effects = c("genderFemale-hinsur",
+                    "age-hinsur",
+                    "fmsize-hinsur"),
+    boot = 500)
 ```
 
 The output is simple, with the `a` path and `b` path average marginal effect estimates, the indirect (`a x b`) average marginal effect estimate along with the bootstrapped lower and upper bounds.

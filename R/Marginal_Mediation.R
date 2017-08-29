@@ -1,60 +1,52 @@
+#' @title PDF of logistic, probit, and poisson models
+#' @author Tyson S. Barrett
+#' @description Internal function for \code{margins_mediation()}. More functionality to be added later.
+#' 
+#' @param model the model
+#' 
+#' @import stats
+#' 
+#' @export
+pdfed = function(model){
+  
+  ## Initial Model and Data
+  data   = model$data
+  family = model$family
+  if(!family[[2]] %in% c("probit", "logit", "poisson", "identity")){
+    stop(message("Must be probit, logit, log, or idenitity linked"))
+  }
+  ## Derivatives
+  pdf  = ifelse(family[[2]]=="probit",
+                mean(dnorm(predict(model, type = "link")), na.rm=TRUE),
+         ifelse(family[[2]]=="logit", 
+                mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
+         ifelse(family[[1]]=="poisson",
+                mean(dpois(predict(model, type = "link")), na.rm=TRUE),
+         ifelse(family[[2]]=="identity", 1, NA))))
+  ## Average Marginal Effects
+  aveMarg = pdf*coef(model)
+  aveMarg
+}
+
+
 #' @title Bootstrapped Models 
 #' @author Tyson S. Barrett
 #' @description Internal function for \code{margins_mediation()}.
 #' 
 #' @param data the data.frame with the data for the models.
-#' @param mods the formulas for the models.
-#' @param family the family of the GLM model.
-#' @param boot the number of bootstrapped samples.
+#' @param indices the indices for each bootstrapped model (internal in \code{boot()})
+#' @param formula the formula of the model
+#' @param family the family of the model
 #' 
 #' @import stats
 #' 
 #' @export
-run_mods = function(data, mods, family, boot=100){
-  ## Initialize
-  forms = mods
-  fit = outcome = list()
-  dims = dim(data)[1]
-  
-  ## Bootstrap Samples
-  reps1 = replicate(boot+1, sample(1:dims, size = dims, replace = TRUE))
-  reps1[,1] = 1:dims
-  
-  ## Model for each
-  for (i in seq_along(forms)){
-    fit[[i]] = apply(reps1, 2, function(x) 
-      glm(forms[[i]], family = family[[i]], data = data[x,]))
-    outcome[[i]] = paste(forms[[i]])[[2]]
-  }
-  
-  ## Output
-  outcome = do.call("rbind", outcome)
-  predictors = ifelse(!names(coef(fit[[1]][[1]])) %in% outcome, names(coef(fit[[1]][[1]])), NA)
-  predictors = predictors[!is.na(predictors) & predictors != "(Intercept)"]
-  names(fit) = c(paste(outcome)[1], 
-                 paste("Mediator:", outcome[-1]))
-  return(list("Models"     = fit, 
-              "Outcome"    = outcome[1], 
-              "Mediators"  = outcome[-1], 
-              "Predictors" = predictors))
+run_mod = function(data, indices, formula, family){
+  data[indices, ] %>%
+    glm(formula, family = family, data = .) %>% 
+    pdfed
 }
 
-#' @title PDF of Logistic and Gaussian Models
-#' @author Tyson S. Barrett
-#' @description Internal function for \code{margins_mediation()}.
-#' 
-#' @param x the model
-#' @param family family of the model
-#' 
-#' @import stats
-#' 
-#' @export
-pdfed = function(x, family){
-  pdf  = ifelse(family=="binomial", 
-                mean(dlogis(predict(x, type = "link")), na.rm=TRUE),
-         ifelse(family=="gaussian", 1, NA))
-  return(pdf)
-}
 
 #' @title Marginal Mediation
 #' @author Tyson S. Barrett
@@ -78,48 +70,82 @@ pdfed = function(x, family){
 #' The Stata Journal, 5(3), 309–329.
 #' 
 #' @import stats
+#' @import magrittr
+#' @import boot
 #' 
 #' @export
-margins_mediation = function(data, ..., family, ind_effects, boot=100, ci=.975){
+mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   ## Models
-  mods = list(...)
-  fit = run_mods(data=data, mods=mods, family=family, boot=boot)
+  forms = list(...)
   
-  ## Initialize
-  ide = ind_effects
-  apath = bpath = indirect = final = list()
-
-  ## Effects 
-  for (i in 1:length(ide)){
-    ## Individual Paths AME
-    ap  = gsub("\\-.*$", "", ide[[i]])
-    bp  = gsub("^.*\\-", "", ide[[i]])
-    ap2 = lapply(fit[[1]][[2]], function(x) coef(x)[ap])
-    ap3 = lapply(fit[[1]][[2]], function(x) pdfed(x, family[2]))
-    bp2 = lapply(fit[[1]][[1]], function(x) coef(x)[bp]) 
-    bp3 = lapply(fit[[1]][[1]], function(x) pdfed(x, family[1]))
-    apath[[i]] = unlist(ap2)[-1] * unlist(ap3)[-1]
-    bpath[[i]] = unlist(bp2)[-1] * unlist(bp3)[-1]
-    indirect[[i]] = apath[[i]] * bpath[[i]]
-    indirect[[i]] = unlist(indirect[[i]])
+  ## Bootstrapped Samples and Statistics
+  bootfit_b = boot(data = data, 
+                   statistic = run_mod, 
+                   R = boot, 
+                   formula = forms[[1]],
+                   family = binomial)
+  bootfit_a = lapply(seq_along(forms)[-1], function(i) { 
+    boot(data = data, 
+         statistic = run_mod, 
+         R = boot, 
+         formula = forms[[i]],
+         family = gaussian)
+  })
+  
+  nams = list()
+  for (j in seq_along(forms)[2:length(forms)]){
+    nams[[j - 1]] = paste(as.formula(forms[[j]]))[2]
+  }
+  names(bootfit_a) = unlist(nams)
+  
+  ## Each Indirect Effect
+  apa = bpa = est = low = hi = list()
+  for (i in ind_effects){
+    ap = gsub("\\-.*$", "", i)
+    bp = gsub("^.*\\-", "", i)
     
-    ## AME Mediation
-    apa = unlist(ap2)[1] * unlist(ap3)[1]
-    bpa = unlist(bp2)[1] * unlist(bp3)[1]
-    est = unlist(ap2)[1] * unlist(ap3)[1] * unlist(bp2)[1] * unlist(bp3)[1]
-    low = quantile(indirect[[i]], probs=1-ci, na.rm=TRUE)
-    upp = quantile(indirect[[i]], probs=ci, na.rm=TRUE)
-    final[[i]] = data.frame("APath"=apa,
-                            "BPath"=bpa,
-                            "Indirect"=est, 
-                            "Lower"=low, 
-                            "Upper"=upp,
-                            row.names = ide[[i]])
+    apa[[i]] = bootfit_a[[bp]]$t0[ap]
+    bpa[[i]] = bootfit_b$t0[bp]
+    
+    est[[i]] = bootfit_a[[bp]]$t0[ap] * bootfit_b$t0[bp]
+    low[[i]] = quantile(bootfit_a[[bp]]$t %>%
+                          data.frame %>%
+                          setNames(names(bootfit_a[[bp]]$t0)) %>%
+                          .[[ap]] *
+                          bootfit_b$t %>%
+                          data.frame %>%
+                          setNames(names(bootfit_b$t0)) %>%
+                          .[[bp]], (1-ci)/2)
+    hi[[i]] = quantile(bootfit_a[[bp]]$t %>%
+                         data.frame %>%
+                         setNames(names(bootfit_a[[bp]]$t0)) %>%
+                         .[[ap]] *
+                         bootfit_b$t %>%
+                         data.frame %>%
+                         setNames(names(bootfit_b$t0)) %>%
+                         .[[bp]], (1-(1-ci)/2))
   }
   
-  final = do.call("rbind", final)
-  .ame = list("Indirect"=final)
-  class(.ame) = c("ame", "list")
-  return(.ame)
+  .ame = data.frame(do.call("rbind", apa),
+                    do.call("rbind", bpa),
+                    do.call("rbind", est),
+                    do.call("rbind", low),
+                    do.call("rbind", hi))
+  names(.ame) = c("Apath", "Bpath", "Estimate", "Lower", "Upper")
+  .ame$Levels = ci
+  
+  class(.ame) = c("mma", "data.frame")
+  .ame
 }
+
+#' @export
+print.mma = function(x, ...){
+  cat("--- \n Marginal Mediation \n")
+  print.data.frame(round(x[,1:5], 5), ...)
+  cat("---")
+  cat("\n Confidence Interval at", x$Level[1], "\n")
+}
+
+#' @export
+`%>%` = magrittr::`%>%`
 

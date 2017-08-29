@@ -2,17 +2,15 @@
 % Please edit documentation in R/Marginal_Mediation.R
 \name{pdfed}
 \alias{pdfed}
-\title{PDF of Logistic and Gaussian Models}
+\title{PDF of logistic, probit, and poisson models}
 \usage{
-pdfed(x, family)
+pdfed(model)
 }
 \arguments{
-\item{x}{the model}
-
-\item{family}{family of the model}
+\item{model}{the model}
 }
 \description{
-Internal function for \code{margins_mediation()}.
+Internal function for \code{margins_mediation()}. More functionality to be added later.
 }
 \author{
 Tyson S. Barrett
