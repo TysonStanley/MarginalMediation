@@ -58,7 +58,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   data = data.frame(data)
   forms = list(...)
   
-  cat('\nb and c paths...')
+  cat('\ncalculating b and c paths...')
   
   ## Bootstrapped Samples and Statistics
   bootfit_b = boot(data = data, 
@@ -150,14 +150,14 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                "model" = forms,
                "call" = .call)
   class(final) = c("mma", "list")
-  cat('\r', rep(' ', 35), '\r')
+  cat('\r', rep(' ', 40), '\r')
   final
 }
 
 #' @export
 print.mma = function(x, ...){
   cat("-----\n")
-  cat("Marginal Mediation - mma()\n\n")
+  cat("Marginal Mediation Analysis - mma()\n\n")
   cat("A marginal mediation model with:\n")
   cat("  ", length(x$model)-1, "mediators\n")
   cat("  ", length(x$ind_effects), "indirect effects\n")
