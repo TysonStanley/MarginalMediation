@@ -1,10 +1,10 @@
 Package: MarginalMediation
 Title: Marginal Mediation
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
 Description: The package provides the ability to perform "Marginal Mediation"--mediation
-   where the indirect effect is in terms of the average marginal effects. Note that any version
-   less than 1.0.0 is considered beta.
+   wherein the indirect and direct effects is in terms of the average marginal effects (Bartus, 2005). 
+   Note that any version less than 1.0.0 is considered beta.
 Imports: stats,
          magrittr,
          boot
