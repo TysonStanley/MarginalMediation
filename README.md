@@ -44,14 +44,31 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> --- 
-#>  Marginal Mediation 
-#>                            Apath    Bpath Estimate    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00326 0.02365
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00128
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00564 0.00580
-#> ---
-#>  Confidence Interval at 0.95
+#> 
+#> b and c paths... a paths...Done.
+                                                                       
+#> -----
+#> Marginal Mediation - mma()
+#> 
+#> A marginal mediation model with:
+#>    1 mediators
+#>    5 indirect effects
+#>    3 direct effects
+#>    500 bootstrapped samples
+#>    95 % confidence interval
+#> 
+#> -- Indirect Effect(s) --
+#>                            Apath    Bpath Indirect    Lower   Upper
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00435 0.02580
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00144
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00611 0.00712
+#> 
+#> -- Direct Effect(s) --
+#>                Direct    Lower   Upper
+#> genderFemale  0.10329  0.04622 0.15144
+#> age           0.00066 -0.00625 0.00782
+#> asthmaNo     -0.00172 -0.07084 0.06605
+#> -----
 ```
 
 The `a` path, `b` path, the indirect effect and the confidence interval of the indirect effects are all reported. These are all average marginal effects, and are, therefore, in terms of the corresponding endogenous variable's units.
