@@ -21,16 +21,14 @@ mma(data, ..., family, ind_effects, boot = 100, ci = 0.95)
 }
 \value{
 A list of class \code{mma} containing:
-\itemize{
-\item ind_effects the indirect effects reported in the average marginal effect
-\item dir_effects the direct effects reported in the average marginal effect
-\item ci_level the confidence level
-\item data the original data frame
-\item reported_ind the indirect effects the user requested (in the \code{...})
-\item boot the number of bootstrap samples
-\item model the formulas of the individual sub-models
-\item call the original function call
-}
+\item{ind_effects}{the indirect effects reported in the average marginal effect}
+\item{dir_effects}{the direct effects reported in the average marginal effect}
+\item{ci_level}{the confidence level}
+\item{data}{the original data frame}
+\item{reported_ind}{the indirect effects the user requested (in the \code{...})}
+\item{boot}{the number of bootstrap samples}
+\item{model}{the formulas of the individual sub-models}
+\item{call}{the original function call}
 }
 \description{
 Provides the ability to perform marginal mediation. Marginal mediation
