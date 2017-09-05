@@ -20,25 +20,22 @@ mma(data, ..., family, ind_effects, boot = 100, ci = 0.95)
 \item{ci}{the confidence interval; the default is .975 which is the 95\% confidence interval.}
 }
 \value{
-ind_effects the indirect effects reported in the average marginal effect
-
-dir_effects the direct effects reported in the average marginal effect
-
-ci_level the confidence level
-
-data the original data frame
-
-reported_ind the indirect effects the user requested (in the \code{...})
-
-boot the number of bootstrap samples
-
-model the formulas of the individual sub-models
-
-call the original function call
+A list of class \code{mma} containing:
+\itemize{
+\item ind_effects the indirect effects reported in the average marginal effect
+\item dir_effects the direct effects reported in the average marginal effect
+\item ci_level the confidence level
+\item data the original data frame
+\item reported_ind the indirect effects the user requested (in the \code{...})
+\item boot the number of bootstrap samples
+\item model the formulas of the individual sub-models
+\item call the original function call
+}
 }
 \description{
 Provides the ability to perform marginal mediation. Marginal mediation
-is particularly useful for situations where the mediator or outcome is dichotomous.
+is particularly useful for situations where the mediator or outcome is categorical,
+a count, or some other non-normally distributed variable.
 The results provide the average marginal effects of the models, providing simple
 interpretation of the indirect effects.
 }

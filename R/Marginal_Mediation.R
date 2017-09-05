@@ -1,7 +1,8 @@
 #' @title Marginal Mediation
 #' @author Tyson S. Barrett
 #' @description Provides the ability to perform marginal mediation. Marginal mediation
-#' is particularly useful for situations where the mediator or outcome is dichotomous.
+#' is particularly useful for situations where the mediator or outcome is categorical,
+#' a count, or some other non-normally distributed variable.
 #' The results provide the average marginal effects of the models, providing simple
 #' interpretation of the indirect effects.
 #' 
@@ -16,14 +17,17 @@
 #' the coefficients are transformed into probabilities (for binary outcomes) or remain
 #' in their original units (continuous outcomes).
 #' 
-#' @return ind_effects the indirect effects reported in the average marginal effect
-#' @return dir_effects the direct effects reported in the average marginal effect
-#' @return ci_level the confidence level
-#' @return data the original data frame
-#' @return reported_ind the indirect effects the user requested (in the \code{...})
-#' @return boot the number of bootstrap samples
-#' @return model the formulas of the individual sub-models
-#' @return call the original function call
+#' @return A list of class \code{mma} containing:
+#' \itemize{
+#' \item ind_effects the indirect effects reported in the average marginal effect
+#' \item dir_effects the direct effects reported in the average marginal effect
+#' \item ci_level the confidence level
+#' \item data the original data frame
+#' \item reported_ind the indirect effects the user requested (in the \code{...})
+#' \item boot the number of bootstrap samples
+#' \item model the formulas of the individual sub-models
+#' \item call the original function call
+#' }
 #' 
 #' @examples
 #' \dontrun{
