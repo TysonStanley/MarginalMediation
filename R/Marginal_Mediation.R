@@ -1,54 +1,3 @@
-#' @title PDF of logistic, probit, and poisson models
-#' @author Tyson S. Barrett
-#' @description Internal function for \code{margins_mediation()}. More functionality to be added later.
-#' 
-#' @param model the model
-#' 
-#' @import stats
-#' 
-#' @export
-pdfed = function(model){
-  
-  ## Initial Model and Data
-  data   = model$data
-  family = model$family
-  if(!family[[2]] %in% c("probit", "logit", "poisson", "identity")){
-    stop(message("Must be probit, logit, log, or idenitity linked"))
-  }
-  ## Derivatives
-  pdf  = ifelse(family[[2]]=="probit",
-                mean(dnorm(predict(model, type = "link")), na.rm=TRUE),
-         ifelse(family[[2]]=="logit", 
-                mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
-         ifelse(family[[1]]=="poisson",
-                mean(dpois(predict(model, type = "link")), na.rm=TRUE),
-         ifelse(family[[2]]=="identity", 1, NA))))
-  ## Average Marginal Effects
-  aveMarg = pdf*coef(model)
-  aveMarg
-}
-
-
-#' @title Bootstrapped Models 
-#' @author Tyson S. Barrett
-#' @description Internal function for \code{margins_mediation()}.
-#' 
-#' @param data the data.frame with the data for the models.
-#' @param indices the indices for each bootstrapped model (internal in \code{boot()})
-#' @param formula the formula of the model
-#' @param family the family of the model
-#' 
-#' @import stats
-#' @import magrittr
-#' 
-#' @export
-run_mod = function(data, indices, formula, family){
-  data[indices, ] %>%
-    glm(formula, family = family, data = .) %>% 
-    pdfed
-}
-
-
 #' @title Marginal Mediation
 #' @author Tyson S. Barrett
 #' @description Provides the ability to perform marginal mediation. Marginal mediation
@@ -67,6 +16,32 @@ run_mod = function(data, indices, formula, family){
 #' the coefficients are transformed into probabilities (for binary outcomes) or remain
 #' in their original units (continuous outcomes).
 #' 
+#' @return ind_effects the indirect effects reported in the average marginal effect
+#' @return dir_effects the direct effects reported in the average marginal effect
+#' @return ci_level the confidence level
+#' @return data the original data frame
+#' @return reported_ind the indirect effects the user requested (in the \code{...})
+#' @return boot the number of bootstrap samples
+#' @return model the formulas of the individual sub-models
+#' @return call the original function call
+#' 
+#' @examples
+#' \dontrun{
+#' library(furniture)
+#' data(nhanes_2010)
+#' (fit = mma(nhanes_2010,
+#'            marijuana ~ home_meals + gender + age + asthma,
+#'            home_meals ~ gender + age + asthma,
+#'            age ~ gender + asthma,
+#'            family = c(binomial, gaussian, gaussian),
+#'            ind_effects = c("genderFemale-home_meals",
+#'                            "age-home_meals",
+#'                            "asthmaNo-home_meals",
+#'                            "genderFemale-age",
+#'                            "asthmaNo-age"),
+#'            boot = 500))
+#' }
+#' 
 #' @references Bartus, T. (2005). Estimation of marginal effects using margeff. 
 #' The Stata Journal, 5(3), 309–329.
 #' 
@@ -76,8 +51,11 @@ run_mod = function(data, indices, formula, family){
 #' 
 #' @export
 mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
-  ## Models
+  .call = match.call()
+  data = data.frame(data)
   forms = list(...)
+  
+  cat('\nb and c paths...')
   
   ## Bootstrapped Samples and Statistics
   bootfit_b = boot(data = data, 
@@ -85,6 +63,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                    R = boot, 
                    formula = forms[[1]],
                    family = binomial)
+  cat(" a paths...")
   bootfit_a = lapply(seq_along(forms)[-1], function(i) { 
     boot(data = data, 
          statistic = run_mod, 
@@ -93,13 +72,15 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
          family = gaussian)
   })
   
+  cat('Done.')
+  
   nams = list()
   for (j in seq_along(forms)[2:length(forms)]){
     nams[[j - 1]] = paste(as.formula(forms[[j]]))[2]
   }
   names(bootfit_a) = unlist(nams)
   
-  ## Each Indirect Effect
+  ## Each Indirect Effect ##
   apa = bpa = est = low = hi = list()
   for (i in ind_effects){
     ap = gsub("\\-.*$", "", i)
@@ -126,27 +107,68 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                          setNames(names(bootfit_b$t0)) %>%
                          .[[bp]], (1-(1-ci)/2))
   }
+  .ame_ind = data.frame(do.call("rbind", apa),
+                        do.call("rbind", bpa),
+                        do.call("rbind", est),
+                        do.call("rbind", low),
+                        do.call("rbind", hi))
+  names(.ame_ind) = c("Apath", "Bpath", "Indirect", "Lower", "Upper")
   
-  .ame = data.frame(do.call("rbind", apa),
-                    do.call("rbind", bpa),
-                    do.call("rbind", est),
-                    do.call("rbind", low),
-                    do.call("rbind", hi))
-  names(.ame) = c("Apath", "Bpath", "Estimate", "Lower", "Upper")
-  .ame$Levels = ci
+  ## Each Direct Effect ##
+  eff = low2 = hi2 = list()
+  dir_effects = lapply(ind_effects, function(i) gsub("\\-.*$", "", i)) %>%
+    unlist %>%
+    unique
+  for (i in dir_effects){
+    ap = gsub("\\-.*$", "", i)
+
+    eff[[i]] = bootfit_b$t0[ap]
+
+    low2[[i]] = quantile(bootfit_b$t %>%
+                          data.frame %>%
+                          setNames(names(bootfit_b$t0)) %>%
+                          .[, ap], (1-ci)/2)
+    hi2[[i]] = quantile(bootfit_b$t %>%
+                         data.frame %>%
+                         setNames(names(bootfit_b$t0)) %>%
+                         .[, ap], (1-(1-ci)/2))
+  }
+  .ame_dir = data.frame(do.call("rbind", eff),
+                        do.call("rbind", low2),
+                        do.call("rbind", hi2))
+  names(.ame_dir) = c("Direct", "Lower", "Upper")
   
-  class(.ame) = c("mma", "data.frame")
-  .ame
+  final = list("ind_effects" = .ame_ind,
+               "dir_effects" = .ame_dir,
+               "ci_level" = ci,
+               "data" = data, 
+               "reported_ind" = ind_effects, 
+               "boot" = boot, 
+               "model" = forms,
+               "call" = .call)
+  class(final) = c("mma", "list")
+  cat('\r', rep(' ', 35), '\r')
+  final
 }
 
 #' @export
 print.mma = function(x, ...){
-  cat("--- \n Marginal Mediation \n")
-  print.data.frame(round(x[,1:5], 5), ...)
-  cat("---")
-  cat("\n Confidence Interval at", x$Level[1], "\n")
+  cat("-----\n")
+  cat("Marginal Mediation - mma()\n\n")
+  cat("A marginal mediation model with:\n")
+  cat("  ", length(x$model)-1, "mediators\n")
+  cat("  ", length(x$ind_effects), "indirect effects\n")
+  cat("  ", length(x$dir_effects), "direct effects\n")
+  cat("  ", x$boot, "bootstrapped samples\n") 
+  cat("  ", x$ci_level * 100, "% confidence interval\n\n")
+  
+  cat("-- Indirect Effect(s) --\n")
+  print.data.frame(round(x$ind_effects, 5), ...)
+  
+  cat("\n-- Direct Effect(s) --\n")
+  print.data.frame(round(x$dir_effects, 5), ...)
+  cat("-----")
 }
 
 
-`%>%` = magrittr::`%>%`
 

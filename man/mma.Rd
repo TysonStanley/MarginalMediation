@@ -19,6 +19,23 @@ mma(data, ..., family, ind_effects, boot = 100, ci = 0.95)
 
 \item{ci}{the confidence interval; the default is .975 which is the 95\% confidence interval.}
 }
+\value{
+ind_effects the indirect effects reported in the average marginal effect
+
+dir_effects the direct effects reported in the average marginal effect
+
+ci_level the confidence level
+
+data the original data frame
+
+reported_ind the indirect effects the user requested (in the \code{...})
+
+boot the number of bootstrap samples
+
+model the formulas of the individual sub-models
+
+call the original function call
+}
 \description{
 Provides the ability to perform marginal mediation. Marginal mediation
 is particularly useful for situations where the mediator or outcome is dichotomous.
@@ -29,6 +46,24 @@ interpretation of the indirect effects.
 Using the average marginal effects as discussed by Tamas Bartus (2005), 
 the coefficients are transformed into probabilities (for binary outcomes) or remain
 in their original units (continuous outcomes).
+}
+\examples{
+\dontrun{
+library(furniture)
+data(nhanes_2010)
+(fit = mma(nhanes_2010,
+           marijuana ~ home_meals + gender + age + asthma,
+           home_meals ~ gender + age + asthma,
+           age ~ gender + asthma,
+           family = c(binomial, gaussian, gaussian),
+           ind_effects = c("genderFemale-home_meals",
+                           "age-home_meals",
+                           "asthmaNo-home_meals",
+                           "genderFemale-age",
+                           "asthmaNo-age"),
+           boot = 500))
+}
+
 }
 \references{
 Bartus, T. (2005). Estimation of marginal effects using margeff. 
