@@ -44,9 +44,7 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> 
-#> b and c paths... a paths...Done.
-                                                                       
+                                                                    
 #> -----
 #> Marginal Mediation - mma()
 #> 
