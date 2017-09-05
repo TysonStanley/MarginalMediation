@@ -27,6 +27,7 @@
 #' \item{model}{the formulas of the individual sub-models}
 #' \item{call}{the original function call}
 #' 
+#' 
 #' @examples
 #' \dontrun{
 #' library(furniture)
