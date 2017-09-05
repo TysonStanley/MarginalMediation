@@ -44,7 +44,9 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-                                                                    
+```
+
+```r
 #> -----
 #> Marginal Mediation - mma()
 #> 
