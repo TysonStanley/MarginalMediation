@@ -163,7 +163,7 @@ print.mma = function(x, ...){
   cat("  ", length(x$ind_effects), "indirect effects\n")
   cat("  ", length(x$dir_effects), "direct effects\n")
   cat("  ", x$boot, "bootstrapped samples\n") 
-  cat("  ", x$ci_level * 100, "% confidence interval\n\n", sep = "")
+  cat("   ", x$ci_level * 100, "% confidence interval\n\n", sep = "")
   
   cat("-- Indirect Effect(s) --\n")
   print.data.frame(round(x$ind_effects, 5), ...)
