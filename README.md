@@ -5,7 +5,7 @@
 Marginal Mediation
 ==================
 
-The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added soon).
+The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
 
 You can install it via:
 
@@ -17,11 +17,12 @@ The main function is `mma()`:
 
 ``` r
 mma(data,
-    formula1,
-    formula2,
+    ...,
     family = c("model1", "model2"),
     ind_effects = c("apath-bpath"))
 ```
+
+where `...` consists of 2 or more formulas. The first is the `b` and `c'` path model, while the others are the `a` path models.
 
 The `ind_effects` is a vector of requested mediated paths. These estimates are in terms of the average marginal effects using the `a x b` method of estimating indirect paths. Any number of these can be included, although it is limited to the number of variables available in the models.
 
@@ -30,12 +31,15 @@ The `ind_effects` is a vector of requested mediated paths. These estimates are i
 Below is an example, where the theoretical backing of such a model is not very stable, but it is useful to show how to use the function and the output.
 
 ``` r
-library(MarginalMediation)
+## Data for the example
 library(furniture)
-#> furniture 1.5.5: learn more at tysonstanley.github.io
-
+#> furniture 1.6.0: learn more at tysonstanley.github.io
 data("nhanes_2010")
 
+## The MarginalMediation package
+library(MarginalMediation)
+#> MarginalMediation 0.3.2: This is beta software.
+#> Please report any bugs (t.barrett@aggiemail.usu.edu).
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
     home_meals ~ gender + age + asthma,
@@ -45,33 +49,41 @@ mma(nhanes_2010,
                     "asthmaNo-home_meals"),
     boot = 500)
 ```
-
-```r
+``` r
+#> calculating b and c paths... a paths...Done.
+                                                                                 
 #> -----
-#> Marginal Mediation - mma()
+#> Marginal Mediation Analysis - mma()
 #> 
 #> A marginal mediation model with:
 #>    1 mediators
 #>    5 indirect effects
 #>    3 direct effects
 #>    500 bootstrapped samples
-#>    95 % confidence interval
+#>    95% confidence interval
 #> 
 #> -- Indirect Effect(s) --
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00435 0.02580
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00144
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00611 0.00712
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00332 0.02441
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00133
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00640 0.00604
 #> 
 #> -- Direct Effect(s) --
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.04622 0.15144
-#> age           0.00066 -0.00625 0.00782
-#> asthmaNo     -0.00172 -0.07084 0.06605
+#> genderFemale  0.10329  0.04729 0.16190
+#> age           0.00066 -0.00666 0.00877
+#> asthmaNo     -0.00172 -0.07436 0.06913
 #> -----
 ```
 
-The `a` path, `b` path, the indirect effect and the confidence interval of the indirect effects are all reported. These are all average marginal effects, and are, therefore, in terms of the corresponding endogenous variable's units.
+The print method provides:
+
+1.  the `a` path,
+2.  the `b` path,
+3.  the indirect effect with the confidence interval, and
+4.  the direct effect with the confidence interval.
+
+These are all average marginal effects, and are, therefore, in terms of the corresponding endogenous variable's units.
 
 ### Conclusions
 

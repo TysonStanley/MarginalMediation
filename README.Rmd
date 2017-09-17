@@ -26,11 +26,11 @@ devtools::install_github("tysonstanley/MarginalMediation")
 The main function is `mma()`:
 ```{r, eval=FALSE}
 mma(data,
-    formula1,
-    formula2,
+    ...,
     family = c("model1", "model2"),
     ind_effects = c("apath-bpath"))
 ```
+where `...` consists of 2 or more formulas. The first is the `b` and `c'` path model, while the others are the `a` path models.
 
 The `ind_effects` is a vector of requested mediated paths. These estimates are in terms of the average marginal effects using the `a x b` method of estimating indirect paths. Any number of these can be included, although it is limited to the number of variables available in the models.
 
@@ -39,11 +39,12 @@ The `ind_effects` is a vector of requested mediated paths. These estimates are i
 Below is an example, where the theoretical backing of such a model is not very stable, but it is useful to show how to use the function and the output.
 
 ```{r}
-library(MarginalMediation)
+## Data for the example
 library(furniture)
-
 data("nhanes_2010")
 
+## The MarginalMediation package
+library(MarginalMediation)
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
     home_meals ~ gender + age + asthma,
@@ -54,7 +55,14 @@ mma(nhanes_2010,
     boot = 500)
 ```
 
-The `a` path, `b` path, the indirect effect and the confidence interval of the indirect effects are all reported. These are all average marginal effects, and are, therefore, in terms of the corresponding endogenous variable's units.
+The print method provides:
+
+1. the `a` path, 
+2. the `b` path, 
+3. the indirect effect with the confidence interval, and
+4. the direct effect with the confidence interval. 
+
+These are all average marginal effects, and are, therefore, in terms of the corresponding endogenous variable's units.
 
 ### Conclusions
 

@@ -45,7 +45,14 @@ mma(nhanes_2010,
     boot = 500)
 ```
 
-The output is simple, with the `a` path and `b` path average marginal effect estimates, the indirect (`a x b`) average marginal effect estimate along with the bootstrapped lower and upper bounds.
+The output is simple, with:
+
+1. the `a` path,
+2. the `b` path,
+3. the indirect effect (`a x b`) with its confidence interval, and
+4. the direct effect with its confidence interval.
+
+These estimates are all average marginal effects, meaning each are interpreted in terms of the corresponding endogenous variable's original units. In this example, since marijuana is binary, its original units are probabilities. That means that the indirect and direct effects are risks (or probabilities) of using marijuana.
 
 ### `frames()`
 
