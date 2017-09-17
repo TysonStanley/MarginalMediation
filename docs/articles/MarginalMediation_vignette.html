@@ -89,9 +89,9 @@
 ## [11] "asthma"     "overweight" "cancer"     "low_int"    "down"      
 ## [16] "sleeping"   "low_energy" "appetite"   "feel_bad"   "no_con"    
 ## [21] "speak_move" "dead"       "difficulty" "active"</code></pre>
-<div id="margins_mediation" class="section level3">
+<div id="mma" class="section level3">
 <h3 class="hasAnchor">
-<a href="#margins_mediation" class="anchor"></a><code>margins_mediation()</code>
+<a href="#mma" class="anchor"></a><code><a href="../reference/mma.html">mma()</a></code>
 </h3>
 <p>This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/mma.html">mma</a></span>(nhanes_<span class="dv">2010</span>,
@@ -117,15 +117,15 @@
 ## 
 ## -- Indirect Effect(s) --
 ##                            Apath    Bpath Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00445 0.02471
-## age-home_meals          -0.05689 -0.00972  0.00055  0.00001 0.00152
-## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00599 0.00615
+## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00409 0.02393
+## age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00137
+## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00572 0.00763
 ## 
 ## -- Direct Effect(s) --
 ##                Direct    Lower   Upper
-## genderFemale  0.10329  0.05104 0.15830
-## age           0.00066 -0.00556 0.00747
-## asthmaNo     -0.00172 -0.07145 0.06895
+## genderFemale  0.10329  0.05017 0.15343
+## age           0.00066 -0.00719 0.00773
+## asthmaNo     -0.00172 -0.06964 0.06774
 ## -----</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
@@ -146,20 +146,20 @@
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower   Upper
-## (Intercept)  -0.0943 -0.2658  0.0950
-## home_meals   -0.0097 -0.0171 -0.0041
-## genderFemale  0.1033  0.0531  0.1557
-## age           0.0007 -0.0061  0.0063
-## asthmaNo     -0.0017 -0.0724  0.0653</code></pre>
+## (Intercept)  -0.0943 -0.2512  0.1018
+## home_meals   -0.0097 -0.0164 -0.0040
+## genderFemale  0.1033  0.0536  0.1493
+## age           0.0007 -0.0058  0.0072
+## asthmaNo     -0.0017 -0.0835  0.0726</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2 =<span class="st"> </span><span class="kw">glm</span>(home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, <span class="dt">data =</span> nhanes_<span class="dv">2010</span>)
 <span class="kw"><a href="../reference/frames.html">frames</a></span>(fit2, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower   Upper
-## (Intercept)   6.5688  5.2299  8.2020
-## genderFemale -1.3483 -1.7819 -0.9093
-## age          -0.0569 -0.1178 -0.0047
-## asthmaNo     -0.0043 -0.5457  0.5762</code></pre>
+## (Intercept)   6.5688  5.0010  8.0217
+## genderFemale -1.3483 -1.7915 -0.8217
+## age          -0.0569 -0.1202 -0.0058
+## asthmaNo     -0.0043 -0.6410  0.6517</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)
 <span class="kw">library</span>(margins)

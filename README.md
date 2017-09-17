@@ -64,15 +64,15 @@ mma(nhanes_2010,
 #> 
 #> -- Indirect Effect(s) --
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00455 0.02501
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00134
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00604 0.00650
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00353 0.02421
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00004 0.00135
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00636 0.00627
 #> 
 #> -- Direct Effect(s) --
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.05125 0.15349
-#> age           0.00066 -0.00614 0.00817
-#> asthmaNo     -0.00172 -0.06778 0.07515
+#> genderFemale  0.10329  0.05149 0.15530
+#> age           0.00066 -0.00602 0.00784
+#> asthmaNo     -0.00172 -0.06989 0.07588
 #> -----
 ```
 
