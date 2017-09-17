@@ -48,8 +48,7 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-```
-``` r
+#> 
 #> calculating b and c paths... a paths...Done.
                                                                                  
 #> -----
@@ -60,19 +59,19 @@ mma(nhanes_2010,
 #>    5 indirect effects
 #>    3 direct effects
 #>    500 bootstrapped samples
-#>    95% confidence interval
+#>   95% confidence interval
 #> 
 #> -- Indirect Effect(s) --
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00332 0.02441
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00133
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00640 0.00604
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00455 0.02501
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00134
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00604 0.00650
 #> 
 #> -- Direct Effect(s) --
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.04729 0.16190
-#> age           0.00066 -0.00666 0.00877
-#> asthmaNo     -0.00172 -0.07436 0.06913
+#> genderFemale  0.10329  0.05125 0.15349
+#> age           0.00066 -0.00614 0.00817
+#> asthmaNo     -0.00172 -0.06778 0.07515
 #> -----
 ```
 
