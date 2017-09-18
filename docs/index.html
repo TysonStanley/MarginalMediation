@@ -92,7 +92,7 @@
 
 ## The MarginalMediation package
 <span class="kw">library</span>(MarginalMediation)
-<span class="co">#&gt; MarginalMediation 0.3.2: This is beta software.</span>
+<span class="co">#&gt; MarginalMediation 0.3.3: This is beta software.</span>
 <span class="co">#&gt; Please report any bugs (t.barrett@aggiemail.usu.edu).</span>
 <span class="kw"><a href="reference/mma.html">mma</a></span>(nhanes_<span class="dv">2010</span>,
     marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
@@ -103,7 +103,7 @@
                     <span class="st">"asthmaNo-home_meals"</span>),
     <span class="dt">boot =</span> <span class="dv">500</span>)
 <span class="co">#&gt; </span>
-<span class="co">#&gt; calculating b and c paths... a paths...Done.</span>
+<span class="co">#&gt; calculating a paths... b and c paths... Done.</span>
                                                                                  
 <span class="co">#&gt; -----</span>
 <span class="co">#&gt; Marginal Mediation Analysis - mma()</span>
@@ -117,15 +117,15 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; -- Indirect Effect(s) --</span>
 <span class="co">#&gt;                            Apath    Bpath Indirect    Lower   Upper</span>
-<span class="co">#&gt; genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00471 0.02377</span>
-<span class="co">#&gt; age-home_meals          -0.05689 -0.00972  0.00055 -0.00002 0.00130</span>
-<span class="co">#&gt; asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00604 0.00670</span>
+<span class="co">#&gt; genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00481 0.02540</span>
+<span class="co">#&gt; age-home_meals          -0.05689 -0.00972  0.00055  0.00000 0.00136</span>
+<span class="co">#&gt; asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00607 0.00661</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; -- Direct Effect(s) --</span>
 <span class="co">#&gt;                Direct    Lower   Upper</span>
-<span class="co">#&gt; genderFemale  0.10329  0.04892 0.14967</span>
-<span class="co">#&gt; age           0.00066 -0.00601 0.00713</span>
-<span class="co">#&gt; asthmaNo     -0.00172 -0.07857 0.06250</span>
+<span class="co">#&gt; genderFemale  0.10329  0.04942 0.15817</span>
+<span class="co">#&gt; age           0.00066 -0.00621 0.00737</span>
+<span class="co">#&gt; asthmaNo     -0.00172 -0.06777 0.07250</span>
 <span class="co">#&gt; -----</span></code></pre></div>
 <p>The print method provides:</p>
 <ol style="list-style-type: decimal">
