@@ -1,6 +1,6 @@
 #' @title PDF of logistic, probit, and poisson models
 #' @author Tyson S. Barrett
-#' @description Internal function for \code{margins_mediation()}. More functionality to be added later.
+#' @description Internal function for \code{mma()}. More functionality to be added later.
 #' 
 #' @param model the model
 #' 
@@ -9,12 +9,9 @@
 #' @export
 pdfed = function(model){
   
-  ## Initial Model and Data
   data   = model$data
   family = model$family
-  if(!family[[2]] %in% c("probit", "logit", "poisson", "identity")){
-    stop(message("Must be probit, logit, log, or idenitity linked"))
-  }
+
   ## Derivatives
   pdf  = ifelse(family[[2]]=="probit",
                 mean(dnorm(predict(model, type = "link")), na.rm=TRUE),
@@ -28,25 +25,40 @@ pdfed = function(model){
   aveMarg
 }
 
-
-#' @title Bootstrapped Models 
-#' @author Tyson S. Barrett
-#' @description Internal function for \code{margins_mediation()}.
-#' 
-#' @param data the data.frame with the data for the models.
-#' @param indices the indices for each bootstrapped model (internal in \code{boot()})
-#' @param formula the formula of the model
-#' @param family the family of the model
-#' 
-#' @import stats
-#' @import magrittr
-#' 
-#' @export
-run_mod = function(data, indices, formula, family){
+## function to bootstrap
+.run_mod = function(data, indices, formula, family){
   data[indices, ] %>%
     glm(formula, family = family, data = .) %>% 
     pdfed
 }
+
+## checks
+.family_checker = function(family){
+  j = 0
+  fam = list()
+  for (i in family){
+    j = j + 1
+    fam[[j]] = i()$link
+    fam = unlist(fam)
+  }
+  if(!all(fam %in% c("probit", "logit", "log", "identity"))){
+    stop(message("The link function must be probit, logit, log, or idenitity."))
+  }
+}
+
+.arg_checker = function(...){
+  j = 0
+  arg = list()
+  for (i in c(...)){
+    j = j + 1
+    arg[[j]] = inherits(i, "formula")
+    arg = unlist(arg)
+  }
+  if(!all(arg)){
+    stop(message("The ... (ellipses) must be formulas."))
+  }
+}
+
 
 #' Piping operator re-exported from \code{magrittr}
 #' 

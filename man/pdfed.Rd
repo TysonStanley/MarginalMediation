@@ -10,7 +10,7 @@ pdfed(model)
 \item{model}{the model}
 }
 \description{
-Internal function for \code{margins_mediation()}. More functionality to be added later.
+Internal function for \code{mma()}. More functionality to be added later.
 }
 \author{
 Tyson S. Barrett

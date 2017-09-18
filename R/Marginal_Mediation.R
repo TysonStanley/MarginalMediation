@@ -55,25 +55,28 @@
 #' @export
 mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   .call = match.call()
+  .family_checker(family)
+  .arg_checker(...)
+  
   data = data.frame(data)
   forms = list(...)
   
-  cat('\ncalculating b and c paths...')
-  
   ## Bootstrapped Samples and Statistics
-  bootfit_b = boot(data = data, 
-                   statistic = run_mod, 
-                   R = boot, 
-                   formula = forms[[1]],
-                   family = binomial)
-  cat(" a paths...")
+  cat("\ncalculating a paths... ")
   bootfit_a = lapply(seq_along(forms)[-1], function(i) { 
     boot(data = data, 
-         statistic = run_mod, 
+         statistic = .run_mod, 
          R = boot, 
          formula = forms[[i]],
          family = gaussian)
   })
+  
+  cat('b and c paths... ')
+  bootfit_b = boot(data = data, 
+                   statistic = .run_mod, 
+                   R = boot, 
+                   formula = forms[[1]],
+                   family = binomial)
   
   cat('Done.')
   
@@ -141,15 +144,17 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                         do.call("rbind", hi2))
   names(.ame_dir) = c("Direct", "Lower", "Upper")
   
-  final = list("ind_effects" = .ame_ind,
-               "dir_effects" = .ame_dir,
-               "ci_level" = ci,
-               "data" = data, 
-               "reported_ind" = ind_effects, 
-               "boot" = boot, 
-               "model" = forms,
-               "call" = .call)
-  class(final) = c("mma", "list")
+  final = structure(
+    list("ind_effects" = .ame_ind,
+         "dir_effects" = .ame_dir,
+         "ci_level" = ci,
+         "data" = data, 
+         "reported_ind" = ind_effects, 
+         "boot" = boot, 
+         "model" = forms,
+         "call" = .call),
+    class = c("mma", "list")
+  )
   cat('\r', rep(' ', 40), '\r')
   final
 }
