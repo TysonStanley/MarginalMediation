@@ -38,7 +38,7 @@ data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.3.2: This is beta software.
+#> MarginalMediation 0.3.3: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
@@ -49,7 +49,7 @@ mma(nhanes_2010,
                     "asthmaNo-home_meals"),
     boot = 500)
 #> 
-#> calculating b and c paths... a paths...Done.
+#> calculating a paths... b and c paths... Done.
                                                                                  
 #> -----
 #> Marginal Mediation Analysis - mma()
@@ -63,15 +63,15 @@ mma(nhanes_2010,
 #> 
 #> -- Indirect Effect(s) --
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00347 0.02471
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00144
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00604 0.00599
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00404 0.02453
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00011 0.00140
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00583 0.00621
 #> 
 #> -- Direct Effect(s) --
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.04194 0.15616
-#> age           0.00066 -0.00557 0.00804
-#> asthmaNo     -0.00172 -0.06722 0.07334
+#> genderFemale  0.10329  0.04672 0.15521
+#> age           0.00066 -0.00591 0.00792
+#> asthmaNo     -0.00172 -0.07015 0.06296
 #> -----
 ```
 
