@@ -33,6 +33,7 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
+#> furniture 1.6.0: learn more at tysonstanley.github.io
 data(nhanes_2010)
 
 ## The MarginalMediation package
@@ -47,9 +48,7 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-```
-
-``` r
+#> 
 #> calculating b and c paths... a paths...Done.
                                                                                  
 #> -----
@@ -60,19 +59,19 @@ mma(nhanes_2010,
 #>    5 indirect effects
 #>    3 direct effects
 #>    500 bootstrapped samples
-#>   95% confidence interval
+#>    95% confidence interval
 #> 
 #> -- Indirect Effect(s) --
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00353 0.02421
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00004 0.00135
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00636 0.00627
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00502 0.02475
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00002 0.00139
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00641 0.00734
 #> 
 #> -- Direct Effect(s) --
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.05149 0.15530
-#> age           0.00066 -0.00602 0.00784
-#> asthmaNo     -0.00172 -0.06989 0.07588
+#> genderFemale  0.10329  0.05255 0.15991
+#> age           0.00066 -0.00636 0.00777
+#> asthmaNo     -0.00172 -0.07105 0.06684
 #> -----
 ```
 

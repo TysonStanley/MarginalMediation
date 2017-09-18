@@ -9,9 +9,9 @@ Imports: stats,
          magrittr,
          boot
 Suggests: testthat,
-    knitr,
-    rmarkdown,
-    furniture
+          knitr,
+          rmarkdown,
+          furniture
 VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-2
