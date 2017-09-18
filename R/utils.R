@@ -42,7 +42,7 @@ pdfed = function(model){
     fam = unlist(fam)
   }
   if(!all(fam %in% c("probit", "logit", "log", "identity"))){
-    stop(message("The link function must be probit, logit, log, or idenitity."))
+    stop("The link function must be probit, logit, log, or idenitity.")
   }
 }
 
@@ -55,7 +55,28 @@ pdfed = function(model){
     arg = unlist(arg)
   }
   if(!all(arg)){
-    stop(message("The ... (ellipses) must be formulas."))
+    stop("The ... (ellipses) must be formulas.")
+  }
+}
+
+.boot_checker = function(boot){
+  if(boot > 1000){
+    cat("A bootstrap size above 1000 may take a long time to compute...")
+  }
+}
+
+.ind_checker = function(ind_effects){
+  yesno = lapply(ind_effects, function(x) is.character(x) & grepl("-", x)) %>%
+    unlist %>%
+    all
+  if (!yesno){
+    stop("The 'ind_effects' must be a character vector of effect paths.")
+  }
+}
+
+.ci_checker = function(ci){
+  if (ci > 1 | ci < 0){
+    stop("CI must be between 0 and 1.")
   }
 }
 

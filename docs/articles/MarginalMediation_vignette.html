@@ -117,15 +117,15 @@
 ## 
 ## -- Indirect Effect(s) --
 ##                            Apath    Bpath Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00348 0.02431
-## age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00138
-## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00524 0.00690
+## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00453 0.02398
+## age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00141
+## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00573 0.00634
 ## 
 ## -- Direct Effect(s) --
 ##                Direct    Lower   Upper
-## genderFemale  0.10329  0.04659 0.15260
-## age           0.00066 -0.00593 0.00742
-## asthmaNo     -0.00172 -0.06803 0.06695
+## genderFemale  0.10329  0.04798 0.15178
+## age           0.00066 -0.00645 0.00803
+## asthmaNo     -0.00172 -0.08013 0.06776
 ## -----</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
@@ -146,20 +146,20 @@
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower   Upper
-## (Intercept)  -0.0943 -0.2146  0.1218
-## home_meals   -0.0097 -0.0158 -0.0040
-## genderFemale  0.1033  0.0508  0.1449
-## age           0.0007 -0.0074  0.0058
-## asthmaNo     -0.0017 -0.0599  0.0539</code></pre>
+## (Intercept)  -0.0943 -0.2927  0.1119
+## home_meals   -0.0097 -0.0167 -0.0034
+## genderFemale  0.1033  0.0504  0.1601
+## age           0.0007 -0.0068  0.0083
+## asthmaNo     -0.0017 -0.0656  0.0701</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2 =<span class="st"> </span><span class="kw">glm</span>(home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, <span class="dt">data =</span> nhanes_<span class="dv">2010</span>)
 <span class="kw"><a href="../reference/frames.html">frames</a></span>(fit2, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
 <pre><code>## --- 
 ##  Average Marginal Effects 
 ##                  AME   Lower   Upper
-## (Intercept)   6.5688  5.5146  8.4247
-## genderFemale -1.3483 -1.8303 -0.9614
-## age          -0.0569 -0.1160 -0.0050
-## asthmaNo     -0.0043 -0.5819  0.6148</code></pre>
+## (Intercept)   6.5688  4.8857  8.1823
+## genderFemale -1.3483 -1.8560 -0.9059
+## age          -0.0569 -0.1163  0.0089
+## asthmaNo     -0.0043 -0.5974  0.5748</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)
 <span class="kw">library</span>(margins)

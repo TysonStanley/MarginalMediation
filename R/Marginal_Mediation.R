@@ -57,6 +57,9 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   .call = match.call()
   .family_checker(family)
   .arg_checker(...)
+  .boot_checker(boot)
+  .ind_checker(ind_effects)
+  .ci_checker(ci)
   
   data = data.frame(data)
   forms = list(...)
