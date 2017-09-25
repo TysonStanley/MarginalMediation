@@ -9,6 +9,7 @@
 #' @export
 pdfed = function(model){
   
+  outcome = paste(model$call)[2]
   data   = model$data
   family = model$family
 
@@ -18,7 +19,9 @@ pdfed = function(model){
                 ifelse(family[[2]]=="logit", 
                        mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
                        ifelse(family[[1]]=="poisson",
-                              mean(dpois(predict(model, type = "link")), na.rm=TRUE),
+                              mean(dpois(predict(model, type = "link"), 
+                                         mean(data[[outcome]], na.rm=TRUE)), 
+                                   na.rm=TRUE),
                               ifelse(family[[2]]=="identity", 1, NA))))
   ## Average Marginal Effects
   aveMarg = pdf*coef(model)
