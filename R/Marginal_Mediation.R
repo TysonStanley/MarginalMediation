@@ -106,7 +106,8 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                           bootfit_b$t %>%
                           data.frame %>%
                           setNames(names(bootfit_b$t0)) %>%
-                          .[[bp]], (1-ci)/2)
+                          .[[bp]], (1-ci)/2,
+                        na.rm=TRUE)
     hi[[i]] = quantile(bootfit_a[[bp]]$t %>%
                          data.frame %>%
                          setNames(names(bootfit_a[[bp]]$t0)) %>%
@@ -114,7 +115,8 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                          bootfit_b$t %>%
                          data.frame %>%
                          setNames(names(bootfit_b$t0)) %>%
-                         .[[bp]], (1-(1-ci)/2))
+                         .[[bp]], (1-(1-ci)/2),
+                       na.rm=TRUE)
   }
   .ame_ind = data.frame(do.call("rbind", apa),
                         do.call("rbind", bpa),
