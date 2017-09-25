@@ -71,7 +71,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
          statistic = .run_mod, 
          R = boot, 
          formula = forms[[i]],
-         family = gaussian)
+         family = family[[i]])
   })
   
   cat('b and c paths... ')
@@ -79,7 +79,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                    statistic = .run_mod, 
                    R = boot, 
                    formula = forms[[1]],
-                   family = binomial)
+                   family = family[[1]])
   
   cat('Done.')
   
