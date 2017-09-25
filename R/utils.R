@@ -19,7 +19,7 @@ pdfed = function(model){
                 ifelse(family[[2]]=="logit", 
                        mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
                        ifelse(family[[1]]=="poisson",
-                              mean(predict(model, type = "resp"), na.rm=TRUE), 
+                              mean(model$fitted.values, na.rm=TRUE), 
                               ifelse(family[[2]]=="identity", 1, NA))))
   ## Average Marginal Effects
   aveMarg = pdf*coef(model)
