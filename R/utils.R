@@ -9,7 +9,6 @@
 #' @export
 pdfed = function(model){
   
-  outcome = paste(model$call)[2]
   data   = model$data
   family = model$family
 
