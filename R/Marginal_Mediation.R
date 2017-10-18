@@ -183,7 +183,7 @@ print.mma = function(x, ...){
   
   cat("\n-- " %+% crayon::bold("Direct Effect(s)") %+% " --\n")
   print.data.frame(round(x$dir_effects, 5), ...)
-  cat("---------------------------")
+  cat("-----")
 }
 
 
