@@ -54,15 +54,17 @@
 #' 
 #' @export
 mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
+  data = data.frame(data)
+  forms = list(...)
+  
+  ## checks
   .call = match.call()
   .family_checker(family)
   .arg_checker(...)
   .boot_checker(boot)
   .ind_checker(ind_effects)
   .ci_checker(ci)
-  
-  data = data.frame(data)
-  forms = list(...)
+  .var_checker(data, forms)
   
   ## Bootstrapped Samples and Statistics
   cat("\ncalculating a paths... ")
@@ -164,10 +166,10 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   final
 }
 
+#' import crayon
 #' @export
 print.mma = function(x, ...){
-  cat("-----\n")
-  cat("Marginal Mediation Analysis - mma()\n\n")
+  cat(crayon::bold$inverse("\n  Marginal Mediation Analysis  \n") %+% "\n")
   cat("A marginal mediation model with:\n")
   cat("  ", length(x$model)-1, "mediators\n")
   cat("  ", length(x$ind_effects), "indirect effects\n")
@@ -176,12 +178,12 @@ print.mma = function(x, ...){
   cat("   ", x$ci_level * 100, "% confidence interval\n", sep = "")
   cat("   n =", length(x$data[[1]]), "\n\n")
   
-  cat("-- Indirect Effect(s) --\n")
+  cat("-- " %+% crayon::bold("Indirect Effect(s)") %+% " --\n")
   print.data.frame(round(x$ind_effects, 5), ...)
   
-  cat("\n-- Direct Effect(s) --\n")
+  cat("\n-- " %+% crayon::bold("Direct Effect(s)") %+% " --\n")
   print.data.frame(round(x$dir_effects, 5), ...)
-  cat("-----")
+  cat("---------------------------")
 }
 
 

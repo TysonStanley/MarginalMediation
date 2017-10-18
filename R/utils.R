@@ -80,11 +80,26 @@ pdfed = function(model){
   }
 }
 
+.var_checker = function(data, forms){
+  for (i in seq_along(forms)){
+    yes_no = model.matrix(forms[[i]], data)[, -1] %>%
+      data.frame %>%
+      sapply(function(x) length(unique(x)) == 1) %>%
+      any()
+
+    if (yes_no){
+      warning(paste("Variable(s) to be used in data frame for the formula number", i, "are constant"), call. = FALSE) 
+    }
+  }
+}
+
 
 #' Piping operator re-exported from \code{magrittr}
 #' 
 #' @param lhs left-hand side
 #' @param rhs right-hand side
+#' 
+#' @importFrom magrittr %>%
 #' 
 #' @export
 `%>%` = magrittr::`%>%`
