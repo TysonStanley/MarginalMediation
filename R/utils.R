@@ -94,11 +94,6 @@ pdfed = function(model){
 }
 
 
-#' Piping operator re-exported from \code{magrittr}
-#' 
-#' @param lhs left-hand side
-#' @param rhs right-hand side
-#' 
 #' @importFrom magrittr %>%
 #' 
 #' @export
