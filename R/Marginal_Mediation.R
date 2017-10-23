@@ -96,11 +96,19 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   for (i in ind_effects){
     ap = gsub("\\-.*$", "", i)
     bp = gsub("^.*\\-", "", i)
+    bp_nam = paste0(bp, levels(data[[bp]])[2])
+
+    ## Can handle binary mediators (not multinomial unless separated manually)
+    if (is.factor(data[[bp]]) | is.character(data[[bp]])){
+      bp_nam = paste0(bp, levels(data[[bp]])[2])
+    } else {
+      bp_nam = bp
+    }
     
     apa[[i]] = bootfit_a[[bp]]$t0[ap]
-    bpa[[i]] = bootfit_b$t0[bp]
+    bpa[[i]] = bootfit_b$t0[bp_nam]
     
-    est[[i]] = bootfit_a[[bp]]$t0[ap] * bootfit_b$t0[bp]
+    est[[i]] = bootfit_a[[bp]]$t0[ap] * bootfit_b$t0[bp_nam]
     low[[i]] = quantile(bootfit_a[[bp]]$t %>%
                           data.frame %>%
                           setNames(names(bootfit_a[[bp]]$t0)) %>%
@@ -108,7 +116,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                           bootfit_b$t %>%
                           data.frame %>%
                           setNames(names(bootfit_b$t0)) %>%
-                          .[[bp]], (1-ci)/2,
+                          .[[bp_nam]], (1-ci)/2,
                         na.rm=TRUE)
     hi[[i]] = quantile(bootfit_a[[bp]]$t %>%
                          data.frame %>%
@@ -117,7 +125,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                          bootfit_b$t %>%
                          data.frame %>%
                          setNames(names(bootfit_b$t0)) %>%
-                         .[[bp]], (1-(1-ci)/2),
+                         .[[bp_nam]], (1-(1-ci)/2),
                        na.rm=TRUE)
   }
   .ame_ind = data.frame(do.call("rbind", apa),
@@ -125,7 +133,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
                         do.call("rbind", est),
                         do.call("rbind", low),
                         do.call("rbind", hi))
-  names(.ame_ind) = c("Apath", "Bpath", "Indirect", "Lower", "Upper")
+  names(.ame_ind) = c("A-path", "B-path", "Indirect", "Lower", "Upper")
   
   ## Each Direct Effect ##
   eff = low2 = hi2 = list()
@@ -152,14 +160,14 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   names(.ame_dir) = c("Direct", "Lower", "Upper")
   
   final = structure(
-    list("ind_effects" = .ame_ind,
-         "dir_effects" = .ame_dir,
-         "ci_level" = ci,
-         "data" = data, 
+    list("ind_effects"  = .ame_ind,
+         "dir_effects"  = .ame_dir,
+         "ci_level"     = ci,
+         "data"         = data, 
          "reported_ind" = ind_effects, 
-         "boot" = boot, 
-         "model" = forms,
-         "call" = .call),
+         "boot"         = boot, 
+         "model"        = forms,
+         "call"         = .call),
     class = c("mma", "list")
   )
   cat('\r', rep(' ', 40), '\r')
@@ -174,8 +182,8 @@ print.mma = function(x, ...){
   
   cat("A marginal mediation model with:\n")
   cat("  ", length(x$model)-1, "mediators\n")
-  cat("  ", length(x$ind_effects), "indirect effects\n")
-  cat("  ", length(x$dir_effects), "direct effects\n")
+  cat("  ", dim(x$ind_effects)[1], "indirect effects\n")
+  cat("  ", dim(x$dir_effects)[1], "direct effects\n")
   cat("  ", x$boot, "bootstrapped samples\n") 
   cat("   ", x$ci_level * 100, "% confidence interval\n", sep = "")
   cat("   n =", length(x$data[[1]]), "\n\n")
