@@ -51,28 +51,28 @@ mma(nhanes_2010,
 #> 
 #> calculating a paths... b and c paths... Done.
                                                                                  
-#> ┌───────────────────────────────────┐
+#> ┌───────────────────────────────┐
 #> │  Marginal Mediation Analysis  │
-#> └───────────────────────────────────┘
+#> └───────────────────────────────┘
 #> A marginal mediation model with:
 #>    1 mediators
-#>    5 indirect effects
+#>    3 indirect effects
 #>    3 direct effects
 #>    500 bootstrapped samples
 #>    95% confidence interval
 #>    n = 1417 
 #> 
 #> ── Indirect Effects ── 
-#>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00408 0.02341
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00004 0.00133
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00613 0.00681
+#>                           A-path   B-path Indirect    Lower   Upper
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00445 0.02347
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00002 0.00127
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00536 0.00636
 #> 
 #> ── Direct Effects ── 
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.05027 0.15635
-#> age           0.00066 -0.00634 0.00798
-#> asthmaNo     -0.00172 -0.06960 0.07569
+#> genderFemale  0.10329  0.05225 0.15577
+#> age           0.00066 -0.00647 0.00755
+#> asthmaNo     -0.00172 -0.06491 0.06669
 #> ────
 ```
 
