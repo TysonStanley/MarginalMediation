@@ -48,7 +48,7 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> 
+
 #> calculating a paths... b and c paths... Done.
                                                                                  
 #> ┌───────────────────────────────┐
