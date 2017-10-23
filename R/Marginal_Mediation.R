@@ -62,7 +62,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   .family_checker(family)
   .arg_checker(...)
   .boot_checker(boot)
-  .ind_checker(ind_effects)
+  .ind_checker(ind_effects, forms)
   .ci_checker(ci)
   .var_checker(data, forms)
   

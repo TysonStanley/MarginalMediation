@@ -65,18 +65,27 @@ pdfed = function(model){
   }
 }
 
-.ind_checker = function(ind_effects){
+.ind_checker = function(ind_effects, forms=NULL){
   yesno = lapply(ind_effects, function(x) is.character(x) & grepl("-", x)) %>%
     unlist %>%
     all
   if (!yesno){
-    stop("The 'ind_effects' must be a character vector of effect paths.")
+    stop("The 'ind_effects' must be a character vector of effect paths.",
+         call. = FALSE)
+  }
+  
+  forms2 = lapply(paste(forms)[-1], function(x) paste(as.formula(x))[2]) %>% unlist
+  yesno2 = all(gsub("^.*\\-", "", ind_effects) %in% forms2)
+  if (!yesno2){
+    stop("One of the ind_effects has a mediator listed that is not a mediator in the formulas.",
+         call. = FALSE)
   }
 }
 
 .ci_checker = function(ci){
   if (ci > 1 | ci < 0){
-    stop("CI must be between 0 and 1.")
+    stop("CI must be between 0 and 1.",
+         call. = FALSE)
   }
 }
 
