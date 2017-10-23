@@ -2,7 +2,6 @@
 
 S3method(print,ame)
 S3method(print,mma)
-export("%>%")
 export(frames)
 export(mma)
 export(pdfed)
@@ -10,4 +9,3 @@ import(boot)
 import(crayon)
 import(magrittr)
 import(stats)
-importFrom(magrittr,"%>%")

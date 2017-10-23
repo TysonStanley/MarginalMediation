@@ -94,7 +94,4 @@ pdfed = function(model){
 }
 
 
-#' @importFrom magrittr %>%
-#' 
-#' @export
 `%>%` = magrittr::`%>%`
