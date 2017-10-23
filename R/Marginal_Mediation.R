@@ -166,7 +166,7 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   final
 }
 
-#' import crayon
+#' @import crayon
 #' @export
 print.mma = function(x, ...){
   cat("\u250C", rep("\u2500", 35), "\u2510\n", sep = "")
