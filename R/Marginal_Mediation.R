@@ -166,12 +166,11 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
   final
 }
 
-#' @import crayon
 #' @export
 print.mma = function(x, ...){
-  cat("\u250C", rep("\u2500", 35), "\u2510\n", sep = "")
-  cat("\u2502", crayon::bold(" Marginal Mediation Analysis "), "\u2502")
-  cat("\n\u2514", rep("\u2500", 35), "\u2518\n", sep = "")
+  cat("\u250C", rep("\u2500", 31), "\u2510\n", sep = "")
+  cat("\u2502", " Marginal Mediation Analysis ", "\u2502")
+  cat("\n\u2514", rep("\u2500", 31), "\u2518\n", sep = "")
   
   cat("A marginal mediation model with:\n")
   cat("  ", length(x$model)-1, "mediators\n")
@@ -181,10 +180,10 @@ print.mma = function(x, ...){
   cat("   ", x$ci_level * 100, "% confidence interval\n", sep = "")
   cat("   n =", length(x$data[[1]]), "\n\n")
   
-  cat("\u2500\u2500", crayon::bold("Indirect Effects"), "\u2500\u2500 \n")
+  cat("\u2500\u2500", "Indirect Effects", "\u2500\u2500 \n")
   print.data.frame(round(x$ind_effects, 5), ...)
   
-  cat("\n\u2500\u2500", crayon::bold("Direct Effects"), "\u2500\u2500 \n")
+  cat("\n\u2500\u2500", "Direct Effects", "\u2500\u2500 \n")
   print.data.frame(round(x$dir_effects, 5), ...)
   cat(rep("\u2500", 4), "\n", sep = "")
 }
