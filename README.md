@@ -33,12 +33,12 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.6.0: learn more at tysonstanley.github.io
+#> furniture 1.7.1: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.3.3: This is beta software.
+#> MarginalMediation 0.3.4: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
@@ -51,28 +51,29 @@ mma(nhanes_2010,
 #> 
 #> calculating a paths... b and c paths... Done.
                                                                                  
-#> -----
-#> Marginal Mediation Analysis - mma()
-#> 
+#> ┌───────────────────────────────────┐
+#> │  Marginal Mediation Analysis  │
+#> └───────────────────────────────────┘
 #> A marginal mediation model with:
 #>    1 mediators
 #>    5 indirect effects
 #>    3 direct effects
 #>    500 bootstrapped samples
 #>    95% confidence interval
+#>    n = 1417 
 #> 
-#> -- Indirect Effect(s) --
+#> ── Indirect Effects ── 
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00410 0.02459
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00013 0.00142
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00573 0.00655
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00360 0.02500
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00132
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00600 0.00637
 #> 
-#> -- Direct Effect(s) --
+#> ── Direct Effects ── 
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.05066 0.15717
-#> age           0.00066 -0.00605 0.00764
-#> asthmaNo     -0.00172 -0.07149 0.07525
-#> -----
+#> genderFemale  0.10329  0.04888 0.15824
+#> age           0.00066 -0.00623 0.00764
+#> asthmaNo     -0.00172 -0.06033 0.07273
+#> ────
 ```
 
 The print method provides:
