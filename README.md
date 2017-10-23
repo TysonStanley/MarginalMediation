@@ -33,13 +33,13 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
+#> furniture 1.7.1: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
 #> MarginalMediation 0.3.4: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
-
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
     home_meals ~ gender + age + asthma,
@@ -48,12 +48,12 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-
+#> 
 #> calculating a paths... b and c paths... Done.
                                                                                  
-#> ┌───────────────────────────────┐
+#> ┌───────────────────────────────────┐
 #> │  Marginal Mediation Analysis  │
-#> └───────────────────────────────┘
+#> └───────────────────────────────────┘
 #> A marginal mediation model with:
 #>    1 mediators
 #>    5 indirect effects
@@ -64,15 +64,15 @@ mma(nhanes_2010,
 #> 
 #> ── Indirect Effects ── 
 #>                            Apath    Bpath Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00360 0.02500
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00132
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00600 0.00637
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00408 0.02341
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00004 0.00133
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00613 0.00681
 #> 
 #> ── Direct Effects ── 
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.04888 0.15824
-#> age           0.00066 -0.00623 0.00764
-#> asthmaNo     -0.00172 -0.06033 0.07273
+#> genderFemale  0.10329  0.05027 0.15635
+#> age           0.00066 -0.00634 0.00798
+#> asthmaNo     -0.00172 -0.06960 0.07569
 #> ────
 ```
 
@@ -88,3 +88,12 @@ These are all average marginal effects, and are, therefore, in terms of the corr
 ### Conclusions
 
 This is currently beta but I am excited to provide an initial working release. Let me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
+
+### Final Notes
+
+More will be done to `MarginalMediation` as it is under development, including:
+
+1.  More bootstrapping options (e.g., Bias-Corrected Bootstrap)
+2.  More distributional options as currently only gaussian, binomial, and Poisson are available (e.g., zero-inflated distributions, multinomial distributions)
+
+Thanks!
