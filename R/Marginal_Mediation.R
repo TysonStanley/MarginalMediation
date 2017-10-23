@@ -97,13 +97,6 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
     ap = gsub("\\-.*$", "", i)
     bp = gsub("^.*\\-", "", i)
     bp_nam = paste0(bp, levels(data[[bp]])[2])
-
-    ## Can handle binary mediators (not multinomial unless separated manually)
-    if (is.factor(data[[bp]]) | is.character(data[[bp]])){
-      bp_nam = paste0(bp, levels(data[[bp]])[2])
-    } else {
-      bp_nam = bp
-    }
     
     apa[[i]] = bootfit_a[[bp]]$t0[ap]
     bpa[[i]] = bootfit_b$t0[bp_nam]
