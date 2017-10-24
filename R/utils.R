@@ -60,8 +60,8 @@ pdfed = function(model){
 }
 
 .boot_checker = function(boot){
-  if(boot > 1000){
-    cat("A bootstrap size above 1000 may take a long time to compute...")
+  if(boot > 5000){
+    cat("A bootstrap size above 5000 may take a long time to compute...")
   }
 }
 
@@ -74,8 +74,8 @@ pdfed = function(model){
          call. = FALSE)
   }
   
-  forms2 = lapply(paste(forms)[-1], function(x) paste(as.formula(x))[2]) %>% unlist
-  yesno2 = all(gsub("^.*\\-", "", ind_effects) %in% forms2)
+  forms = lapply(paste(forms)[-1], function(x) paste(as.formula(x))[2]) %>% unlist
+  yesno2 = all(gsub("^.*\\-", "", ind_effects) %in% forms)
   if (!yesno2){
     stop("One of the ind_effects has a mediator listed that is not a mediator in the formulas.",
          call. = FALSE)
@@ -97,10 +97,67 @@ pdfed = function(model){
       any()
 
     if (yes_no){
-      warning(paste("Variable(s) to be used in data frame for the formula number", i, "are constant"), call. = FALSE) 
+      warning(paste("Variable(s) to be used in data frame for the formula number", i, "are constant"), 
+              call. = FALSE) 
     }
   }
 }
 
 
 `%>%` = magrittr::`%>%`
+
+## Functions from boot for confidence intervals
+
+## # part of R package boot
+## # copyright (C) 1997-2001 Angelo J. Canty
+## # corrections (C) 1997-2014 B. D. Ripley
+## #
+## # Unlimited distribution is permitted
+
+## norm inter
+norm.inter <- function(t,alpha){
+  #
+  #  Interpolation on the normal quantile scale.  For a non-integer
+  #  order statistic this function interpolates between the surrounding
+  #  order statistics using the normal quantile scale.  See equation
+  #  5.8 of Davison and Hinkley (1997)
+  #
+  t  <- t[is.finite(t)]
+  R  <- length(t)
+  rk <- (R+1)*alpha
+  if (!all(rk>1 & rk<R))
+    warning("extreme order statistics used as endpoints")
+  k    <- trunc(rk)
+  inds <- seq_along(k)
+  out  <- inds
+  kvs  <- k[k>0 & k<R]
+  tstar <- sort(t, partial = sort(union(c(1, R), c(kvs, kvs+1))))
+  ints  <- (k == rk)
+  if (any(ints)) out[inds[ints]] <- tstar[k[inds[ints]]]
+  out[k == 0] <- tstar[1L]
+  out[k == R] <- tstar[R]
+  not <- function(v) xor(rep(TRUE,length(v)),v)
+  temp <- inds[not(ints) & k != 0 & k != R]
+  temp1 <- qnorm(alpha[temp])
+  temp2 <- qnorm(k[temp]/(R+1))
+  temp3 <- qnorm((k[temp]+1)/(R+1))
+  tk <- tstar[k[temp]]
+  tk1 <- tstar[k[temp]+1L]
+  out[temp] <- tk + (temp1-temp2)/(temp3-temp2)*(tk1 - tk)
+  cbind(round(rk, 2), out)
+}
+
+basic.ci <- function(t0, t, conf = 0.95, hinv = function(t) t){
+  #  Basic bootstrap confidence method
+  qq <- norm.inter(t,(1+c(conf,-conf))/2)
+  cbind(matrix(hinv(2*t0-qq[,2L]),ncol=2L))
+}
+
+perc.ci <- function(t, conf = 0.95, hinv = function(t) t){
+  #  Bootstrap Percentile Confidence Interval Method
+  alpha <- (1+c(-conf,conf))/2
+  qq <- norm.inter(t,alpha)
+  cbind(matrix(hinv(qq[,2]),ncol=2L))
+}
+
+

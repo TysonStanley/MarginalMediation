@@ -4,7 +4,8 @@
 \alias{mma}
 \title{Marginal Mediation}
 \usage{
-mma(data, ..., family, ind_effects, boot = 100, ci = 0.95)
+mma(data, ..., family, ind_effects, ci_type = "perc", boot = 100,
+  ci = 0.95)
 }
 \arguments{
 \item{data}{the data frame with the data for the models}
@@ -14,6 +15,8 @@ mma(data, ..., family, ind_effects, boot = 100, ci = 0.95)
 \item{family}{the vector of the families of the model. Either \code{binomial} for binary outcomes or \code{gaussian} for continuous. Needs to have a length equal to the number of models.}
 
 \item{ind_effects}{a vector of the desired indirect effects. Has the form \code{"var1-var2"}.}
+
+\item{ci_type}{a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.}
 
 \item{boot}{the number of bootstrapped samples; default is 100}
 

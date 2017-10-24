@@ -10,6 +10,7 @@
 #' @param ... formulas for the models; the first is the model with the outcome while the others are the mediated effects ("a" paths)
 #' @param family the vector of the families of the model. Either \code{binomial} for binary outcomes or \code{gaussian} for continuous. Needs to have a length equal to the number of models.
 #' @param ind_effects a vector of the desired indirect effects. Has the form \code{"var1-var2"}.
+#' @param ci_type a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.
 #' @param boot the number of bootstrapped samples; default is 100
 #' @param ci the confidence interval; the default is .975 which is the 95\% confidence interval.
 #' 
@@ -53,7 +54,7 @@
 #' @import boot
 #' 
 #' @export
-mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
+mma = function(data, ..., family, ind_effects, ci_type = "perc", boot=100, ci=.95){
   data = data.frame(data)
   forms = list(...)
   
@@ -101,25 +102,30 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
     apa[[i]] = bootfit_a[[bp]]$t0[ap]
     bpa[[i]] = bootfit_b$t0[bp_nam]
     
+    booted = bootfit_a[[bp]]
+    indirect = booted$t %>%
+      data.frame %>%
+      setNames(names(booted$t0)) %>%
+      .[[ap]] * bootfit_b$t %>%
+      data.frame %>%
+      setNames(names(bootfit_b$t0)) %>%
+      .[[bp_nam]]
+    
+    booted$t = as.matrix(indirect)
+    booted$t0 = bootfit_a[[bp]]$t0[ap]
+    
     est[[i]] = bootfit_a[[bp]]$t0[ap] * bootfit_b$t0[bp_nam]
-    low[[i]] = quantile(bootfit_a[[bp]]$t %>%
-                          data.frame %>%
-                          setNames(names(bootfit_a[[bp]]$t0)) %>%
-                          .[[ap]] *
-                          bootfit_b$t %>%
-                          data.frame %>%
-                          setNames(names(bootfit_b$t0)) %>%
-                          .[[bp_nam]], (1-ci)/2,
-                        na.rm=TRUE)
-    hi[[i]] = quantile(bootfit_a[[bp]]$t %>%
-                         data.frame %>%
-                         setNames(names(bootfit_a[[bp]]$t0)) %>%
-                         .[[ap]] *
-                         bootfit_b$t %>%
-                         data.frame %>%
-                         setNames(names(bootfit_b$t0)) %>%
-                         .[[bp_nam]], (1-(1-ci)/2),
-                       na.rm=TRUE)
+    
+    if (ci_type == "perc"){
+      low[[i]] = perc.ci(booted$t)[1]
+      hi[[i]] = perc.ci(booted$t)[2]
+    } else if (ci_type == "basic"){
+      warning("Basic is not recommended with indirect effects due to its reliance on normal theory.")
+      low[[i]] = basic.ci(booted$t)[1]
+      hi[[i]] = basic.ci(booted$t)[2]
+    } else {
+      stop("Only type of CI currently available is the percentile.")
+    }
   }
   .ame_ind = data.frame(do.call("rbind", apa),
                         do.call("rbind", bpa),
@@ -135,17 +141,17 @@ mma = function(data, ..., family, ind_effects, boot=100, ci=.95){
     unique
   for (i in dir_effects){
     ap = gsub("\\-.*$", "", i)
-
+    
     eff[[i]] = bootfit_b$t0[ap]
-
+    
     low2[[i]] = quantile(bootfit_b$t %>%
+                           data.frame %>%
+                           setNames(names(bootfit_b$t0)) %>%
+                           .[, ap], (1-ci)/2)
+    hi2[[i]] = quantile(bootfit_b$t %>%
                           data.frame %>%
                           setNames(names(bootfit_b$t0)) %>%
-                          .[, ap], (1-ci)/2)
-    hi2[[i]] = quantile(bootfit_b$t %>%
-                         data.frame %>%
-                         setNames(names(bootfit_b$t0)) %>%
-                         .[, ap], (1-(1-ci)/2))
+                          .[, ap], (1-(1-ci)/2))
   }
   .ame_dir = data.frame(do.call("rbind", eff),
                         do.call("rbind", low2),
