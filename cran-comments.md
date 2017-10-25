@@ -1,14 +1,12 @@
 ## Test environments
-* local OS X install, R 3.4.1
+* local OS X install, R 3.4.2
 * ubuntu 12.04 (on travis-ci), R 3.3.2, R 3.4.0, R underdevelopment
 * win-builder (devel and release)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note 
+0 errors | 0 warnings | 0 note 
 
-* NOTE: mma: no visible binding for global variable ‘.’
-  * This note is due to the usage of `magrittr::%>%`
 
 * This is a new release.
 
