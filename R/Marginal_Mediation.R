@@ -117,14 +117,14 @@ mma = function(data, ..., family, ind_effects, ci_type = "perc", boot=100, ci=.9
     est[[i]] = bootfit_a[[bp]]$t0[ap] * bootfit_b$t0[bp_nam]
     
     if (ci_type == "perc"){
-      low[[i]] = perc.ci(booted$t)[1]
-      hi[[i]] = perc.ci(booted$t)[2]
+      low[[i]] = perc.ci(booted$t, conf = ci)[1]
+      hi[[i]]  = perc.ci(booted$t, conf = ci)[2]
     } else if (ci_type == "basic"){
       warning("Basic is not recommended with indirect effects due to its reliance on normal theory.")
-      low[[i]] = basic.ci(booted$t)[1]
-      hi[[i]] = basic.ci(booted$t)[2]
+      low[[i]] = basic.ci(booted$t, conf = ci)[1]
+      hi[[i]]  = basic.ci(booted$t, conf = ci)[2]
     } else {
-      stop("Only type of CI currently available is the percentile.")
+      stop("Only 'perc' and 'basic' types of CI are currently available.")
     }
   }
   .ame_ind = data.frame(do.call("rbind", apa),
@@ -144,14 +144,20 @@ mma = function(data, ..., family, ind_effects, ci_type = "perc", boot=100, ci=.9
     
     eff[[i]] = bootfit_b$t0[ap]
     
-    low2[[i]] = quantile(bootfit_b$t %>%
-                           data.frame %>%
-                           setNames(names(bootfit_b$t0)) %>%
-                           .[, ap], (1-ci)/2)
-    hi2[[i]] = quantile(bootfit_b$t %>%
-                          data.frame %>%
-                          setNames(names(bootfit_b$t0)) %>%
-                          .[, ap], (1-(1-ci)/2))
+    booted2 = bootfit_b$t %>%
+      data.frame %>%
+      setNames(names(bootfit_b$t0)) %>%
+      .[[ap]]
+    
+    if (ci_type == "perc"){
+      low2[[i]] = perc.ci(booted2, conf = ci)[1]
+      hi2[[i]]  = perc.ci(booted2, conf = ci)[2]
+    } else if (ci_type == "basic"){
+      low2[[i]] = basic.ci(booted2, conf = ci)[1]
+      hi2[[i]]  = basic.ci(booted2, conf = ci)[2]
+    } else {
+      stop("Only 'perc' and 'basic' types of CI are currently available.")
+    }
   }
   .ame_dir = data.frame(do.call("rbind", eff),
                         do.call("rbind", low2),

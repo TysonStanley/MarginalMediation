@@ -4,10 +4,16 @@
 \alias{frames}
 \title{Average Marginal Effects}
 \usage{
-frames(model, boot = 100, ci = 0.975)
+frames(data, formula, family, ci_type = "perc", boot = 100, ci = 0.95)
 }
 \arguments{
-\item{model}{the GLM model}
+\item{data}{the data frame containing the variables for the model}
+
+\item{formula}{the model formula}
+
+\item{family}{the family of the glm (e.g., binomial, poisson)}
+
+\item{ci_type}{the type of boostrapped confidence interval; options are "perc", "basic", "bca"}
 
 \item{boot}{the number of bootstrapped samples; default is 100}
 

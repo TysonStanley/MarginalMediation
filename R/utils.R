@@ -11,17 +11,38 @@ pdfed = function(model){
   
   data   = model$data
   family = model$family
-
-  ## Derivatives
-  pdf  = ifelse(family[[2]]=="probit",
-                mean(dnorm(predict(model, type = "link")), na.rm=TRUE),
-                ifelse(family[[2]]=="logit", 
-                       mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
-                       ifelse(family[[1]]=="poisson",
-                              mean(model$y, na.rm=TRUE), 
-                              ifelse(family[[2]]=="identity", 1, NA))))
-  ## Average Marginal Effects
-  aveMarg = pdf*coef(model)
+  coefs  = attr(model$terms, "term.labels")
+  
+  aveMarg = vector("numeric", 0L)
+  for (i in seq_along(coefs)){
+    d = data[[coefs[i]]]
+    
+    if (is.numeric(d)){
+      ## Derivatives
+      pdf  = ifelse(family[[2]]=="probit",
+                    mean(dnorm(predict(model, type = "link")), na.rm=TRUE),
+                    ifelse(family[[2]]=="logit", 
+                           mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
+                           ifelse(family[[1]]=="poisson",
+                                  mean(model$y, na.rm=TRUE), 
+                                  ifelse(family[[2]]=="identity", 1, NA))))
+      ## Average Marginal Effects
+      aveMarg[coefs[i]] = pdf*coef(model)[i+1]
+    } else if (is.factor(d) | is.character(d)) {
+      ref   = levels(d)[1]
+      levs  = levels(d)[-1]
+      d0 = d1 = data
+      d0[[coefs[i]]] = ref
+      pred0 = predict(model, newdata = d0, type = "response")
+      
+      for (j in levs){
+        d1[[coefs[i]]] = j
+        pred1 = predict(model, newdata = d1, type = "response")
+        
+        aveMarg[paste0(coefs[i], j)] = mean(pred1 - pred0, na.rm=TRUE)
+      }
+    }
+  }
   aveMarg
 }
 
@@ -105,6 +126,8 @@ pdfed = function(model){
 
 
 `%>%` = magrittr::`%>%`
+
+
 
 ## Functions from boot for confidence intervals
 
