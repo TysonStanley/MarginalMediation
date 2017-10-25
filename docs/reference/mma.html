@@ -60,18 +60,6 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="../articles/MarginalMediation_vignette.html">Marginal Mediation</a>
-    </li>
-  </ul>
-</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -98,7 +86,8 @@ The results provide the average marginal effects of the models, providing simple
 interpretation of the indirect effects.</p>
     
 
-    <pre class="usage"><span class='fu'>mma</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='no'>family</span>, <span class='no'>ind_effects</span>, <span class='kw'>boot</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+    <pre class="usage"><span class='fu'>mma</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='no'>family</span>, <span class='no'>ind_effects</span>, <span class='kw'>ci_type</span> <span class='kw'>=</span> <span class='st'>"perc"</span>, <span class='kw'>boot</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -118,6 +107,10 @@ interpretation of the indirect effects.</p>
     <tr>
       <th>ind_effects</th>
       <td><p>a vector of the desired indirect effects. Has the form <code>"var1-var2"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>ci_type</th>
+      <td><p>a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.</p></td>
     </tr>
     <tr>
       <th>boot</th>

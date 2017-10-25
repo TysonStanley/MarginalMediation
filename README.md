@@ -33,13 +33,13 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
+#> furniture 1.7.2: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
 #> MarginalMediation 0.4.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
-
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
     home_meals ~ gender + age + asthma,
@@ -48,7 +48,7 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-
+#> 
 #> calculating a paths... b and c paths... Done.
                                                                                  
 #> ┌───────────────────────────────┐
@@ -64,15 +64,15 @@ mma(nhanes_2010,
 #> 
 #> ── Indirect Effects ── 
 #>                           A-path   B-path Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00351 0.02447
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00137
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00665 0.00568
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00382 0.02415
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00004 0.00151
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00584 0.00625
 #> 
 #> ── Direct Effects ── 
 #>                Direct    Lower   Upper
-#> genderFemale  0.10430  0.05070 0.16286
-#> age           0.00066 -0.00646 0.00766
-#> asthmaNo     -0.00172 -0.07477 0.06696
+#> genderFemale  0.10430  0.04849 0.15501
+#> age           0.00066 -0.00596 0.00752
+#> asthmaNo     -0.00172 -0.07863 0.07920
 #> ────
 ```
 
