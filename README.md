@@ -33,13 +33,13 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.7.2: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
 #> MarginalMediation 0.4.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
+
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
     home_meals ~ gender + age + asthma,
@@ -48,7 +48,7 @@ mma(nhanes_2010,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> 
+
 #> calculating a paths... b and c paths... Done.
                                                                                  
 #> ┌───────────────────────────────┐
