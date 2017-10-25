@@ -37,7 +37,7 @@ data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.3.4: This is beta software.
+#> MarginalMediation 0.4.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
 
 mma(nhanes_2010,
@@ -64,15 +64,15 @@ mma(nhanes_2010,
 #> 
 #> ── Indirect Effects ── 
 #>                           A-path   B-path Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00351 0.02489
-#> age-home_meals          -0.05689 -0.00972  0.00055  0.00000 0.00137
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00603 0.00605
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00351 0.02447
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00137
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00665 0.00568
 #> 
 #> ── Direct Effects ── 
 #>                Direct    Lower   Upper
-#> genderFemale  0.10329  0.04847 0.15486
-#> age           0.00066 -0.00607 0.00688
-#> asthmaNo     -0.00172 -0.06695 0.07229
+#> genderFemale  0.10430  0.05070 0.16286
+#> age           0.00066 -0.00646 0.00766
+#> asthmaNo     -0.00172 -0.07477 0.06696
 #> ────
 ```
 
