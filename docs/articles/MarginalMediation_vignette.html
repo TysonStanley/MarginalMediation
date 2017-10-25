@@ -64,7 +64,7 @@
     <div class="page-header toc-ignore">
       <h1>Marginal Mediation</h1>
             
-            <h4 class="date">2017-09-18</h4>
+            <h4 class="date">2017-10-25</h4>
           </div>
 
     
@@ -105,28 +105,29 @@
 <pre><code>## 
 ## calculating a paths... b and c paths... Done.
                                                                                  </code></pre>
-<pre><code>## -----
-## Marginal Mediation Analysis - mma()
-## 
+<pre><code>## ┌───────────────────────────────┐
+## │  Marginal Mediation Analysis  │
+## └───────────────────────────────┘
 ## A marginal mediation model with:
 ##    1 mediators
-##    5 indirect effects
+##    3 indirect effects
 ##    3 direct effects
 ##    500 bootstrapped samples
 ##    95% confidence interval
+##    n = 1417 
 ## 
-## -- Indirect Effect(s) --
-##                            Apath    Bpath Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00453 0.02398
-## age-home_meals          -0.05689 -0.00972  0.00055 -0.00003 0.00141
-## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00573 0.00634
+## ── Indirect Effects ── 
+##                           A-path   B-path Indirect    Lower   Upper
+## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00368 0.02368
+## age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00137
+## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00694 0.00654
 ## 
-## -- Direct Effect(s) --
+## ── Direct Effects ── 
 ##                Direct    Lower   Upper
-## genderFemale  0.10329  0.04798 0.15178
-## age           0.00066 -0.00645 0.00803
-## asthmaNo     -0.00172 -0.08013 0.06776
-## -----</code></pre>
+## genderFemale  0.10430  0.04435 0.16060
+## age           0.00066 -0.00673 0.00748
+## asthmaNo     -0.00172 -0.07196 0.07162
+## ────</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
 <li>the <code>a</code> path,</li>
@@ -140,26 +141,24 @@
 <h3 class="hasAnchor">
 <a href="#frames" class="anchor"></a><code><a href="../reference/frames.html">frames()</a></code>
 </h3>
-<p>This function provides the average marginal effects of a GLM model’s parameters.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit =<span class="st"> </span><span class="kw">glm</span>(marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, <span class="dt">data =</span> nhanes_<span class="dv">2010</span>, <span class="dt">family =</span> <span class="st">"binomial"</span>)
-<span class="kw"><a href="../reference/frames.html">frames</a></span>(fit, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
-<pre><code>## --- 
-##  Average Marginal Effects 
-##                  AME   Lower   Upper
-## (Intercept)  -0.0943 -0.2927  0.1119
-## home_meals   -0.0097 -0.0167 -0.0034
-## genderFemale  0.1033  0.0504  0.1601
-## age           0.0007 -0.0068  0.0083
-## asthmaNo     -0.0017 -0.0656  0.0701</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit2 =<span class="st"> </span><span class="kw">glm</span>(home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, <span class="dt">data =</span> nhanes_<span class="dv">2010</span>)
-<span class="kw"><a href="../reference/frames.html">frames</a></span>(fit2, <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
-<pre><code>## --- 
-##  Average Marginal Effects 
-##                  AME   Lower   Upper
-## (Intercept)   6.5688  4.8857  8.1823
-## genderFemale -1.3483 -1.8560 -0.9059
-## age          -0.0569 -0.1163  0.0089
-## asthmaNo     -0.0043 -0.5974  0.5748</code></pre>
+<p>This function provides the average marginal effects of a GLM model’s parameters. Its syntax is similar to that of <code><a href="../reference/mma.html">mma()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/frames.html">frames</a></span>(nhanes_<span class="dv">2010</span>, 
+       marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
+       <span class="dt">family =</span> binomial, 
+       <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
+<pre><code>## 
+## Bootstrapping...Done.
+                                                                                 </code></pre>
+<pre><code>## ┌────────────────────────────┐
+## │  Average Marginal Effects  │
+## └────────────────────────────┘
+## 
+##              Estimate   Lower   Upper
+## home_meals    -0.0097 -0.0162 -0.0026
+## genderFemale   0.1043  0.0495  0.1581
+## age            0.0007 -0.0057  0.0074
+## asthmaNo      -0.0017 -0.0606  0.0662
+## ────</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)
 <span class="kw">library</span>(margins)
