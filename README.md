@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Build Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-MarginalMediation: 0.4.1 <img src="man/figures/mma_hex.png" align="right" />
+MarginalMediation: 0.4.1 <img src="man/figures/mma_hex.jpg" align="right" />
 ============================================================================
 
 The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
@@ -64,15 +64,15 @@ mma(nhanes_2010,
 #> 
 #> ── Indirect Effects ── 
 #>                           A-path   B-path Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00310 0.02386
-#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00002 0.00138
-#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00648 0.00596
+#> genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00393 0.02428
+#> age-home_meals          -0.05689 -0.00972  0.00055 -0.00006 0.00147
+#> asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00609 0.00725
 #> 
 #> ── Direct Effects ── 
 #>                Direct    Lower   Upper
-#> genderFemale  0.10430  0.05406 0.15584
-#> age           0.00066 -0.00643 0.00852
-#> asthmaNo     -0.00172 -0.06324 0.06388
+#> genderFemale  0.10430  0.05100 0.16106
+#> age           0.00066 -0.00688 0.00822
+#> asthmaNo     -0.00172 -0.07340 0.07632
 #> ────
 ```
 
