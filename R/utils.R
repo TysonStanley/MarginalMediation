@@ -15,7 +15,7 @@ pdfed = function(model){
   
   aveMarg = vector("numeric", 0L)
   for (i in seq_along(coefs)){
-    d = data[[coefs[i]]]
+    d = eval(parse(text = coefs[i]), data)
     
     if (is.numeric(d)){
       ## Derivatives
