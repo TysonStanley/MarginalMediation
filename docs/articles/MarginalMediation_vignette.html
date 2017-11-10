@@ -64,7 +64,7 @@
     <div class="page-header toc-ignore">
       <h1>Marginal Mediation</h1>
             
-            <h4 class="date">2017-10-25</h4>
+            <h4 class="date">2017-11-10</h4>
           </div>
 
     
@@ -118,15 +118,15 @@
 ## 
 ## ── Indirect Effects ── 
 ##                           A-path   B-path Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00368 0.02368
-## age-home_meals          -0.05689 -0.00972  0.00055 -0.00001 0.00137
-## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00694 0.00654
+## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00453 0.02297
+## age-home_meals          -0.05689 -0.00972  0.00055 -0.00007 0.00133
+## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00628 0.00707
 ## 
 ## ── Direct Effects ── 
 ##                Direct    Lower   Upper
-## genderFemale  0.10430  0.04435 0.16060
-## age           0.00066 -0.00673 0.00748
-## asthmaNo     -0.00172 -0.07196 0.07162
+## genderFemale  0.10430  0.05271 0.15492
+## age           0.00066 -0.00665 0.00724
+## asthmaNo     -0.00172 -0.07494 0.07840
 ## ────</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
@@ -154,10 +154,10 @@
 ## └────────────────────────────┘
 ## 
 ##              Estimate   Lower   Upper
-## home_meals    -0.0097 -0.0162 -0.0026
-## genderFemale   0.1043  0.0495  0.1581
-## age            0.0007 -0.0057  0.0074
-## asthmaNo      -0.0017 -0.0606  0.0662
+## home_meals    -0.0097 -0.0169 -0.0035
+## genderFemale   0.1043  0.0487  0.1545
+## age            0.0007 -0.0066  0.0068
+## asthmaNo      -0.0017 -0.0859  0.0703
 ## ────</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)

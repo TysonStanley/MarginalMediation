@@ -68,9 +68,10 @@
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<div id="marginal-mediation" class="section level1">
+<div id="marginalmediation-0-4-1" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#marginal-mediation" class="anchor"></a>Marginal Mediation</h1></div>
+<a href="#marginalmediation-0-4-1" class="anchor"></a>MarginalMediation: 0.4.1 <img src="reference/figures/mma_hex.jpg" align="right">
+</h1></div>
 <p>The <code>MarginalMediation</code> package provides the ability to perform <strong>marginal mediation analysis</strong>. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).</p>
 <p>You can install it via:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"tysonstanley/MarginalMediation"</span>)</code></pre></div>
@@ -92,7 +93,7 @@
 
 ## The MarginalMediation package
 <span class="kw">library</span>(MarginalMediation)
-<span class="co">#&gt; MarginalMediation 0.4.0: This is beta software.</span>
+<span class="co">#&gt; MarginalMediation 0.4.1: This is beta software.</span>
 <span class="co">#&gt; Please report any bugs (t.barrett@aggiemail.usu.edu).</span>
 <span class="kw"><a href="reference/mma.html">mma</a></span>(nhanes_<span class="dv">2010</span>,
     marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
@@ -118,15 +119,15 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Indirect Effects ── </span>
 <span class="co">#&gt;                           A-path   B-path Indirect    Lower   Upper</span>
-<span class="co">#&gt; genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00327 0.02404</span>
-<span class="co">#&gt; age-home_meals          -0.05689 -0.00972  0.00055 -0.00002 0.00139</span>
-<span class="co">#&gt; asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00650 0.00669</span>
+<span class="co">#&gt; genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00428 0.02557</span>
+<span class="co">#&gt; age-home_meals          -0.05689 -0.00972  0.00055  0.00003 0.00139</span>
+<span class="co">#&gt; asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00638 0.00671</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ── Direct Effects ── </span>
 <span class="co">#&gt;                Direct    Lower   Upper</span>
-<span class="co">#&gt; genderFemale  0.10430  0.05167 0.15880</span>
-<span class="co">#&gt; age           0.00066 -0.00570 0.00736</span>
-<span class="co">#&gt; asthmaNo     -0.00172 -0.06980 0.05857</span>
+<span class="co">#&gt; genderFemale  0.10430  0.04813 0.15967</span>
+<span class="co">#&gt; age           0.00066 -0.00602 0.00847</span>
+<span class="co">#&gt; asthmaNo     -0.00172 -0.06947 0.07061</span>
 <span class="co">#&gt; ────</span></code></pre></div>
 <p>The print method provides:</p>
 <ol style="list-style-type: decimal">

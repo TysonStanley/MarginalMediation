@@ -38,7 +38,7 @@ data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.4.0: This is beta software.
+#> MarginalMediation 0.4.1: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
 mma(nhanes_2010,
     marijuana ~ home_meals + gender + age + asthma,
