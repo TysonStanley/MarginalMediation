@@ -2,16 +2,16 @@
 % Please edit documentation in R/comps.R
 \name{rel_effects}
 \alias{rel_effects}
-\title{Indirect vs Direct Comparison}
+\title{Indirect Effect vs Total Effect}
 \usage{
-rel_effects(model, variable)
+rel_effects(model, effect)
 }
 \arguments{
 \item{model}{mma fit object}
 
-\item{variable}{the variable in the model that is to be compared}
+\item{effect}{the indirect effect to be compared to its direct path}
 }
 \description{
 To make comparisons between indirect and direct effects of a variable.
-The default comparison is indirect / direct.
+The default comparison is indirect / (direct + indirect)
 }
