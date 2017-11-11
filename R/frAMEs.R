@@ -3,9 +3,7 @@
 #' @description Provides the average marginal effects of a GLM model with 
 #' bootstrapped confidence intervals.
 #' 
-#' @param data the data frame containing the variables for the model
-#' @param formula the model formula
-#' @param family the family of the glm (e.g., binomial, poisson)
+#' @param model the model object
 #' @param ci_type the type of boostrapped confidence interval; options are "perc", "basic", "bca"
 #' @param boot the number of bootstrapped samples; default is 100
 #' @param ci the confidence interval; the default is .975 which is the 95\% confidence interval.
@@ -20,9 +18,9 @@
 #' @import stats
 #' 
 #' @export
-frames = function(data, formula, family, ci_type = "perc", boot=100, ci=.95){
-  data = data.frame(data)
-  forms = formula
+frames = function(model, ci_type = "perc", boot=100, ci=.95){
+  data = model$data
+  forms = model$formula
   
   ## checks
   .call = match.call()
@@ -34,8 +32,7 @@ frames = function(data, formula, family, ci_type = "perc", boot=100, ci=.95){
   booted = boot(data = data, 
                 statistic = .run_mod, 
                 R = boot, 
-                formula = forms,
-                family = family)
+                model = model)
   
   cat('Done.')
   

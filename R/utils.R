@@ -47,36 +47,25 @@ pdfed = function(model){
 }
 
 ## function to bootstrap
-.run_mod = function(data, indices, formula, family){
-  data[indices, ] %>%
-    glm(formula, family = family, data = .) %>% 
+.run_mod = function(data, indices, model){
+  model$call["data"] = parse(text = "data[indices, ]")
+  eval(model$call) %>% 
     pdfed
 }
 
 ## checks
-.family_checker = function(family){
-  j = 0
-  fam = list()
-  for (i in family){
-    j = j + 1
-    fam[[j]] = i()$link
-    fam = unlist(fam)
-  }
-  if(!all(fam %in% c("probit", "logit", "log", "identity"))){
-    stop("The link function must be probit, logit, log, or idenitity.")
-  }
+.is_glm = function(model){
+  class(model)[1] == "glm"
 }
-
-.arg_checker = function(...){
-  j = 0
-  arg = list()
-  for (i in c(...)){
-    j = j + 1
-    arg[[j]] = inherits(i, "formula")
-    arg = unlist(arg)
-  }
-  if(!all(arg)){
-    stop("The ... (ellipses) must be formulas.")
+.is_lm = function(model){
+  class(model)[1] == "lm"
+}
+.is_svyglm = function(model){
+  class(model)[1] == "svyglm"
+}
+.model_checker = function(models){
+  if (!all(unlist(lapply(models, function(x) .is_glm(x) | .is_lm(x) | .is_svyglm(x))))){
+    stop("All models must be either glm, lm, or svyglm types")
   }
 }
 

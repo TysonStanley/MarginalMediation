@@ -1,6 +1,6 @@
 Package: MarginalMediation
 Title: Marginal Mediation
-Version: 0.4.1
+Version: 0.4.2
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
 Description: The package provides the ability to perform "Marginal Mediation"--mediation
    wherein the indirect and direct effects is in terms of the average marginal effects (Bartus, 2005). 

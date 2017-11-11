@@ -6,9 +6,7 @@
 #' The results provide the average marginal effects of the models, providing simple
 #' interpretation of the indirect effects.
 #' 
-#' @param data the data frame with the data for the models
-#' @param ... formulas for the models; the first is the model with the outcome while the others are the mediated effects ("a" paths)
-#' @param family the vector of the families of the model. Either \code{binomial} for binary outcomes or \code{gaussian} for continuous. Needs to have a length equal to the number of models.
+#' @param ... the glm model objects; the first is the model with the outcome while the others are the mediated effects ("a" paths)
 #' @param ind_effects a vector of the desired indirect effects. Has the form \code{"var1-var2"}.
 #' @param ci_type a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.
 #' @param boot the number of bootstrapped samples; default is 100
@@ -33,16 +31,16 @@
 #' \dontrun{
 #' library(furniture)
 #' data(nhanes_2010)
-#' (fit = mma(nhanes_2010,
-#'            marijuana ~ home_meals + gender + age + asthma,
-#'            home_meals ~ gender + age + asthma,
-#'            age ~ gender + asthma,
-#'            family = c(binomial, gaussian, gaussian),
+#' fit1 = glm(marijuana ~ home_meals + gender + age + asthma, 
+#'            data = nhanes_2010, 
+#'            family = "binomial")
+#' fit2 = glm(home_meals ~ gender + age + asthma,
+#'            data = nhanes_2010, 
+#'            family = "gaussian")
+#' (fit = mma(fit1, fit2, 
 #'            ind_effects = c("genderFemale-home_meals",
 #'                            "age-home_meals",
-#'                            "asthmaNo-home_meals",
-#'                            "genderFemale-age",
-#'                            "asthmaNo-age"),
+#'                            "asthmaNo-home_meals"),
 #'            boot = 500))
 #' }
 #' 
@@ -54,14 +52,14 @@
 #' @import boot
 #' 
 #' @export
-mma = function(data, ..., family, ind_effects, ci_type = "perc", boot=100, ci=.95){
-  data = data.frame(data)
-  forms = list(...)
+mma = function(..., ind_effects, ci_type = "perc", boot=100, ci=.95){
+  models = list(...)
+  data = models[[1]]$data
+  forms = lapply(models, function(x) x$formula)
   
   ## checks
   .call = match.call()
-  .family_checker(family)
-  .arg_checker(...)
+  .model_checker(models)
   .boot_checker(boot)
   .ind_checker(ind_effects, forms)
   .ci_checker(ci)
@@ -73,17 +71,14 @@ mma = function(data, ..., family, ind_effects, ci_type = "perc", boot=100, ci=.9
     boot(data = data, 
          statistic = .run_mod, 
          R = boot, 
-         formula = forms[[i]],
-         family = family[[i]])
+         model = models[[i]])
   })
   
   cat('b and c paths... ')
-  bootfit_b = boot(data = data, 
-                   statistic = .run_mod, 
-                   R = boot, 
-                   formula = forms[[1]],
-                   family = family[[1]])
-  
+  bootfit_b = boot(data,
+                   statistic = .run_mod,
+                   R = boot,
+                   model = models[[1]])
   cat('Done.')
   
   nams = list()

@@ -4,15 +4,10 @@
 \alias{mma}
 \title{Marginal Mediation}
 \usage{
-mma(data, ..., family, ind_effects, ci_type = "perc", boot = 100,
-  ci = 0.95)
+mma(..., ind_effects, ci_type = "perc", boot = 100, ci = 0.95)
 }
 \arguments{
-\item{data}{the data frame with the data for the models}
-
-\item{...}{formulas for the models; the first is the model with the outcome while the others are the mediated effects ("a" paths)}
-
-\item{family}{the vector of the families of the model. Either \code{binomial} for binary outcomes or \code{gaussian} for continuous. Needs to have a length equal to the number of models.}
+\item{...}{the glm model objects; the first is the model with the outcome while the others are the mediated effects ("a" paths)}
 
 \item{ind_effects}{a vector of the desired indirect effects. Has the form \code{"var1-var2"}.}
 
@@ -49,16 +44,16 @@ in their original units (continuous outcomes).
 \dontrun{
 library(furniture)
 data(nhanes_2010)
-(fit = mma(nhanes_2010,
-           marijuana ~ home_meals + gender + age + asthma,
-           home_meals ~ gender + age + asthma,
-           age ~ gender + asthma,
-           family = c(binomial, gaussian, gaussian),
+fit1 = glm(marijuana ~ home_meals + gender + age + asthma, 
+           data = nhanes_2010, 
+           family = "binomial")
+fit2 = glm(home_meals ~ gender + age + asthma,
+           data = nhanes_2010, 
+           family = "gaussian")
+(fit = mma(fit1, fit2, 
            ind_effects = c("genderFemale-home_meals",
                            "age-home_meals",
-                           "asthmaNo-home_meals",
-                           "genderFemale-age",
-                           "asthmaNo-age"),
+                           "asthmaNo-home_meals"),
            boot = 500))
 }
 
