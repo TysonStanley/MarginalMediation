@@ -16,13 +16,11 @@ devtools::install_github("tysonstanley/MarginalMediation")
 The main function is `mma()`:
 
 ``` r
-mma(data,
-    ...,
-    family = c("model1", "model2"),
+mma(...,
     ind_effects = c("apath-bpath"))
 ```
 
-where `...` consists of 2 or more formulas. The first is the `b` and `c'` path model, while the others are the `a` path models.
+where `...` consists of 2 or more model objects. The first is the `b` and `c'` path model, while the others are the `a` path models.
 
 The `ind_effects` is a vector of requested mediated paths. These estimates are in terms of the average marginal effects using the `a x b` method of estimating indirect paths. Any number of these can be included, although it is limited to the number of variables available in the models.
 
@@ -33,24 +31,27 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.7.2: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.4.1: This is beta software.
+#> MarginalMediation 0.4.2: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
-mma(nhanes_2010,
-    marijuana ~ home_meals + gender + age + asthma,
-    home_meals ~ gender + age + asthma,
-    family = c(binomial, gaussian),
+
+pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
+           data = nhanes_2010, 
+           family = "binomial")
+patha = glm(home_meals ~ gender + age + asthma,
+           data = nhanes_2010, 
+           family = "gaussian")
+mma(pathbc, patha,
     ind_effects = c("genderFemale-home_meals",
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> 
+ 
 #> calculating a paths... b and c paths... Done.
-                                                                                 
+#>                                                                                
 #> ┌───────────────────────────────┐
 #> │  Marginal Mediation Analysis  │
 #> └───────────────────────────────┘

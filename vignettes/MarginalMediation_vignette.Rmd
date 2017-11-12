@@ -35,13 +35,13 @@ names(nhanes_2010)
 This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.
 
 ```{r}
-fit1 = glm(marijuana ~ home_meals + gender + age + asthma, 
+pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
            data = nhanes_2010, 
            family = "binomial")
-fit2 = glm(home_meals ~ gender + age + asthma,
+patha = glm(home_meals ~ gender + age + asthma,
            data = nhanes_2010, 
            family = "gaussian")
-mma(fit1, fit2,
+mma(pathbc, patha,
     ind_effects = c("genderFemale-home_meals",
                     "age-home_meals",
                     "asthmaNo-home_meals"),
@@ -62,7 +62,7 @@ These estimates are all average marginal effects, meaning each are interpreted i
 This function provides the average marginal effects of a GLM model's parameters. Its syntax is similar to that of `mma()`.
 
 ```{r}
-frames(fit1,
+frames(pathbc,
        boot = 100)
 ```
 
@@ -70,8 +70,7 @@ We can compare these results to those from `margins` found at [https://github.co
 ```{r, eval=FALSE}
 devtools::install_github("leeper/margins")
 library(margins)
-summary(margins(fit))
-summary(margins(fit2))
+summary(margins(pathbc))
 ```
 The differences are mainly in the confidence intervals since they are based on two different methods. I highly recommend looking into both the delta method (as used in `margins` and Stata) as well as the bootstrapping method as used in `MarginalMediation`.
 

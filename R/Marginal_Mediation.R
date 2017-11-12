@@ -31,13 +31,13 @@
 #' \dontrun{
 #' library(furniture)
 #' data(nhanes_2010)
-#' fit1 = glm(marijuana ~ home_meals + gender + age + asthma, 
+#' bcpath = glm(marijuana ~ home_meals + gender + age + asthma, 
 #'            data = nhanes_2010, 
 #'            family = "binomial")
-#' fit2 = glm(home_meals ~ gender + age + asthma,
+#' apath = glm(home_meals ~ gender + age + asthma,
 #'            data = nhanes_2010, 
 #'            family = "gaussian")
-#' (fit = mma(fit1, fit2, 
+#' (fit = mma(bcpath, apath, 
 #'            ind_effects = c("genderFemale-home_meals",
 #'                            "age-home_meals",
 #'                            "asthmaNo-home_meals"),
