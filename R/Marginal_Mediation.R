@@ -64,6 +64,9 @@ mma = function(..., ind_effects, ci_type = "perc", boot=100, ci=.95){
   .ci_checker(ci)
   .var_checker(data, forms)
   
+  if (class(models[[1]])[1] == "svyglm" || class(models[[1]])[1] == "svyreg")
+    .run_mod = .run_mod_svy
+  
   ## Bootstrapped Samples and Statistics
   cat("\ncalculating a paths... ")
   bootfit_a = lapply(seq_along(forms)[-1], function(i) { 

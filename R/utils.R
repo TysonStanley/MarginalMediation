@@ -68,6 +68,13 @@ dydx_continuous = function(data, model, variable){
   eval(model$call) %>% 
     amed
 }
+.run_mod_svy = function(data, indices, model){
+  design = model$survey.design
+  design$call["data"] = parse(text = "data[indices, ]")
+  model$call["design"] = parse(text = "design")
+  eval(model$call) %>% 
+    amed
+}
 
 ## checks
 .boot_checker = function(boot){
