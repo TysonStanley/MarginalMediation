@@ -2,9 +2,9 @@
 
 S3method(print,frames)
 S3method(print,mma)
+export(amed)
 export(frames)
 export(mma)
-export(pdfed)
 export(rel_effects)
 import(boot)
 import(magrittr)

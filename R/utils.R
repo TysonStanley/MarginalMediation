@@ -1,13 +1,14 @@
-#' @title PDF of logistic, probit, and poisson models
+#' @title Average Marginal Effects
 #' @author Tyson S. Barrett
-#' @description Internal function for \code{mma()}. More functionality to be added later.
+#' @description Internal function for \code{mma()}. Based on the same strategy as 
+#' \code{margins} by T. Leeper.
 #' 
-#' @param model the model
+#' @param model the model object
 #' 
 #' @import stats
 #' 
 #' @export
-pdfed = function(model){
+amed = function(model){
   
   data   = model$data
   family = model$family
@@ -18,16 +19,8 @@ pdfed = function(model){
     d = eval(parse(text = coefs[i]), data)
     
     if (is.numeric(d)){
-      ## Derivatives
-      pdf  = ifelse(family[[2]]=="probit",
-                    mean(dnorm(predict(model, type = "link")), na.rm=TRUE),
-                    ifelse(family[[2]]=="logit", 
-                           mean(dlogis(predict(model, type = "link")), na.rm=TRUE),
-                           ifelse(family[[1]]=="poisson",
-                                  mean(model$y, na.rm=TRUE), 
-                                  ifelse(family[[2]]=="identity", 1, NA))))
       ## Average Marginal Effects
-      aveMarg[coefs[i]] = pdf*coef(model)[i+1]
+      aveMarg[coefs[i]] = dydx_continuous(data, model, coefs[i])
     } else if (is.factor(d) | is.character(d)) {
       ref   = levels(d)[1]
       levs  = levels(d)[-1]
@@ -46,11 +39,31 @@ pdfed = function(model){
   aveMarg
 }
 
+## continuous variable AME
+## see margins package by Leeper for more on this
+dydx_continuous = function(data, model, variable){
+  d0 = d1 = data
+  
+  setstep <- function(x) {
+    x + (max(abs(x), 1, na.rm = TRUE) * sqrt(1e-7)) - x
+  }
+  
+  d0[[variable]] <- d0[[variable]] - setstep(d0[[variable]])
+  d1[[variable]] <- d1[[variable]] + setstep(d1[[variable]])
+  
+  P0 = predict(model, newdata = d0, type = "resp")
+  P1 = predict(model, newdata = d1, type = "resp")
+  
+  out <- (P1 - P0) / (d1[[variable]] - d0[[variable]])
+  mean(out, na.rm=TRUE)
+}
+
+
 ## function to bootstrap
 .run_mod = function(data, indices, model){
   model$call["data"] = parse(text = "data[indices, ]")
   eval(model$call) %>% 
-    pdfed
+    amed
 }
 
 ## checks
