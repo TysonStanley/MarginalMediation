@@ -69,12 +69,12 @@ dydx_continuous = function(data, model, variable){
     amed
 }
 .run_mod_svy = function(data, indices, model){
-  design1 = model$survey.design$call
-  design1["data"] = parse(text = "data[indices, ]")
-  design = eval(design1)
-  class(design) = c("survey.design2", "survey.design")
-  model$call["design"] = parse(text = "design")
-  eval(model$call) %>% 
+  glm(formula = model$formula, 
+      data = model$data[indices, ], 
+      family = model$family, 
+      control = model$control,
+      weights = model$data$.survey.prob.weights[indices], 
+      contrasts = model$contrasts) %>% 
     amed
 }
 
