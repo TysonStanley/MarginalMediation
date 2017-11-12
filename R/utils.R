@@ -18,10 +18,13 @@ amed = function(model){
   for (i in seq_along(coefs)){
     d = eval(parse(text = coefs[i]), data)
     
+    if (is.character(d)) 
+      d = factor(d)
+    
     if (is.numeric(d)){
       ## Average Marginal Effects
       aveMarg[coefs[i]] = dydx_continuous(data, model, coefs[i])
-    } else if (is.factor(d) | is.character(d)) {
+    } else if (is.factor(d)) {
       ref   = levels(d)[1]
       levs  = levels(d)[-1]
       d0 = d1 = data
