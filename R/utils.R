@@ -67,21 +67,6 @@ dydx_continuous = function(data, model, variable){
 }
 
 ## checks
-.is_glm = function(model){
-  class(model)[1] == "glm"
-}
-.is_lm = function(model){
-  class(model)[1] == "lm"
-}
-.is_svyglm = function(model){
-  class(model)[1] == "svyglm"
-}
-.model_checker = function(models){
-  if (!all(unlist(lapply(models, function(x) .is_glm(x) | .is_lm(x) | .is_svyglm(x))))){
-    stop("All models must be either glm, lm, or svyglm types")
-  }
-}
-
 .boot_checker = function(boot){
   if(boot > 5000){
     cat("A bootstrap size above 5000 may take a long time to compute...")

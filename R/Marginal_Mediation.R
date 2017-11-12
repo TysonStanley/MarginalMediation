@@ -59,7 +59,6 @@ mma = function(..., ind_effects, ci_type = "perc", boot=100, ci=.95){
   
   ## checks
   .call = match.call()
-  .model_checker(models)
   .boot_checker(boot)
   .ind_checker(ind_effects, forms)
   .ci_checker(ci)
