@@ -98,23 +98,14 @@ The results provide the average marginal effects of the models, providing simple
 interpretation of the indirect effects.</p>
     
 
-    <pre class="usage"><span class='fu'>mma</span>(<span class='no'>data</span>, <span class='no'>...</span>, <span class='no'>family</span>, <span class='no'>ind_effects</span>, <span class='kw'>ci_type</span> <span class='kw'>=</span> <span class='st'>"perc"</span>, <span class='kw'>boot</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+    <pre class="usage"><span class='fu'>mma</span>(<span class='no'>...</span>, <span class='no'>ind_effects</span>, <span class='kw'>ci_type</span> <span class='kw'>=</span> <span class='st'>"perc"</span>, <span class='kw'>boot</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame with the data for the models</p></td>
-    </tr>
-    <tr>
       <th>...</th>
-      <td><p>formulas for the models; the first is the model with the outcome while the others are the mediated effects ("a" paths)</p></td>
-    </tr>
-    <tr>
-      <th>family</th>
-      <td><p>the vector of the families of the model. Either <code>binomial</code> for binary outcomes or <code>gaussian</code> for continuous. Needs to have a length equal to the number of models.</p></td>
+      <td><p>the glm model objects; the first is the model with the outcome while the others are the mediated effects ("a" paths)</p></td>
     </tr>
     <tr>
       <th>ind_effects</th>
@@ -163,16 +154,16 @@ The Stata Journal, 5(3), 309–329.</p>
     <pre class="examples"><span class='co'># NOT RUN {</span>
 <span class='fu'>library</span>(<span class='no'>furniture</span>)
 <span class='fu'>data</span>(<span class='no'>nhanes_2010</span>)
-(<span class='no'>fit</span> <span class='kw'>=</span> <span class='fu'>mma</span>(<span class='no'>nhanes_2010</span>,
-           <span class='no'>marijuana</span> ~ <span class='no'>home_meals</span> + <span class='no'>gender</span> + <span class='no'>age</span> + <span class='no'>asthma</span>,
-           <span class='no'>home_meals</span> ~ <span class='no'>gender</span> + <span class='no'>age</span> + <span class='no'>asthma</span>,
-           <span class='no'>age</span> ~ <span class='no'>gender</span> + <span class='no'>asthma</span>,
-           <span class='kw'>family</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='no'>binomial</span>, <span class='no'>gaussian</span>, <span class='no'>gaussian</span>),
+<span class='no'>bcpath</span> <span class='kw'>=</span> <span class='fu'>glm</span>(<span class='no'>marijuana</span> ~ <span class='no'>home_meals</span> + <span class='no'>gender</span> + <span class='no'>age</span> + <span class='no'>asthma</span>,
+           <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nhanes_2010</span>,
+           <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"binomial"</span>)
+<span class='no'>apath</span> <span class='kw'>=</span> <span class='fu'>glm</span>(<span class='no'>home_meals</span> ~ <span class='no'>gender</span> + <span class='no'>age</span> + <span class='no'>asthma</span>,
+           <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nhanes_2010</span>,
+           <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>)
+(<span class='no'>fit</span> <span class='kw'>=</span> <span class='fu'>mma</span>(<span class='no'>bcpath</span>, <span class='no'>apath</span>,
            <span class='kw'>ind_effects</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"genderFemale-home_meals"</span>,
                            <span class='st'>"age-home_meals"</span>,
-                           <span class='st'>"asthmaNo-home_meals"</span>,
-                           <span class='st'>"genderFemale-age"</span>,
-                           <span class='st'>"asthmaNo-age"</span>),
+                           <span class='st'>"asthmaNo-home_meals"</span>),
            <span class='kw'>boot</span> <span class='kw'>=</span> <span class='fl'>500</span>))
 <span class='co'># }</span><div class='input'>
 </div></pre>

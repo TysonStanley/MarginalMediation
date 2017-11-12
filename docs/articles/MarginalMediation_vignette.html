@@ -64,7 +64,7 @@
     <div class="page-header toc-ignore">
       <h1>Marginal Mediation</h1>
             
-            <h4 class="date">2017-11-10</h4>
+            <h4 class="date">2017-11-12</h4>
           </div>
 
     
@@ -94,10 +94,13 @@
 <a href="#mma" class="anchor"></a><code><a href="../reference/mma.html">mma()</a></code>
 </h3>
 <p>This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/mma.html">mma</a></span>(nhanes_<span class="dv">2010</span>,
-    marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
-    home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
-    <span class="dt">family =</span> <span class="kw">c</span>(binomial, gaussian),
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pathbc =<span class="st"> </span><span class="kw">glm</span>(marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, 
+           <span class="dt">data =</span> nhanes_<span class="dv">2010</span>, 
+           <span class="dt">family =</span> <span class="st">"binomial"</span>)
+patha =<span class="st"> </span><span class="kw">glm</span>(home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
+           <span class="dt">data =</span> nhanes_<span class="dv">2010</span>, 
+           <span class="dt">family =</span> <span class="st">"gaussian"</span>)
+<span class="kw"><a href="../reference/mma.html">mma</a></span>(pathbc, patha,
     <span class="dt">ind_effects =</span> <span class="kw">c</span>(<span class="st">"genderFemale-home_meals"</span>,
                     <span class="st">"age-home_meals"</span>,
                     <span class="st">"asthmaNo-home_meals"</span>),
@@ -118,15 +121,15 @@
 ## 
 ## ── Indirect Effects ── 
 ##                           A-path   B-path Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00972  0.01311  0.00453 0.02297
-## age-home_meals          -0.05689 -0.00972  0.00055 -0.00007 0.00133
-## asthmaNo-home_meals     -0.00428 -0.00972  0.00004 -0.00628 0.00707
+## genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00419 0.02651
+## age-home_meals          -0.05689 -0.00973  0.00055  0.00005 0.00138
+## asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00715 0.00597
 ## 
 ## ── Direct Effects ── 
 ##                Direct    Lower   Upper
-## genderFemale  0.10430  0.05271 0.15492
-## age           0.00066 -0.00665 0.00724
-## asthmaNo     -0.00172 -0.07494 0.07840
+## genderFemale  0.10430  0.04816 0.16087
+## age           0.00066 -0.00634 0.00749
+## asthmaNo     -0.00172 -0.07675 0.06687
 ## ────</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
@@ -142,9 +145,7 @@
 <a href="#frames" class="anchor"></a><code><a href="../reference/frames.html">frames()</a></code>
 </h3>
 <p>This function provides the average marginal effects of a GLM model’s parameters. Its syntax is similar to that of <code><a href="../reference/mma.html">mma()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/frames.html">frames</a></span>(nhanes_<span class="dv">2010</span>, 
-       marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,
-       <span class="dt">family =</span> binomial, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/frames.html">frames</a></span>(pathbc,
        <span class="dt">boot =</span> <span class="dv">100</span>)</code></pre></div>
 <pre><code>## 
 ## Bootstrapping...Done.
@@ -154,16 +155,15 @@
 ## └────────────────────────────┘
 ## 
 ##              Estimate   Lower   Upper
-## home_meals    -0.0097 -0.0169 -0.0035
-## genderFemale   0.1043  0.0487  0.1545
-## age            0.0007 -0.0066  0.0068
-## asthmaNo      -0.0017 -0.0859  0.0703
+## home_meals    -0.0097 -0.0158 -0.0031
+## genderFemale   0.1043  0.0467  0.1584
+## age            0.0007 -0.0066  0.0094
+## asthmaNo      -0.0017 -0.0778  0.0536
 ## ────</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)
 <span class="kw">library</span>(margins)
-<span class="kw">summary</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/margins/topics/margins">margins</a></span>(fit))
-<span class="kw">summary</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/margins/topics/margins">margins</a></span>(fit2))</code></pre></div>
+<span class="kw">summary</span>(<span class="kw"><a href="http://www.rdocumentation.org/packages/margins/topics/margins">margins</a></span>(pathbc))</code></pre></div>
 <p>The differences are mainly in the confidence intervals since they are based on two different methods. I highly recommend looking into both the delta method (as used in <code>margins</code> and Stata) as well as the bootstrapping method as used in <code>MarginalMediation</code>.</p>
 </div>
 <div id="conclusions" class="section level3">
