@@ -10,7 +10,7 @@
 #' @param ind_effects a vector of the desired indirect effects. Has the form \code{"var1-var2"}.
 #' @param ci_type a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.
 #' @param boot the number of bootstrapped samples; default is 100
-#' @param ci the confidence interval; the default is .975 which is the 95\% confidence interval.
+#' @param ci the confidence interval; the default is .95 which is the 95\% confidence interval.
 #' 
 #' @details Using the average marginal effects as discussed by Tamas Bartus (2005), 
 #' the coefficients are transformed into probabilities (for binary outcomes) or remain

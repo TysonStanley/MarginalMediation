@@ -69,11 +69,14 @@ dydx_continuous = function(data, model, variable){
     amed
 }
 .run_mod_svy = function(data, indices, model){
+  model = model
+  data  = model$data[indices, ]
+  data$weights = data$.survey.prob.weights
   glm(formula = model$formula, 
-      data = model$data[indices, ], 
+      data = data, 
       family = model$family, 
       control = model$control,
-      weights = model$data$.survey.prob.weights[indices], 
+      weights = weights, 
       contrasts = model$contrasts) %>% 
     amed
 }

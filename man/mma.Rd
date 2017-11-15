@@ -15,7 +15,7 @@ mma(..., ind_effects, ci_type = "perc", boot = 100, ci = 0.95)
 
 \item{boot}{the number of bootstrapped samples; default is 100}
 
-\item{ci}{the confidence interval; the default is .975 which is the 95\% confidence interval.}
+\item{ci}{the confidence interval; the default is .95 which is the 95\% confidence interval.}
 }
 \value{
 A list of class \code{mma} containing:
