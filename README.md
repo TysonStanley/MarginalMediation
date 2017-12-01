@@ -31,13 +31,13 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.7.2: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
 #> MarginalMediation 0.5.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
+
 pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
            data = nhanes_2010, 
            family = "binomial")
