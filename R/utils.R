@@ -185,4 +185,9 @@ perc.ci <- function(t, conf = 0.95, hinv = function(t) t){
   cbind(matrix(hinv(qq[,2]),ncol=2L))
 }
 
+## Other functions
+is.mma = function(x){
+  class(x)[1] == "mma"
+}
+
 

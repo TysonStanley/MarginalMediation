@@ -44,8 +44,12 @@
 #'            boot = 500))
 #' }
 #' 
-#' @references Bartus, T. (2005). Estimation of marginal effects using margeff. 
+#' @references 
+#' Bartus, T. (2005). Estimation of marginal effects using margeff. 
 #' The Stata Journal, 5(3), 309–329.
+#' 
+#' MacKinnon, D. (2008). Introduction to Statistical Mediation Analysis. 
+#' Taylor \& Francis, LLC.
 #' 
 #' @import stats
 #' @import magrittr
@@ -161,6 +165,14 @@ mma = function(..., ind_effects, ci_type = "perc", boot=100, ci=.95){
                         do.call("rbind", hi2))
   names(.ame_dir) = c("Direct", "Lower", "Upper")
   
+  ## Standardized Results
+  outcome = data[[paste(forms[[1]])[2]]]
+  if (is.factor(outcome)){
+    sigma_y = NA
+  } else {
+    sigma_y = sd(outcome, na.rm=TRUE)
+  }
+  
   final = structure(
     list("ind_effects"  = .ame_ind,
          "dir_effects"  = .ame_dir,
@@ -169,7 +181,8 @@ mma = function(..., ind_effects, ci_type = "perc", boot=100, ci=.95){
          "reported_ind" = ind_effects, 
          "boot"         = boot, 
          "model"        = forms,
-         "call"         = .call),
+         "call"         = .call,
+         "sigma_y"      = sigma_y),
     class = c("mma", "list")
   )
   cat('\r', rep(' ', 40), '\r')
@@ -177,7 +190,7 @@ mma = function(..., ind_effects, ci_type = "perc", boot=100, ci=.95){
 }
 
 #' @export
-print.mma = function(x, ...){
+print.mma = function(x, ..., all=TRUE){
   cat("\u250C", rep("\u2500", 31), "\u2510\n", sep = "")
   cat("\u2502", " Marginal Mediation Analysis ", "\u2502")
   cat("\n\u2514", rep("\u2500", 31), "\u2518\n", sep = "")
@@ -190,12 +203,32 @@ print.mma = function(x, ...){
   cat("   ", x$ci_level * 100, "% confidence interval\n", sep = "")
   cat("   n =", length(x$data[[1]]), "\n\n")
   
-  cat("\u2500\u2500", "Indirect Effects", "\u2500\u2500 \n")
+  cat("Formulas:\n")
+  cat("   \u25cc", paste(x$model, collapse = "\n   \u25cc "), "\n\n")
+  
+  cat(rep("\u250f", 1), "      Unstandardized Effects       ", rep("\u2513", 1), "\n", sep = "")
+  cat("\u2517  In the outcome's original units  \u251b \n\n")
+  cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")
   print.data.frame(round(x$ind_effects, 5), ...)
   
-  cat("\n\u2500\u2500", "Direct Effects", "\u2500\u2500 \n")
+  cat("\n\u2500\u2500", " Direct Effects ", rep("\u2500", 2), "\n", sep = "")
   print.data.frame(round(x$dir_effects, 5), ...)
-  cat(rep("\u2500", 4), "\n", sep = "")
+  
+  if (all & !is.na(x$sigma_y)){
+    cat("\n\n")
+    sigma_y = x$sigma_y
+    cat(rep("\u250f", 1), "            Standardized Effects             ", rep("\u2513", 1), "\n", sep = "")
+    cat("\u2517  In the outcome's standard deviation units  \u251b\n\n")
+    
+    std_ind = x$ind_effects[,3:5]/sigma_y
+    cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")
+    print.data.frame(round(std_ind, 5))
+    
+    std_dir = x$dir_effects/sigma_y
+    cat("\n\u2500\u2500", " Direct Effects ", rep("\u2500", 2), "\n", sep = "")
+    print.data.frame(round(std_dir, 5))
+  }
+  cat("-----")
 }
 
 
