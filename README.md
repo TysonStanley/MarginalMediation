@@ -67,9 +67,8 @@ mma(pathbc, patha,
 #>    ◌ marijuana ~ home_meals + gender + age + asthma
 #>    ◌ home_meals ~ gender + age + asthma 
 #> 
-#> ┏      Unstandardized Effects       ┓
-#> ┗  In the outcome's original units  ┛ 
-#> 
+#> Unstandardized Effects
+#> ▔▔▔▔▔▔▔▔▔▔▔▔▔
 #> ── Indirect Effects ──
 #>                           A-path   B-path Indirect    Lower   Upper
 #> genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00429 0.02562

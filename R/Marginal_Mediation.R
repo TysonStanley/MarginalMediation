@@ -207,7 +207,7 @@ print.mma = function(x, ..., all=TRUE){
   cat("   \u25cc", paste(x$model, collapse = "\n   \u25cc "), "\n\n")
   
   cat("Unstandardized Effects", "\n", sep = "")
-  cat(rep("\u2594", 13), "\n", sep = "")
+  cat(rep("\u23ba", 22), "\n", sep = "")
   cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")
   print.data.frame(round(x$ind_effects, 5), ...)
   
@@ -218,7 +218,7 @@ print.mma = function(x, ..., all=TRUE){
     cat("\n\n")
     sigma_y = x$sigma_y
     cat("Standardized Effects", "\n", sep = "")
-    cat(rep("\u2594", 12), "\n", sep = "")
+    cat(rep("\u23ba", 19), "\n", sep = "")
     
     std_ind = x$ind_effects[,3:5]/sigma_y
     cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")
