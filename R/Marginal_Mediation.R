@@ -218,7 +218,7 @@ print.mma = function(x, ..., all=TRUE){
     cat("\n\n")
     sigma_y = x$sigma_y
     cat("Standardized Effects", "\n", sep = "")
-    cat(rep("\u23ba", 19), "\n", sep = "")
+    cat(rep("\u23ba", 20), "\n", sep = "")
     
     std_ind = x$ind_effects[,3:5]/sigma_y
     cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")

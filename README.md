@@ -31,13 +31,12 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.7.2: learn more at tysonbarrett.com
 data(nhanes_2010)
 
-## The MarginalMediation package
 library(MarginalMediation)
 #> MarginalMediation 0.5.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
+
 pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
            data = nhanes_2010, 
            family = "binomial")
@@ -49,7 +48,7 @@ mma(pathbc, patha,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> 
+
 #> calculating a paths... b and c paths... Done.
                                                                                  
 #> ┌───────────────────────────────┐
@@ -68,7 +67,7 @@ mma(pathbc, patha,
 #>    ◌ home_meals ~ gender + age + asthma 
 #> 
 #> Unstandardized Effects
-#> ▔▔▔▔▔▔▔▔▔▔▔▔▔
+#> ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺
 #> ── Indirect Effects ──
 #>                           A-path   B-path Indirect    Lower   Upper
 #> genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00429 0.02562
