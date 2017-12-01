@@ -127,15 +127,15 @@ patha =<span class="st"> </span><span class="kw">glm</span>(home_meals <span cla
 ## ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺
 ## ── Indirect Effects ──
 ##                           A-path   B-path Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00446 0.02471
-## age-home_meals          -0.05689 -0.00973  0.00055 -0.00003 0.00140
-## asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00737 0.00633
+## genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00415 0.02574
+## age-home_meals          -0.05689 -0.00973  0.00055  0.00003 0.00145
+## asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00599 0.00603
 ## 
 ## ── Direct Effects ──
 ##                Direct    Lower   Upper
-## genderFemale  0.10430  0.05069 0.15662
-## age           0.00066 -0.00634 0.00821
-## asthmaNo     -0.00172 -0.07493 0.06609
+## genderFemale  0.10430  0.04985 0.16172
+## age           0.00066 -0.00619 0.00714
+## asthmaNo     -0.00172 -0.06956 0.07389
 ## -----</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
@@ -161,10 +161,10 @@ patha =<span class="st"> </span><span class="kw">glm</span>(home_meals <span cla
 ## └────────────────────────────┘
 ## 
 ##              Estimate   Lower   Upper
-## home_meals    -0.0097 -0.0160 -0.0035
-## genderFemale   0.1043  0.0464  0.1676
-## age            0.0007 -0.0070  0.0084
-## asthmaNo      -0.0017 -0.0756  0.0597
+## home_meals    -0.0097 -0.0161 -0.0025
+## genderFemale   0.1043  0.0606  0.1554
+## age            0.0007 -0.0067  0.0077
+## asthmaNo      -0.0017 -0.0983  0.0742
 ## ────</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)
