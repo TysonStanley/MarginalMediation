@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Build Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-MarginalMediation: 0.4.2 <img src="man/figures/mma_hex.jpg" align="right" />
+MarginalMediation: 0.5.0 <img src="man/figures/mma_hex.jpg" align="right" />
 ============================================================================
 
 The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
@@ -36,7 +36,7 @@ data(nhanes_2010)
 
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.4.2: This is beta software.
+#> MarginalMediation 0.5.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
 pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
            data = nhanes_2010, 
@@ -49,7 +49,7 @@ mma(pathbc, patha,
                     "age-home_meals",
                     "asthmaNo-home_meals"),
     boot = 500)
-#> 
+
 #> calculating a paths... b and c paths... Done.
                                                                                  
 #> ┌───────────────────────────────┐
@@ -63,18 +63,25 @@ mma(pathbc, patha,
 #>    95% confidence interval
 #>    n = 1417 
 #> 
-#> ── Indirect Effects ── 
+#> Formulas:
+#>    ◌ marijuana ~ home_meals + gender + age + asthma
+#>    ◌ home_meals ~ gender + age + asthma 
+#> 
+#> ┏      Unstandardized Effects       ┓
+#> ┗  In the outcome's original units  ┛ 
+#> 
+#> ── Indirect Effects ──
 #>                           A-path   B-path Indirect    Lower   Upper
 #> genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00429 0.02562
 #> age-home_meals          -0.05689 -0.00973  0.00055  0.00003 0.00139
 #> asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00639 0.00672
 #> 
-#> ── Direct Effects ── 
+#> ── Direct Effects ──
 #>                Direct    Lower   Upper
 #> genderFemale  0.10430  0.04813 0.15967
 #> age           0.00066 -0.00603 0.00848
 #> asthmaNo     -0.00172 -0.06947 0.07061
-#> ────
+#> -----
 ```
 
 The print method provides:
