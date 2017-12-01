@@ -64,7 +64,7 @@
     <div class="page-header toc-ignore">
       <h1>Marginal Mediation</h1>
             
-            <h4 class="date">2017-11-12</h4>
+            <h4 class="date">2017-12-01</h4>
           </div>
 
     
@@ -119,18 +119,25 @@ patha =<span class="st"> </span><span class="kw">glm</span>(home_meals <span cla
 ##    95% confidence interval
 ##    n = 1417 
 ## 
-## ── Indirect Effects ── 
-##                           A-path   B-path Indirect    Lower   Upper
-## genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00418 0.02391
-## age-home_meals          -0.05689 -0.00973  0.00055 -0.00001 0.00128
-## asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00709 0.00701
+## Formulas:
+##    ◌ marijuana ~ home_meals + gender + age + asthma
+##    ◌ home_meals ~ gender + age + asthma 
 ## 
-## ── Direct Effects ── 
+## ┏      Unstandardized Effects       ┓
+## ┗  In the outcome's original units  ┛ 
+## 
+## ── Indirect Effects ──
+##                           A-path   B-path Indirect    Lower   Upper
+## genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00406 0.02587
+## age-home_meals          -0.05689 -0.00973  0.00055 -0.00005 0.00135
+## asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00756 0.00669
+## 
+## ── Direct Effects ──
 ##                Direct    Lower   Upper
-## genderFemale  0.10430  0.04593 0.16338
-## age           0.00066 -0.00656 0.00734
-## asthmaNo     -0.00172 -0.08070 0.06886
-## ────</code></pre>
+## genderFemale  0.10430  0.04883 0.16625
+## age           0.00066 -0.00638 0.00778
+## asthmaNo     -0.00172 -0.07886 0.07164
+## -----</code></pre>
 <p>The output is simple, with:</p>
 <ol style="list-style-type: decimal">
 <li>the <code>a</code> path,</li>
@@ -155,10 +162,10 @@ patha =<span class="st"> </span><span class="kw">glm</span>(home_meals <span cla
 ## └────────────────────────────┘
 ## 
 ##              Estimate   Lower   Upper
-## home_meals    -0.0097 -0.0170 -0.0029
-## genderFemale   0.1043  0.0628  0.1658
-## age            0.0007 -0.0073  0.0071
-## asthmaNo      -0.0017 -0.0797  0.0639
+## home_meals    -0.0097 -0.0168 -0.0037
+## genderFemale   0.1043  0.0461  0.1556
+## age            0.0007 -0.0064  0.0071
+## asthmaNo      -0.0017 -0.0778  0.0794
 ## ────</code></pre>
 <p>We can compare these results to those from <code>margins</code> found at <a href="https://github.com/leeper/margins" class="uri">https://github.com/leeper/margins</a> from Thomas Leeper. We won’t show them here, but the estimates are the same as those from the <code><a href="../reference/frames.html">frames()</a></code> function.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"leeper/margins"</span>)
