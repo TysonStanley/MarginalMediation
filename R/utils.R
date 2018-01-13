@@ -190,4 +190,12 @@ is.mma = function(x){
   class(x)[1] == "mma"
 }
 
+is.pos = function(x){
+  x > 0
+}
+
+is.neg = function(x){
+  x < 0
+}
+
 

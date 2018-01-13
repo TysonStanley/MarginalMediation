@@ -15,6 +15,11 @@ perc_med = function(model, effect){
   ind = model$ind_effects[effect, 3]
   dir = model$dir_effects[gsub("-.*$", "", effect), 1]
   
+  if ((is.pos(ind) & is.neg(dir)) | 
+      (is.neg(ind) & is.pos(dir))){
+    warning("The indirect and direct effects are of opposite signs.\nThere is not a meaningful percent of mediation here.", call. = FALSE)
+  }
+  
   val = ind/(dir + ind) * 100
   names(val) = effect
   val
