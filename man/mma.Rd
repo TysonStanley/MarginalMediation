@@ -4,7 +4,7 @@
 \alias{mma}
 \title{Marginal Mediation}
 \usage{
-mma(..., ind_effects, ci_type = "perc", boot = 100, ci = 0.95)
+mma(..., ind_effects, ci_type = "perc", boot = 500, ci = 0.95)
 }
 \arguments{
 \item{...}{the glm model objects; the first is the model with the outcome while the others are the mediated effects ("a" paths)}
@@ -13,7 +13,7 @@ mma(..., ind_effects, ci_type = "perc", boot = 100, ci = 0.95)
 
 \item{ci_type}{a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.}
 
-\item{boot}{the number of bootstrapped samples; default is 100}
+\item{boot}{the number of bootstrapped samples; default is 500}
 
 \item{ci}{the confidence interval; the default is .95 which is the 95\% confidence interval.}
 }

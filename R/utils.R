@@ -88,7 +88,8 @@ dydx_continuous = function(data, model, variable){
   }
 }
 
-.ind_checker = function(ind_effects, forms=NULL){
+#' @importFrom purrr map
+.ind_checker = function(ind_effects, models, forms=NULL){
   yesno = lapply(ind_effects, function(x) is.character(x) & grepl("-", x)) %>%
     unlist %>%
     all
@@ -97,10 +98,21 @@ dydx_continuous = function(data, model, variable){
          call. = FALSE)
   }
   
-  forms = lapply(paste(forms)[-1], function(x) paste(as.formula(x))[2]) %>% unlist
-  yesno2 = all(gsub("^.*\\-", "", ind_effects) %in% forms)
-  if (!yesno2){
-    stop("One of the ind_effects has a mediator listed that is not a mediator in the formulas.",
+  forms1 = purrr::map(forms, ~paste(.x)) %>%
+    purrr::map(~.x[2]) %>% unlist
+  yesno2 = gsub("^.*\\-", "", ind_effects) %in% forms1
+  if (!all(yesno2)){
+    mess = paste(paste(unique(gsub("^.*\\-", "", ind_effects)[!yesno2]), collapse = ", "), "is/are not mediators in the model")
+    stop(mess,
+         call. = FALSE)
+  }
+  
+  vars1 = purrr::map(models, ~names(.x$coefficients)) %>%
+    unlist %>% unique
+  yesno3 = gsub("\\-.*$", "", ind_effects) %in% vars1
+  if (!all(yesno3)){
+    mess = paste(paste(unique(gsub("\\-.*$", "", ind_effects)[!yesno3]), collapse = ", "), "is/are not predictors in the model")
+    stop(mess,
          call. = FALSE)
   }
 }
@@ -128,6 +140,11 @@ dydx_continuous = function(data, model, variable){
 
 
 `%>%` = magrittr::`%>%`
+
+
+
+
+
 
 
 

@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 [![Build Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-MarginalMediation: 0.5.0 <img src="man/figures/mma_hex.jpg" align="right" />
+MarginalMediation: 0.5.1 <img src="man/figures/mma_hex.jpg" align="right" />
 ============================================================================
 
 The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
@@ -31,7 +31,7 @@ Below is an example, where the theoretical backing of such a model is not very s
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.7.2: learn more at tysonbarrett.com
+#> furniture 1.7.6: learn more at tysonbarrett.com
 data(nhanes_2010)
 
 ## The MarginalMediation package
@@ -39,11 +39,11 @@ library(MarginalMediation)
 #> MarginalMediation 0.5.0: This is beta software.
 #> Please report any bugs (t.barrett@aggiemail.usu.edu).
 pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
-           data = nhanes_2010, 
-           family = "binomial")
+             data = nhanes_2010, 
+             family = "binomial")
 patha = glm(home_meals ~ gender + age + asthma,
-           data = nhanes_2010, 
-           family = "gaussian")
+            data = nhanes_2010, 
+            family = "gaussian")
 mma(pathbc, patha,
     ind_effects = c("genderFemale-home_meals",
                     "age-home_meals",
