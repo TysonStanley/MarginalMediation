@@ -3,9 +3,10 @@ Title: Marginal Mediation
 Version: 0.5.1
 Authors@R: person("Tyson", "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"))
 Description: The package provides the ability to perform "Marginal Mediation"--mediation
-   wherein the indirect and direct effects is in terms of the average marginal effects (Bartus, 2005). 
-   See <http://tysonbarrett.com/Dissertation> for more details on the method (peer reviewed articles
-   forthcoming). Note that any version less than 1.0.0 is considered beta.
+   wherein the indirect and direct effects is are terms of the average marginal effects (Bartus, 2005). 
+   This framework allows the use of categorical mediators and outcomes with little change in interpretation
+   from the continuous mediators/outcomes. See <http://tysonbarrett.com/Dissertation> for more details 
+   on the method (peer reviewed articles forthcoming). Note that any version less than 1.0.0 is considered beta.
 Imports: stats,
          magrittr,
          boot,
