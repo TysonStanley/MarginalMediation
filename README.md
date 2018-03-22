@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+
 [![CRAN](https://www.r-pkg.org/badges/version/MarginalMediation)](https://www.r-pkg.org/badges/version/MarginalMediation)
 [![Rdoc](http://www.rdocumentation.org/badges/version/MarginalMediation)](http://www.rdocumentation.org/packages/MarginalMediation)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)](https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)
 [![Build
 Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
-[![codecov](https://codecov.io/gh/tysonstanley/MarginalMediation/branch/master/graph/badge.svg)](https://codecov.io/gh/tysonstanley/MarginalMediation)
 
 # MarginalMediation: 0.5.1 <img src="man/figures/mma_hex.jpg" align="right" />
 
@@ -17,6 +17,12 @@ when the mediator(s) and/or outcome is binary or a count (other types of
 outcomes will be added).
 
 You can install it via:
+
+``` r
+install.packages("MarginalMediation")
+```
+
+or
 
 ``` r
 devtools::install_github("tysonstanley/MarginalMediation")
