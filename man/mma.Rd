@@ -41,7 +41,9 @@ the coefficients are transformed into probabilities (for binary outcomes) or rem
 in their original units (continuous outcomes).
 }
 \examples{
-\dontrun{
+
+## A minimal example:
+
 library(furniture)
 data(nhanes_2010)
 bcpath = glm(marijuana ~ home_meals + gender + age + asthma, 
@@ -54,8 +56,7 @@ apath = glm(home_meals ~ gender + age + asthma,
            ind_effects = c("genderFemale-home_meals",
                            "age-home_meals",
                            "asthmaNo-home_meals"),
-           boot = 500))
-}
+           boot = 10))
 
 }
 \references{

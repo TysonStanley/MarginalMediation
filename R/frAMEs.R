@@ -1,7 +1,8 @@
 #' @title Average Marginal Effects
 #' @author Tyson S. Barrett
 #' @description Provides the average marginal effects of a GLM model with 
-#' bootstrapped confidence intervals.
+#' bootstrapped confidence intervals. Similar results would be obtained from using
+#' \code{margins::margins()}.
 #' 
 #' @param model the model object
 #' @param ci_type the type of boostrapped confidence interval; options are "perc", "basic", "bca"
@@ -13,7 +14,17 @@
 #' in their original units (continuous outcomes).
 #' 
 #' @references Bartus, T. (2005). Estimation of marginal effects using margeff. 
-#' The Stata Journal, 5(3), 309–329.
+#' The Stata Journal, 5(3), 309–329. <https://EconPapers.repec.org/RePEc:tsj:stataj:v:5:y:2005:i:3:p:309-329>
+#' 
+#' @examples 
+#' 
+#' library(furniture)
+#' data(nhanes_2010)
+#' fit = glm(marijuana ~ home_meals + gender + age + asthma, 
+#'            data = nhanes_2010, 
+#'            family = "binomial")
+#' frames(fit)
+#' 
 #' 
 #' @import stats
 #' 

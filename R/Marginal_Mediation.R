@@ -28,7 +28,9 @@
 #' 
 #' 
 #' @examples
-#' \dontrun{
+#' 
+#' ## A minimal example:
+#' 
 #' library(furniture)
 #' data(nhanes_2010)
 #' bcpath = glm(marijuana ~ home_meals + gender + age + asthma, 
@@ -41,8 +43,7 @@
 #'            ind_effects = c("genderFemale-home_meals",
 #'                            "age-home_meals",
 #'                            "asthmaNo-home_meals"),
-#'            boot = 500))
-#' }
+#'            boot = 10))
 #' 
 #' @references 
 #' Bartus, T. (2005). Estimation of marginal effects using margeff. 

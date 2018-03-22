@@ -17,16 +17,28 @@ frames(model, ci_type = "perc", boot = 100, ci = 0.95)
 }
 \description{
 Provides the average marginal effects of a GLM model with 
-bootstrapped confidence intervals.
+bootstrapped confidence intervals. Similar results would be obtained from using
+\code{margins::margins()}.
 }
 \details{
 Using the average marginal effects as discussed by Tamas Bartus (2005), 
 the coefficients are transformed into probabilities (for binary outcomes) or remain
 in their original units (continuous outcomes).
 }
+\examples{
+
+library(furniture)
+data(nhanes_2010)
+fit = glm(marijuana ~ home_meals + gender + age + asthma, 
+           data = nhanes_2010, 
+           family = "binomial")
+frames(fit)
+
+
+}
 \references{
 Bartus, T. (2005). Estimation of marginal effects using margeff. 
-The Stata Journal, 5(3), 309–329.
+The Stata Journal, 5(3), 309–329. <https://EconPapers.repec.org/RePEc:tsj:stataj:v:5:y:2005:i:3:p:309-329>
 }
 \author{
 Tyson S. Barrett
