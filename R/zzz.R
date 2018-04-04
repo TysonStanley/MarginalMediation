@@ -1,5 +1,5 @@
 .onAttach <- function(libname = find.package("MarginalMediation"), pkgname = "MarginalMediation") {
-  packageStartupMessage("MarginalMediation 0.5.1: This is beta software.\nPlease report any bugs (t.barrett@aggiemail.usu.edu).")
+  packageStartupMessage("MarginalMediation 0.5.1: Please report any bugs (t.barrett@aggiemail.usu.edu).")
 }
 
 .onLoad <- function(libname = find.package("MarginalMediation"), pkgname = "MarginalMediation"){

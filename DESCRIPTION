@@ -12,7 +12,7 @@ Description: Provides the ability to perform "Marginal Mediation"--mediation
    (Bartus, 2005, <https://EconPapers.repec.org/RePEc:tsj:stataj:v:5:y:2005:i:3:p:309-329>). 
    This framework allows the use of categorical mediators and outcomes with little change in interpretation
    from the continuous mediators/outcomes. See <doi:10.13140/RG.2.2.18465.92001> for more details 
-   on the method (peer reviewed articles forthcoming). Note that any version less than 1.0.0 is considered beta.
+   on the method (peer reviewed articles forthcoming).
 Imports: stats,
          magrittr,
          boot,
