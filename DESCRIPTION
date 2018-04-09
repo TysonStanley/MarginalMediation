@@ -12,7 +12,7 @@ Authors@R: c(person(c("Tyson", "S"), "Barrett", email = "t.barrett@aggiemail.usu
 Description: Provides the ability to perform "Marginal Mediation"--mediation
    wherein the indirect and direct effects are in terms of the average marginal effects 
    (Bartus, 2005, <https://EconPapers.repec.org/RePEc:tsj:stataj:v:5:y:2005:i:3:p:309-329>). 
-   The style of the average marginal effects stems from Thomas Leeper's work on `margins`.
+   The style of the average marginal effects stems from Thomas Leeper's work on the "margins" package.
    This framework allows the use of categorical mediators and outcomes with little change in interpretation
    from the continuous mediators/outcomes. See <doi:10.13140/RG.2.2.18465.92001> for more details 
    on the method (peer reviewed articles forthcoming).
