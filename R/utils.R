@@ -14,6 +14,10 @@ amed = function(model){
   family = model$family
   coefs  = attr(model$terms, "term.labels")
   
+  if (class(data) == "environment"){
+    stop("GLM model must contain a data argument", call. = FALSE)
+  }
+  
   aveMarg = vector("numeric", 0L)
   for (i in seq_along(coefs)){
     d = eval(parse(text = coefs[i]), data)
