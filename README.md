@@ -1,14 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-
 [![CRAN](https://www.r-pkg.org/badges/version/MarginalMediation)](https://www.r-pkg.org/badges/version/MarginalMediation)
 [![Rdoc](http://www.rdocumentation.org/badges/version/MarginalMediation)](http://www.rdocumentation.org/packages/MarginalMediation)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)](https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)
 [![Build
 Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-# MarginalMediation: 0.5.1 <img src="man/figures/mma_hex.jpg" align="right" />
+# MarginalMediation: 0.6.0 <img src="man/figures/mma_hex.jpg" align="right" />
 
 The `MarginalMediation` package provides the ability to perform
 **marginal mediation analysis**. It provides a useful framework from
@@ -53,13 +52,23 @@ the output.
 ``` r
 ## Data for the example
 library(furniture)
-#> furniture 1.7.6: learn more at tysonbarrett.com
+#> ── furniture 1.7.12 ────────────────────────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+#> ✔ furniture attached
+#> ✔ No potential conflicts found
 data(nhanes_2010)
+```
 
+``` r
 ## The MarginalMediation package
 library(MarginalMediation)
-#> MarginalMediation 0.5.1: This is beta software.
-#> Please report any bugs (t.barrett@aggiemail.usu.edu).
+```
+
+    #> Loading MarginalMediation
+    #> ── MarginalMediation 0.6.0 ─────────────────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+    #> ✔ MarginalMediation attached
+    #> ✔ No potential conflicts found
+
+``` r
 pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
              data = nhanes_2010, 
              family = "binomial")

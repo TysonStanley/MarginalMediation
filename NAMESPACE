@@ -2,6 +2,7 @@
 
 S3method(print,frames)
 S3method(print,mma)
+export("%>%")
 export(amed)
 export(frames)
 export(mma)
@@ -14,4 +15,5 @@ export(perc_med)
 import(boot)
 import(magrittr)
 import(stats)
+importFrom(magrittr,"%>%")
 importFrom(purrr,map)

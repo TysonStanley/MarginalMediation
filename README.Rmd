@@ -18,8 +18,7 @@ set.seed(84322)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)](https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)
 [![Build Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-
-# MarginalMediation: 0.5.1  <img src="man/figures/mma_hex.jpg" align="right" />
+# MarginalMediation: `r packageVersion("MarginalMediation")`  <img src="man/figures/mma_hex.jpg" align="right" />
 
 The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
 
@@ -49,9 +48,18 @@ Below is an example, where the theoretical backing of such a model is not very s
 ## Data for the example
 library(furniture)
 data(nhanes_2010)
+```
 
+
+```{r, eval = FALSE}
 ## The MarginalMediation package
 library(MarginalMediation)
+```
+```{r, echo = FALSE}
+devtools::load_all()
+```
+
+```{r}
 pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
              data = nhanes_2010, 
              family = "binomial")
