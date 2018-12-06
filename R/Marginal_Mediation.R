@@ -210,27 +210,25 @@ print.mma = function(x, ..., all=TRUE){
   cat("Formulas:\n")
   cat("   \u25cc", paste(x$model, collapse = "\n   \u25cc "), "\n\n")
   
-  cat("Unstandardized Effects", "\n", sep = "")
-  cat(rep("\u23ba", 22), "\n", sep = "")
-  cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")
-  print.data.frame(round(x$ind_effects, 5), ...)
+  cat("Unstandardized Effects", "\n\n", sep = "")
+  cat("    ", " Indirect Effects: ", "\n", sep = "")
+  print.data.frame(round(x$ind_effects, 5), row.names = paste("    ", rownames(x$ind_effects)), ...)
   
-  cat("\n\u2500\u2500", " Direct Effects ", rep("\u2500", 2), "\n", sep = "")
-  print.data.frame(round(x$dir_effects, 5), ...)
+  cat("\n    ", " Direct Effects: ", "\n", sep = "")
+  print.data.frame(round(x$dir_effects, 5), row.names = paste("    ", rownames(x$dir_effects)), ...)
   
   if (all & !is.na(x$sigma_y)){
     cat("\n\n")
     sigma_y = x$sigma_y
     cat("Standardized Effects", "\n", sep = "")
-    cat(rep("\u23ba", 20), "\n", sep = "")
     
     std_ind = x$ind_effects[,3:5]/sigma_y
-    cat("\u2500\u2500", " Indirect Effects ", rep("\u2500", 2), "\n", sep = "")
-    print.data.frame(round(std_ind, 5))
+    cat("    ", " Indirect Effects ", "\n", sep = "")
+    print.data.frame(round(std_ind, 5), row.names = paste("    ", rownames(std_ind)), ...)
     
     std_dir = x$dir_effects/sigma_y
-    cat("\n\u2500\u2500", " Direct Effects ", rep("\u2500", 2), "\n", sep = "")
-    print.data.frame(round(std_dir, 5))
+    cat("\n    ", " Direct Effects ", "\n", sep = "")
+    print.data.frame(round(std_dir, 5), row.names = paste("    ", rownames(std_dir)), ...)
   }
   cat("-----")
 }
