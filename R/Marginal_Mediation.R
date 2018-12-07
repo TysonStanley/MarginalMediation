@@ -129,12 +129,10 @@ mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
       stop("Only 'perc' and 'basic' types of CI are currently available.")
     }
   }
-  .ame_ind = data.frame(do.call("rbind", apa),
-                        do.call("rbind", bpa),
-                        do.call("rbind", est),
+  .ame_ind = data.frame(do.call("rbind", est),
                         do.call("rbind", low),
                         do.call("rbind", hi))
-  names(.ame_ind) = c("A-path", "B-path", "Indirect", "Lower", "Upper")
+  names(.ame_ind) = c("Indirect", "Lower", "Upper")
   
   ## Each Direct Effect ##
   eff = low2 = hi2 = list()
@@ -183,7 +181,11 @@ mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
          "boot"         = boot, 
          "model"        = forms,
          "call"         = .call,
-         "sigma_y"      = sigma_y),
+         "sigma_y"      = sigma_y,
+         "pathbc"       = models[[1]],
+         "patha"        = lapply(seq_along(models)[-1], function(i) models[[i]]),
+         "AMEbc"        = do.call("rbind", bpa),
+         "AMEa"         = do.call("rbind", apa)),
     class = c("mma", "list")
   )
   cat('\r', rep(' ', 40), '\r')
@@ -210,27 +212,48 @@ print.mma = function(x, ..., all=TRUE){
   cat("Formulas:\n")
   cat("   \u25cc", paste(x$model, collapse = "\n   \u25cc "), "\n\n")
   
-  cat("Unstandardized Effects", "\n\n", sep = "")
+  cat("Regression Models: ", "\n\n", sep = "")
+  cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
+  pathbc_coefs <- x$pathbc %>% summary() %>% coef() %>% data.frame()
+  names(pathbc_coefs) <- c("Est", "SE", "Est/SE", "P-Value")
+  print.data.frame(round(pathbc_coefs, 5), row.names = paste("       ", rownames(pathbc_coefs)), ...)
+  cat("\n")
+  
+  for (i in seq_along(x$patha)){
+    
+    ap <- x$patha[[i]]
+    
+    cat("    ", paste(ap$formula)[2], " ~ \n")
+    patha_coefs <- ap %>% summary() %>% coef() %>% data.frame()
+    names(patha_coefs) <- c("Est", "SE", "Est/SE", "P-Value")
+    print.data.frame(round(patha_coefs, 5), row.names = paste("       ", rownames(patha_coefs)), ...)
+    cat("\n")
+    
+  }
+  
+  cat("Unstandardized Mediated Effects: ", "\n\n", sep = "")
   cat("    ", " Indirect Effects: ", "\n", sep = "")
-  print.data.frame(round(x$ind_effects, 5), row.names = paste("    ", rownames(x$ind_effects)), ...)
+  pathbc_rows <- gsub("-", " => ", rownames(x$ind_effects))
+  print.data.frame(round(x$ind_effects, 5), row.names = paste("       ", pathbc_rows), ...)
   
   cat("\n    ", " Direct Effects: ", "\n", sep = "")
-  print.data.frame(round(x$dir_effects, 5), row.names = paste("    ", rownames(x$dir_effects)), ...)
+  print.data.frame(round(x$dir_effects, 5), row.names = paste("       ", rownames(x$dir_effects)), ...)
   
   if (all & !is.na(x$sigma_y)){
     cat("\n\n")
     sigma_y = x$sigma_y
-    cat("Standardized Effects", "\n", sep = "")
+    cat("Standardized Mediated Effects: ", "\n", sep = "")
     
     std_ind = x$ind_effects[,3:5]/sigma_y
     cat("    ", " Indirect Effects ", "\n", sep = "")
-    print.data.frame(round(std_ind, 5), row.names = paste("    ", rownames(std_ind)), ...)
+    patha_rows <- gsub("-", " => ", rownames(x$ind_effects))
+    print.data.frame(round(std_ind, 5), row.names = paste("       ", patha_rows), ...)
     
     std_dir = x$dir_effects/sigma_y
     cat("\n    ", " Direct Effects ", "\n", sep = "")
-    print.data.frame(round(std_dir, 5), row.names = paste("    ", rownames(std_dir)), ...)
+    print.data.frame(round(std_dir, 5), row.names = paste("       ", rownames(std_dir)), ...)
   }
-  cat("-----")
+  cat("\n")
 }
 
 
