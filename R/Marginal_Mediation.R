@@ -68,6 +68,7 @@ mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
   .ind_checker(ind_effects, models, forms)
   .ci_checker(ci)
   .var_checker(data, forms)
+  .nrows_checker(models)
   
   if (class(models[[1]])[1] == "svyglm" || class(models[[1]])[1] == "svyreg")
     .run_mod = .run_mod_svy
@@ -232,11 +233,13 @@ print.mma = function(x, ..., all=TRUE){
   }
   
   cat("Unstandardized Mediated Effects: ", "\n\n", sep = "")
-  cat("    ", " Indirect Effects: ", "\n", sep = "")
+  cat("   ", "Indirect Effects: ", "\n\n", sep = "")
+  cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
   pathbc_rows <- gsub("-", " => ", rownames(x$ind_effects))
   print.data.frame(round(x$ind_effects, 5), row.names = paste("       ", pathbc_rows), ...)
   
-  cat("\n    ", " Direct Effects: ", "\n", sep = "")
+  cat("\n   ", "Direct Effects: ", "\n\n", sep = "")
+  cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
   print.data.frame(round(x$dir_effects, 5), row.names = paste("       ", rownames(x$dir_effects)), ...)
   
   if (all & !is.na(x$sigma_y)){
@@ -245,12 +248,14 @@ print.mma = function(x, ..., all=TRUE){
     cat("Standardized Mediated Effects: ", "\n", sep = "")
     
     std_ind = x$ind_effects[,3:5]/sigma_y
-    cat("    ", " Indirect Effects ", "\n", sep = "")
+    cat("   ", "Indirect Effects ", "\n\n", sep = "")
+    cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
     patha_rows <- gsub("-", " => ", rownames(x$ind_effects))
     print.data.frame(round(std_ind, 5), row.names = paste("       ", patha_rows), ...)
     
     std_dir = x$dir_effects/sigma_y
-    cat("\n    ", " Direct Effects ", "\n", sep = "")
+    cat("\n   ", "Direct Effects ", "\n\n", sep = "")
+    cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
     print.data.frame(round(std_dir, 5), row.names = paste("       ", rownames(std_dir)), ...)
   }
   cat("\n")

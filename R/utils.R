@@ -8,7 +8,7 @@
 #' @import stats
 #' 
 #' @export
-amed = function(model){
+amed <- function(model){
   
   data   = model$data
   family = model$family
@@ -48,7 +48,7 @@ amed = function(model){
 
 ## continuous variable AME
 ## see margins package by Leeper for more on this
-dydx_continuous = function(data, model, variable){
+dydx_continuous <- function(data, model, variable){
   d0 = d1 = data
   
   setstep <- function(x) {
@@ -67,7 +67,7 @@ dydx_continuous = function(data, model, variable){
 
 
 ## function to bootstrap
-.run_mod = function(data, indices, model){
+.run_mod <- function(data, indices, model){
   model$call["data"] = parse(text = "data[indices, ]")
   eval(model$call) %>% 
     amed
@@ -86,14 +86,14 @@ dydx_continuous = function(data, model, variable){
 }
 
 ## checks
-.boot_checker = function(boot){
+.boot_checker <- function(boot){
   if(boot > 5000){
-    cat("A bootstrap size above 5000 may take a long time to compute...")
+    message("A bootstrap size above 5000 may take a long time to compute...")
   }
 }
 
 #' @importFrom purrr map
-.ind_checker = function(ind_effects, models, forms=NULL){
+.ind_checker <- function(ind_effects, models, forms=NULL){
   yesno = lapply(ind_effects, function(x) is.character(x) & grepl("-", x)) %>%
     unlist %>%
     all
@@ -121,14 +121,14 @@ dydx_continuous = function(data, model, variable){
   }
 }
 
-.ci_checker = function(ci){
+.ci_checker <- function(ci){
   if (ci > 1 | ci < 0){
     stop("CI must be between 0 and 1.",
          call. = FALSE)
   }
 }
 
-.var_checker = function(data, forms){
+.var_checker <- function(data, forms){
   for (i in seq_along(forms)){
     yes_no = model.matrix(forms[[i]], data)[, -1] %>%
       data.frame %>%
@@ -141,6 +141,19 @@ dydx_continuous = function(data, model, variable){
     }
   }
 }
+
+.nrows_checker <- function(mods){
+  yes_no <- sapply(mods, nrow) %>%
+    Reduce(all.equal, .) %>%
+    isTRUE()
+  
+  if (!yes_no){
+    warning(paste("The data sets used in the different paths are of different sizes."), 
+            call. = FALSE) 
+  }
+}
+
+
 
 
 ## Functions from boot for confidence intervals
@@ -209,6 +222,8 @@ is.pos = function(x){
 is.neg = function(x){
   x < 0
 }
+
+
 
 
 #' re-export magrittr pipe operator
