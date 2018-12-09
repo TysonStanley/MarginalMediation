@@ -245,16 +245,16 @@ print.mma = function(x, ..., all=TRUE){
   if (all & !is.na(x$sigma_y)){
     cat("\n\n")
     sigma_y = x$sigma_y
-    cat("Standardized Mediated Effects: ", "\n", sep = "")
+    cat("Standardized Mediated Effects: ", "\n\n", sep = "")
     
-    std_ind = x$ind_effects[,1:3]/sigma_y
-    cat("   ", "Indirect Effects ", "\n\n", sep = "")
+    std_ind = x$ind_effects/sigma_y
+    cat("   ", "Indirect Effects: ", "\n\n", sep = "")
     cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
     patha_rows <- gsub("-", " => ", rownames(x$ind_effects))
     print.data.frame(round(std_ind, 5), row.names = paste("       ", patha_rows), ...)
     
     std_dir = x$dir_effects/sigma_y
-    cat("\n   ", "Direct Effects ", "\n\n", sep = "")
+    cat("\n   ", "Direct Effects: ", "\n\n", sep = "")
     cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
     print.data.frame(round(std_dir, 5), row.names = paste("       ", rownames(std_dir)), ...)
   }
