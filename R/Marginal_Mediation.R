@@ -247,7 +247,7 @@ print.mma = function(x, ..., all=TRUE){
     sigma_y = x$sigma_y
     cat("Standardized Mediated Effects: ", "\n", sep = "")
     
-    std_ind = x$ind_effects[,3:5]/sigma_y
+    std_ind = x$ind_effects[,1:3]/sigma_y
     cat("   ", "Indirect Effects ", "\n\n", sep = "")
     cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
     patha_rows <- gsub("-", " => ", rownames(x$ind_effects))
