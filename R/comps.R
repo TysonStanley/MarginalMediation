@@ -7,7 +7,7 @@
 #' @param effect the indirect effect to be compared to its direct path
 #' 
 #' @export
-perc_med = function(model, effect){
+perc_med <- function(model, effect){
   if (!is.mma(model)){
     stop("Model must be mma object", call. = FALSE)
   }
@@ -32,7 +32,7 @@ perc_med = function(model, effect){
 #' @param model mma fit object
 #' 
 #' @export
-mma_formulas = function(model){
+mma_formulas <- function(model){
   if (!is.mma(model)){
     stop("Model must be mma object", call. = FALSE)
   }
@@ -46,7 +46,7 @@ mma_formulas = function(model){
 #' @param model mma fit object
 #' 
 #' @export
-mma_ind_effects = function(model){
+mma_ind_effects <- function(model){
   if (!is.mma(model)){
     stop("Model must be mma object", call. = FALSE)
   }
@@ -60,7 +60,7 @@ mma_ind_effects = function(model){
 #' @param model mma fit object
 #' 
 #' @export
-mma_dir_effects = function(model){
+mma_dir_effects <- function(model){
   if (!is.mma(model)){
     stop("Model must be mma object", call. = FALSE)
   }
@@ -74,7 +74,7 @@ mma_dir_effects = function(model){
 #' @param model mma fit object
 #' 
 #' @export
-mma_std_ind_effects = function(model){
+mma_std_ind_effects <- function(model){
   if (!is.mma(model)){
     stop("Model must be mma object", call. = FALSE)
   }
@@ -91,7 +91,7 @@ mma_std_ind_effects = function(model){
 #' @param model mma fit object
 #' 
 #' @export
-mma_std_dir_effects = function(model){
+mma_std_dir_effects <- function(model){
   if (!is.mma(model)){
     stop("Model must be mma object", call. = FALSE)
   }

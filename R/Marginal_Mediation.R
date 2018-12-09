@@ -58,9 +58,9 @@
 #' 
 #' @export
 mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
-  models = list(...)
-  data = models[[1]]$data
-  forms = lapply(models, function(x) x$formula)
+  models <- list(...)
+  data <- models[[1]]$data
+  forms <- lapply(models, function(x) x$formula)
   
   ## checks
   .call = match.call()
@@ -71,11 +71,11 @@ mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
   .nrows_checker(models)
   
   if (class(models[[1]])[1] == "svyglm" || class(models[[1]])[1] == "svyreg")
-    .run_mod = .run_mod_svy
+    .run_mod <- .run_mod_svy
   
   ## Bootstrapped Samples and Statistics
   cat("\ncalculating a paths... ")
-  bootfit_a = lapply(seq_along(forms)[-1], function(i) { 
+  bootfit_a <- lapply(seq_along(forms)[-1], function(i) { 
     boot(data = data, 
          statistic = .run_mod, 
          R = boot, 
@@ -83,17 +83,17 @@ mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
   })
   
   cat('b and c paths... ')
-  bootfit_b = boot(data,
-                   statistic = .run_mod,
-                   R = boot,
-                   model = models[[1]])
+  bootfit_b <- boot(data,
+                    statistic = .run_mod,
+                    R = boot,
+                    model = models[[1]])
   cat('Done.')
   
   nams = list()
   for (j in seq_along(forms)[2:length(forms)]){
-    nams[[j - 1]] = paste(as.formula(forms[[j]]))[2]
+    nams[[j - 1]] <- paste(as.formula(forms[[j]]))[2]
   }
-  names(bootfit_a) = unlist(nams)
+  names(bootfit_a) <- unlist(nams)
   
   ## Each Indirect Effect ##
   apa = bpa = est = low = hi = list()
@@ -214,7 +214,7 @@ print.mma = function(x, ..., all=TRUE){
   cat("   \u25cc", paste(x$model, collapse = "\n   \u25cc "), "\n\n")
   
   cat("Regression Models: ", "\n\n", sep = "")
-  cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
+  cat("    ", paste(x$pathbc$formula)[2], "~ \n")
   pathbc_coefs <- x$pathbc %>% summary() %>% coef() %>% data.frame()
   names(pathbc_coefs) <- c("Est", "SE", "Est/SE", "P-Value")
   print.data.frame(round(pathbc_coefs, 5), row.names = paste("       ", rownames(pathbc_coefs)), ...)
@@ -224,7 +224,7 @@ print.mma = function(x, ..., all=TRUE){
     
     ap <- x$patha[[i]]
     
-    cat("    ", paste(ap$formula)[2], " ~ \n")
+    cat("    ", paste(ap$formula)[2], "~ \n")
     patha_coefs <- ap %>% summary() %>% coef() %>% data.frame()
     names(patha_coefs) <- c("Est", "SE", "Est/SE", "P-Value")
     print.data.frame(round(patha_coefs, 5), row.names = paste("       ", rownames(patha_coefs)), ...)
@@ -234,12 +234,12 @@ print.mma = function(x, ..., all=TRUE){
   
   cat("Unstandardized Mediated Effects: ", "\n\n", sep = "")
   cat("   ", "Indirect Effects: ", "\n\n", sep = "")
-  cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
+  cat("    ", paste(x$pathbc$formula)[2], "~ \n")
   pathbc_rows <- gsub("-", " => ", rownames(x$ind_effects))
   print.data.frame(round(x$ind_effects, 5), row.names = paste("       ", pathbc_rows), ...)
   
   cat("\n   ", "Direct Effects: ", "\n\n", sep = "")
-  cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
+  cat("    ", paste(x$pathbc$formula)[2], "~ \n")
   print.data.frame(round(x$dir_effects, 5), row.names = paste("       ", rownames(x$dir_effects)), ...)
   
   if (all & !is.na(x$sigma_y)){
@@ -249,13 +249,13 @@ print.mma = function(x, ..., all=TRUE){
     
     std_ind = x$ind_effects/sigma_y
     cat("   ", "Indirect Effects: ", "\n\n", sep = "")
-    cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
+    cat("    ", paste(x$pathbc$formula)[2], "~ \n")
     patha_rows <- gsub("-", " => ", rownames(x$ind_effects))
     print.data.frame(round(std_ind, 5), row.names = paste("       ", patha_rows), ...)
     
     std_dir = x$dir_effects/sigma_y
     cat("\n   ", "Direct Effects: ", "\n\n", sep = "")
-    cat("    ", paste(x$pathbc$formula)[2], " ~ \n")
+    cat("    ", paste(x$pathbc$formula)[2], "~ \n")
     print.data.frame(round(std_dir, 5), row.names = paste("       ", rownames(std_dir)), ...)
   }
   cat("\n")

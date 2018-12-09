@@ -10,36 +10,36 @@
 #' @export
 amed <- function(model){
   
-  data   = model$data
-  family = model$family
-  coefs  = attr(model$terms, "term.labels")
+  data   <- model$data
+  family <- model$family
+  coefs  <- attr(model$terms, "term.labels")
   
-  if (class(data) == "environment"){
+  if (any(class(data) == "environment")){
     stop("GLM model must contain a data argument", call. = FALSE)
   }
   
-  aveMarg = vector("numeric", 0L)
+  aveMarg <- vector("numeric", 0L)
   for (i in seq_along(coefs)){
-    d = eval(parse(text = coefs[i]), data)
+    d <- eval(parse(text = coefs[i]), data)
     
     if (is.character(d)) 
-      d = factor(d)
+      d <- factor(d)
     
     if (is.numeric(d)){
       ## Average Marginal Effects
-      aveMarg[coefs[i]] = dydx_continuous(data, model, coefs[i])
+      aveMarg[coefs[i]] <- dydx_continuous(data, model, coefs[i])
     } else if (is.factor(d)) {
-      ref   = levels(d)[1]
-      levs  = levels(d)[-1]
+      ref   <- levels(d)[1]
+      levs  <- levels(d)[-1]
       d0 = d1 = data
-      d0[[coefs[i]]] = ref
-      pred0 = predict(model, newdata = d0, type = "response")
+      d0[[coefs[i]]] <- ref
+      pred0 <- predict(model, newdata = d0, type = "response")
       
       for (j in levs){
-        d1[[coefs[i]]] = j
-        pred1 = predict(model, newdata = d1, type = "response")
+        d1[[coefs[i]]] <- j
+        pred1 <- predict(model, newdata = d1, type = "response")
         
-        aveMarg[paste0(coefs[i], j)] = mean(pred1 - pred0, na.rm=TRUE)
+        aveMarg[paste0(coefs[i], j)] <- mean(pred1 - pred0, na.rm=TRUE)
       }
     }
   }
@@ -48,12 +48,12 @@ amed <- function(model){
 
 ## continuous variable AME
 ## see margins package by Leeper for more on this
+setstep <- function(x) {
+  x + (max(abs(x), 1, na.rm = TRUE) * sqrt(1e-7)) - x
+}
+
 dydx_continuous <- function(data, model, variable){
   d0 = d1 = data
-  
-  setstep <- function(x) {
-    x + (max(abs(x), 1, na.rm = TRUE) * sqrt(1e-7)) - x
-  }
   
   d0[[variable]] <- d0[[variable]] - setstep(d0[[variable]])
   d1[[variable]] <- d1[[variable]] + setstep(d1[[variable]])
@@ -68,13 +68,13 @@ dydx_continuous <- function(data, model, variable){
 
 ## function to bootstrap
 .run_mod <- function(data, indices, model){
-  model$call["data"] = parse(text = "data[indices, ]")
+  model$call["data"] <- parse(text = "data[indices, ]")
   eval(model$call) %>% 
     amed
 }
-.run_mod_svy = function(data, indices, model){
-  model = model
-  data  = model$data[indices, ]
+.run_mod_svy <- function(data, indices, model){
+  model <- model
+  data  <- model$data[indices, ]
   data$weights = data$.survey.prob.weights
   glm(formula = model$formula, 
       data = data, 
@@ -211,15 +211,15 @@ perc.ci <- function(t, conf = 0.95, hinv = function(t) t){
 }
 
 ## Other functions
-is.mma = function(x){
+is.mma <- function(x){
   class(x)[1] == "mma"
 }
 
-is.pos = function(x){
+is.pos <- function(x){
   x > 0
 }
 
-is.neg = function(x){
+is.neg <- function(x){
   x < 0
 }
 
