@@ -13,6 +13,9 @@ amed <- function(model){
   data   <- model$data
   family <- model$family
   coefs  <- attr(model$terms, "term.labels")
+  coefs  <- ifelse(grepl(":", coefs), NA, coefs) %>%
+    na.omit %>%
+    unclass
   
   if (any(class(data) == "environment")){
     stop("GLM model must contain a data argument", call. = FALSE)
