@@ -13,7 +13,8 @@ amed <- function(model){
   data   <- model$data
   family <- model$family
   coefs  <- attr(model$terms, "term.labels")
-  coefs  <- ifelse(grepl(":", coefs), NA, coefs) %>%
+  ## Remove interactions and other adjustments
+  coefs  <- ifelse(grepl(":|^[A-Za-z].*)$", coefs), NA, coefs) %>%
     na.omit %>%
     unclass
   
