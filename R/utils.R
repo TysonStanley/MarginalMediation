@@ -146,9 +146,21 @@ dydx_continuous <- function(data, model, variable){
   }
 }
 
-.nrows_checker <- function(mods){
-  yes_no <- sapply(mods, nrow) %>%
-    Reduce(all.equal, .) %>%
+.nrows_checker <- function(model){
+  pathbc <- model$pathbc
+  pathas <- model$patha
+  
+  df <- vector("list", length(pathas)+1)
+  df[[1]] <- resid(pathbc)
+  for (i in 2:(length(pathas)+1)){
+    
+    df[[i]] <- resid(pathas[[i-1]])
+    
+  }
+  
+  yes_no <- sapply(df, length) %>%
+    sapply(., function(x) x == .[[1]]) %>%
+    all() %>%
     isTRUE()
   
   if (!yes_no){
@@ -157,7 +169,9 @@ dydx_continuous <- function(data, model, variable){
   }
 }
 
-
+is.mma <- function(mods){
+  class(mods)[1] == "mma"
+}
 
 
 ## Functions from boot for confidence intervals
