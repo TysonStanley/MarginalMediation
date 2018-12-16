@@ -84,13 +84,6 @@ These are all average marginal effects, and are, therefore, in terms of the corr
 
 ### Conclusions
 
-This is currently beta but I am excited to provide an initial working release. Let me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
+Let me know if you find any bugs or want to discuss the method (<t.barrett@aggiemail.usu.edu>).
 
-### Final Notes
 
-More will be done to `MarginalMediation` as it is under development, including:
-
-1. More bootstrapping options (e.g., Bias-Corrected Bootstrap)
-2. More distributional options as currently only gaussian, binomial, and Poisson are available (e.g., zero-inflated distributions, multinomial distributions)
-
-Thanks!
