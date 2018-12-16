@@ -7,7 +7,7 @@
 [![Build
 Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-# MarginalMediation: 0.6.0 <img src="man/figures/mma_hex.jpg" align="right" />
+# MarginalMediation: 0.6.7 <img src="man/figures/mma_hex.jpg" align="right" />
 
 The `MarginalMediation` package provides the ability to perform
 **marginal mediation analysis**. It provides a useful framework from
@@ -52,7 +52,7 @@ the output.
 ``` r
 ## Data for the example
 library(furniture)
-#> ── furniture 1.7.12 ────────────────────────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+#> ── furniture 1.8.8 ───────────────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
 #> ✔ furniture attached
 #> ✔ No potential conflicts found
 data(nhanes_2010)
@@ -64,7 +64,7 @@ library(MarginalMediation)
 ```
 
     #> Loading MarginalMediation
-    #> ── MarginalMediation 0.6.0 ─────────────────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+    #> ── MarginalMediation 0.6.7 ───────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
     #> ✔ MarginalMediation attached
     #> ✔ No potential conflicts found
 
@@ -98,20 +98,40 @@ mma(pathbc, patha,
 #>    ◌ marijuana ~ home_meals + gender + age + asthma
 #>    ◌ home_meals ~ gender + age + asthma 
 #> 
-#> Unstandardized Effects
-#> ⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺⎺
-#> ── Indirect Effects ──
-#>                           A-path   B-path Indirect    Lower   Upper
-#> genderFemale-home_meals -1.34831 -0.00973  0.01312  0.00429 0.02562
-#> age-home_meals          -0.05689 -0.00973  0.00055  0.00003 0.00139
-#> asthmaNo-home_meals     -0.00428 -0.00973  0.00004 -0.00639 0.00672
+#> Regression Models: 
 #> 
-#> ── Direct Effects ──
-#>                Direct    Lower   Upper
-#> genderFemale  0.10430  0.04813 0.15967
-#> age           0.00066 -0.00603 0.00848
-#> asthmaNo     -0.00172 -0.06947 0.07061
-#> -----
+#>      marijuana ~ 
+#>                           Est      SE   Est/SE P-Value
+#>         (Intercept)  -0.39400 0.38028 -1.03608 0.30017
+#>         home_meals   -0.04062 0.01363 -2.98051 0.00288
+#>         genderFemale  0.43161 0.11723  3.68169 0.00023
+#>         age           0.00276 0.01470  0.18754 0.85123
+#>         asthmaNo     -0.00717 0.15004 -0.04778 0.96189
+#> 
+#>      home_meals ~ 
+#>                           Est      SE   Est/SE P-Value
+#>         (Intercept)   6.56883 0.76462  8.59100 0.00000
+#>         genderFemale -1.34831 0.23910 -5.63913 0.00000
+#>         age          -0.05689 0.03017 -1.88565 0.05955
+#>         asthmaNo     -0.00428 0.31293 -0.01368 0.98909
+#> 
+#> Unstandardized Mediated Effects: 
+#> 
+#>    Indirect Effects: 
+#> 
+#>      marijuana ~ 
+#>                                    Indirect    Lower   Upper
+#>         genderFemale => home_meals  0.01312  0.00429 0.02562
+#>         age => home_meals           0.00055  0.00003 0.00139
+#>         asthmaNo => home_meals      0.00004 -0.00639 0.00672
+#> 
+#>    Direct Effects: 
+#> 
+#>      marijuana ~ 
+#>                        Direct    Lower   Upper
+#>         genderFemale  0.10430  0.04813 0.15967
+#>         age           0.00066 -0.00603 0.00848
+#>         asthmaNo     -0.00172 -0.06947 0.07061
 ```
 
 The print method provides:

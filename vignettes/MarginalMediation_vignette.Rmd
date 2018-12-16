@@ -22,7 +22,7 @@ For example, when the mediator is dichotomous and the outcome is continuous, we 
 
 ## How to Use `MarginalMediation`
 
-To demonstrate the main functions in `MarginalMediation`, we are going to use a data set from the `furniture` package called `nhanes10`.
+To demonstrate the main functions in `MarginalMediation`, we are going to use a data set from the `furniture` package called `nhanes_2010`.
 
 ```{r}
 library(furniture)
@@ -48,10 +48,10 @@ mma(pathbc, patha,
     boot = 500)
 ```
 
-The output is simple, with:
+The print method of MMA shows:
 
-1. the `a` path,
-2. the `b` path,
+1. information about the overall model,
+2. the individual regression models,
 3. the indirect effect (`a x b`) with its confidence interval, and
 4. the direct effect with its confidence interval.
 
