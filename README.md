@@ -7,7 +7,7 @@
 [![Build
 Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-# MarginalMediation: 0.6.7 <img src="man/figures/mma_hex.jpg" align="right" />
+# MarginalMediation: 0.6.7 <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
 The `MarginalMediation` package provides the ability to perform
 **marginal mediation analysis**. It provides a useful framework from
@@ -52,7 +52,7 @@ the output.
 ``` r
 ## Data for the example
 library(furniture)
-#> ── furniture 1.8.8 ───────────────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+#> ── furniture 1.8.8 ─────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
 #> ✔ furniture attached
 #> ✔ No potential conflicts found
 data(nhanes_2010)
@@ -64,7 +64,7 @@ library(MarginalMediation)
 ```
 
     #> Loading MarginalMediation
-    #> ── MarginalMediation 0.6.7 ───────────────────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+    #> ── MarginalMediation 0.6.7 ─────────────────────────────────────────────────── learn more at tysonbarrett.com ──
     #> ✔ MarginalMediation attached
     #> ✔ No potential conflicts found
 

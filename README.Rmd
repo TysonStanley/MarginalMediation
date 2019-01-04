@@ -18,7 +18,7 @@ set.seed(84322)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)](https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)
 [![Build Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-# MarginalMediation: `r packageVersion("MarginalMediation")`  <img src="man/figures/mma_hex.jpg" align="right" />
+# MarginalMediation: `r packageVersion("MarginalMediation")`  <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
 The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
 
