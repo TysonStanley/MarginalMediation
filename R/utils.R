@@ -10,16 +10,21 @@
 #' @export
 amed <- function(model){
   
-  data   <- model$data
-  family <- model$family
-  coefs  <- attr(model$terms, "term.labels")
+  if (class(model)[1] == "glm"){
+    data   <- model$data
+    coefs  <- attr(model$terms, "term.labels")
+  } else {
+    data    <- model$model
+    coefs   <- attr(model$terms$full, "term.labels")
+  }
+
   ## Remove interactions and other adjustments
-  coefs  <- ifelse(grepl(":|^[A-Za-z].*)$", coefs), NA, coefs) %>%
+  coefs <- ifelse(grepl(":|^[A-Za-z].*)$", coefs), NA, coefs) %>%
     na.omit %>%
     unclass
   
-  if (any(class(data) == "environment")){
-    stop("GLM model must contain a data argument", call. = FALSE)
+  if (any(class(data) == "environment") || is.null(data)){
+    stop("GLM (or betareg) model must contain a data argument", call. = FALSE)
   }
   
   aveMarg <- vector("numeric", 0L)
@@ -49,6 +54,7 @@ amed <- function(model){
   }
   aveMarg
 }
+
 
 ## continuous variable AME
 ## see margins package by Leeper for more on this
@@ -88,6 +94,18 @@ dydx_continuous <- function(data, model, variable){
       contrasts = model$contrasts) %>% 
     amed
 }
+
+## all vars used
+all_used_vars <- function(forms){
+  sapply(forms, paste) %>% 
+    .[!grepl("~", .)] %>% 
+    stringr::str_split(., " ") %>% 
+    unlist() %>% 
+    .[!grepl("\\+|I\\(|\\^|\\/", .)] %>% 
+    stringr::str_trim(.) %>% 
+    unique()
+}
+
 
 ## checks
 .boot_checker <- function(boot){
@@ -132,17 +150,13 @@ dydx_continuous <- function(data, model, variable){
   }
 }
 
-.var_checker <- function(data, forms){
-  for (i in seq_along(forms)){
-    yes_no = model.matrix(forms[[i]], data)[, -1] %>%
-      data.frame %>%
-      sapply(function(x) length(unique(x)) == 1) %>%
-      any()
-
-    if (yes_no){
-      warning(paste("Variable(s) to be used in data frame for the formula number", i, "are constant"), 
+.var_checker <- function(data){
+  yes_no <- data %>% 
+    sapply(function(x) length(unique(x)))
+  
+    if (any(yes_no < 2)){
+      warning(paste("Variable", names(data)[, yes_no < 2], "is constant"), 
               call. = FALSE) 
-    }
   }
 }
 

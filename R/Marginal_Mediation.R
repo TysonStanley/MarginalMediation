@@ -58,18 +58,23 @@
 #' 
 #' @export
 mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
+  .call = match.call()
   models <- list(...)
-  data <- models[[1]]$data
-  forms <- lapply(models, function(x) x$formula)
+  forms <- lapply(models, function(x) x$call$formula)
+  
+  all_used_vars <- all_used_vars(forms)
+  data <- eval(models[[1]]$call$data, parent.frame()) %>% 
+    .[, all_used_vars]
   
   ## checks
-  .call = match.call()
+  stopifnot(length(models) > 1)
   .boot_checker(boot)
   .ind_checker(ind_effects, models, forms)
   .ci_checker(ci)
-  .var_checker(data, forms)
+  .var_checker(data)
   .nrows_checker(models)
   
+  ## Use survey weights?
   if (class(models[[1]])[1] == "svyglm" || class(models[[1]])[1] == "svyreg")
     .run_mod <- .run_mod_svy
   
@@ -215,7 +220,12 @@ print.mma = function(x, ..., all=TRUE){
   
   cat("Regression Models: ", "\n\n", sep = "")
   cat("    ", paste(x$pathbc$formula)[2], "~ \n")
-  pathbc_coefs <- x$pathbc %>% summary() %>% coef() %>% data.frame()
+  
+  if (class(x$pathbc)[1] == 'betareg'){
+    pathbc_coefs <- x$pathbc %>% summary() %>% coef() %>% .$mean %>% data.frame()
+  } else {
+    pathbc_coefs <- x$pathbc %>% summary() %>% coef() %>% data.frame()
+  }
   names(pathbc_coefs) <- c("Est", "SE", "Est/SE", "P-Value")
   print.data.frame(round(pathbc_coefs, 5), row.names = paste("       ", rownames(pathbc_coefs)), ...)
   cat("\n")
@@ -225,6 +235,12 @@ print.mma = function(x, ..., all=TRUE){
     ap <- x$patha[[i]]
     
     cat("    ", paste(ap$formula)[2], "~ \n")
+    if (class(ap)[1] == 'betareg'){
+      pathbc_coefs <- ap %>% summary() %>% coef() %>% .$mean %>% data.frame()
+    } else {
+      pathbc_coefs <- ap %>% summary() %>% coef() %>% data.frame()
+    }
+    
     patha_coefs <- ap %>% summary() %>% coef() %>% data.frame()
     names(patha_coefs) <- c("Est", "SE", "Est/SE", "P-Value")
     print.data.frame(round(patha_coefs, 5), row.names = paste("       ", rownames(patha_coefs)), ...)

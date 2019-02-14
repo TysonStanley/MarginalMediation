@@ -1,3 +1,7 @@
+# Version 0.7.0
+
+* Can now handle `betareg::betareg()` models.
+
 # Version 0.6.7
 
 * Changed print method to provide more information
