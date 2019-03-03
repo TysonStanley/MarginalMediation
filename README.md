@@ -137,13 +137,15 @@ mma(pathbc, patha,
 
 The print method provides:
 
-1.  the `a` path,
-2.  the `b` path,
-3.  the indirect effect with the confidence interval, and
-4.  the direct effect with the confidence interval.
+1.  the individual regression results,
+2.  the `a` paths,
+3.  the `b` paths,
+4.  the indirect effect with the confidence interval, and
+5.  the direct effect with the confidence interval.
 
-These are all average marginal effects, and are, therefore, in terms of
-the corresponding endogenous variable’s units.
+The regressions are in their original (non-AME) units while the indirect
+and direct effects are in the AME units—the units of the outcome—in this
+case, risk of using marijuana.
 
 ### Conclusions
 
