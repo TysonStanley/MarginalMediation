@@ -7,7 +7,7 @@
 [![Build
 Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)](https://travis-ci.org/TysonStanley/MarginalMediation)
 
-# MarginalMediation: 0.6.7 <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
+# MarginalMediation: 0.7.0 <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
 The `MarginalMediation` package provides the ability to perform
 **marginal mediation analysis**. It provides a useful statistical
