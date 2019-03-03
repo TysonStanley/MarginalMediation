@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Indirect Effects Extraction for MMA — mma_ind_effects • MarginalMediation</title>
+<title>Changelog • MarginalMediation</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,7 @@
 
 
 
-<meta property="og:title" content="Indirect Effects Extraction for MMA — mma_ind_effects" />
-
-<meta property="og:description" content="Extracts the formulas from a mma object" />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -50,7 +47,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -109,37 +106,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Indirect Effects Extraction for MMA</h1>
-    
-    <div class="hidden name"><code>mma_ind_effects.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      
     </div>
 
-    <div class="ref-description">
-    
-    <p>Extracts the formulas from a mma object</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>mma_ind_effects</span>(<span class='no'>model</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>model</th>
-      <td><p>mma fit object</p></td>
-    </tr>
-    </table>
-    
-
+    <div id="version-070" class="section level1">
+<h1 class="page-header">
+<a href="#version-070" class="anchor"></a>Version 0.7.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Can now handle <code><a href="https://www.rdocumentation.org/packages/betareg/topics/betareg">betareg::betareg()</a></code> models.</li>
+</ul>
+</div>
+    <div id="version-067" class="section level1">
+<h1 class="page-header">
+<a href="#version-067" class="anchor"></a>Version 0.6.7<small> Unreleased </small>
+</h1>
+<ul>
+<li>Changed print method to provide more information</li>
+<li>Added ability to handle interactions in the models (using AMEs to average out the effect)</li>
+<li>Fixed various errors in the README and Vignette</li>
+</ul>
+</div>
+    <div id="version-051-initial-cran-release" class="section level1">
+<h1 class="page-header">
+<a href="#version-051-initial-cran-release" class="anchor"></a>Version 0.5.1 (Initial CRAN Release)<small> 2018-04-10 </small>
+</h1>
+<p>This is the initial release. The main function is <code><a href="../reference/mma.html">mma()</a></code>, which performs the marginal mediation analysis. Other functions are mainly helper functions in interpreting and pulling information out of a <code>mma</code> object.</p>
+<p>This is beta software, so please report any issues!</p>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-                </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#version-070">0.7.0</a></li>
+        <li><a href="#version-067">0.6.7</a></li>
+        <li><a href="#version-051-initial-cran-release">0.5.1</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>
