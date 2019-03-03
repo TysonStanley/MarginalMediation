@@ -15,7 +15,7 @@ Description: Provides the ability to perform "Marginal Mediation"--mediation
    The style of the average marginal effects stems from Thomas Leeper's work on the "margins" package.
    This framework allows the use of categorical mediators and outcomes with little change in interpretation
    from the continuous mediators/outcomes. See <doi:10.13140/RG.2.2.18465.92001> for more details 
-   on the method (peer reviewed articles forthcoming).
+   on the method.
 Imports: stats,
          magrittr,
          boot,
