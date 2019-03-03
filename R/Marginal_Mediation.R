@@ -55,6 +55,7 @@
 #' @import stats
 #' @import magrittr
 #' @import boot
+#' @import stringr
 #' 
 #' @export
 mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){

@@ -10,10 +10,10 @@ Status](https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master)]
 # MarginalMediation: 0.6.7 <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
 The `MarginalMediation` package provides the ability to perform
-**marginal mediation analysis**. It provides a useful framework from
-which to interpret the coefficients in a mediation analysis, especially
-when the mediator(s) and/or outcome is binary or a count (other types of
-outcomes will be added).
+**marginal mediation analysis**. It provides a useful statistical
+framework from which to interpret the coefficients in a mediation
+analysis, especially when the mediator(s) and/or outcome is binary or a
+count (other types of outcomes will be added).
 
 You can install it via:
 
@@ -24,7 +24,8 @@ install.packages("MarginalMediation")
 or
 
 ``` r
-devtools::install_github("tysonstanley/MarginalMediation")
+install.packages("remotes")
+remotes::install_github("tysonstanley/MarginalMediation")
 ```
 
 The main function is `mma()`:
@@ -52,7 +53,7 @@ the output.
 ``` r
 ## Data for the example
 library(furniture)
-#> ── furniture 1.8.8 ─────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+#> ── furniture 1.9.0 ─────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
 #> ✔ furniture attached
 #> ✔ No potential conflicts found
 data(nhanes_2010)
@@ -64,17 +65,17 @@ library(MarginalMediation)
 ```
 
     #> Loading MarginalMediation
-    #> ── MarginalMediation 0.6.7 ─────────────────────────────────────────────────── learn more at tysonbarrett.com ──
+    #> ── MarginalMediation 0.7.0 ─────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
     #> ✔ MarginalMediation attached
     #> ✔ No potential conflicts found
 
 ``` r
-pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
+pathbc <- glm(marijuana ~ home_meals + gender + age + asthma, 
+              data = nhanes_2010, 
+              family = "binomial")
+patha <- glm(home_meals ~ gender + age + asthma,
              data = nhanes_2010, 
-             family = "binomial")
-patha = glm(home_meals ~ gender + age + asthma,
-            data = nhanes_2010, 
-            family = "gaussian")
+             family = "gaussian")
 mma(pathbc, patha,
     ind_effects = c("genderFemale-home_meals",
                     "age-home_meals",

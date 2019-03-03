@@ -25,7 +25,8 @@ Imports: stats,
          purrr,
          tibble, 
          furniture,
-         betareg
+         betareg,
+         stringr
 Suggests: testthat,
           knitr,
           rmarkdown,

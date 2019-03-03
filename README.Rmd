@@ -20,7 +20,7 @@ set.seed(84322)
 
 # MarginalMediation: `r packageVersion("MarginalMediation")`  <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
-The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
+The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful statistical framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).
 
 You can install it via:
 ```{r, eval=FALSE}
@@ -28,7 +28,8 @@ install.packages("MarginalMediation")
 ```
 or
 ```{r, eval=FALSE}
-devtools::install_github("tysonstanley/MarginalMediation")
+install.packages("remotes")
+remotes::install_github("tysonstanley/MarginalMediation")
 ```
 
 The main function is `mma()`:
@@ -60,12 +61,12 @@ devtools::load_all()
 ```
 
 ```{r}
-pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
+pathbc <- glm(marijuana ~ home_meals + gender + age + asthma, 
+              data = nhanes_2010, 
+              family = "binomial")
+patha <- glm(home_meals ~ gender + age + asthma,
              data = nhanes_2010, 
-             family = "binomial")
-patha = glm(home_meals ~ gender + age + asthma,
-            data = nhanes_2010, 
-            family = "gaussian")
+             family = "gaussian")
 mma(pathbc, patha,
     ind_effects = c("genderFemale-home_meals",
                     "age-home_meals",
