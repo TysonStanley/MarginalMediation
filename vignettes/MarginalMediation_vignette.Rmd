@@ -35,12 +35,13 @@ names(nhanes_2010)
 This is the main function of the package. It takes data, two (or more in the future) formulas relating to the outcome and mediators, the family of the generalized linear model (GLM) regression functions, the indirect effects to compute, and the number of bootstrapped samples.
 
 ```{r}
-pathbc = glm(marijuana ~ home_meals + gender + age + asthma, 
-           data = nhanes_2010, 
-           family = "binomial")
-patha = glm(home_meals ~ gender + age + asthma,
-           data = nhanes_2010, 
-           family = "gaussian")
+pathbc <- glm(marijuana ~ home_meals + gender + age + asthma, 
+              data = nhanes_2010, 
+              family = "binomial")
+patha <- glm(home_meals ~ gender + age + asthma,
+             data = nhanes_2010, 
+             family = "gaussian")
+
 mma(pathbc, patha,
     ind_effects = c("genderFemale-home_meals",
                     "age-home_meals",
@@ -66,9 +67,9 @@ frames(pathbc,
        boot = 100)
 ```
 
-We can compare these results to those from `margins` found at [https://github.com/leeper/margins](https://github.com/leeper/margins) from Thomas Leeper. We won't show them here, but the estimates are the same as those from the `frames()` function.
+We can compare these results to those from the remarkable `margins` package found at [https://github.com/leeper/margins](https://github.com/leeper/margins) from Thomas Leeper. We won't show them here, but the estimates are the same as those from the `frames()` function. 
 ```{r, eval=FALSE}
-devtools::install_github("leeper/margins")
+remotes::install_github("leeper/margins")
 library(margins)
 summary(margins(pathbc))
 ```
