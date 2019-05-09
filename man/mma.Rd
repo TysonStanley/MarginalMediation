@@ -13,7 +13,7 @@ mma(..., ind_effects, ci_type = "perc", boot = 500, ci = 0.95)
 
 \item{ci_type}{a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.}
 
-\item{boot}{the number of bootstrapped samples; default is 500}
+\item{boot}{the number of bootstrapped samples; default is 500.}
 
 \item{ci}{the confidence interval; the default is .95 which is the 95\% confidence interval.}
 }

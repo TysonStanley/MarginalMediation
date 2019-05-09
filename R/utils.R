@@ -109,9 +109,10 @@ all_used_vars <- function(forms){
 
 ## checks
 .boot_checker <- function(boot){
-  if(boot > 5000){
+  if(boot < 10)
+    warning("Very few bootstrapped samples requested. Confidence intervals will not be trustworthy.")
+  if(boot > 5000)
     message("A bootstrap size above 5000 may take a long time to compute...")
-  }
 }
 
 #' @importFrom purrr map
@@ -254,8 +255,6 @@ is.pos <- function(x){
 is.neg <- function(x){
   x < 0
 }
-
-
 
 
 #' re-export magrittr pipe operator

@@ -9,7 +9,7 @@
 #' @param ... the glm model objects; the first is the model with the outcome while the others are the mediated effects ("a" paths)
 #' @param ind_effects a vector of the desired indirect effects. Has the form \code{"var1-var2"}.
 #' @param ci_type a string indicating the type of bootstrap method to use (currently "perc" and "basic" are available; "perc" is recommended). Further development will allow the Bias-Corrected bootstrap soon.
-#' @param boot the number of bootstrapped samples; default is 500
+#' @param boot the number of bootstrapped samples; default is 500.
 #' @param ci the confidence interval; the default is .95 which is the 95\% confidence interval.
 #' 
 #' @details Using the average marginal effects as discussed by Tamas Bartus (2005), 
@@ -58,7 +58,7 @@
 #' @import stringr
 #' 
 #' @export
-mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
+mma = function(..., ind_effects, ci_type = "perc", boot = 500, ci = .95){
   .call = match.call()
   models <- list(...)
   forms <- lapply(models, function(x) x$call$formula)
@@ -178,7 +178,9 @@ mma = function(..., ind_effects, ci_type = "perc", boot=500, ci=.95){
   } else {
     sigma_y = sd(outcome, na.rm=TRUE)
   }
+
   
+  ## Final object
   final = structure(
     list("ind_effects"  = .ame_ind,
          "dir_effects"  = .ame_dir,
