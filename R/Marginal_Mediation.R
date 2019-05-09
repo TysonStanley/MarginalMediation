@@ -173,7 +173,7 @@ mma = function(..., ind_effects, ci_type = "perc", boot = 500, ci = .95){
   
   ## Standardized Results
   outcome = data[[paste(forms[[1]])[2]]]
-  if (is.factor(outcome)){
+  if (is.factor(outcome) || length(unique(na.omit(outcome))) <= 2) {
     sigma_y = NA
   } else {
     sigma_y = sd(outcome, na.rm=TRUE)
