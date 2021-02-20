@@ -12,6 +12,23 @@ test_that("Multiple Indirect Effects", {
                       boot = 10), "mma")
   })
 
+test_that("No Logicals", {
+  set.seed(100)
+  samp_data = data.frame(a = rnorm(n = 1000),
+                         b = sample(c(FALSE, TRUE), size = 1000, replace = TRUE),
+                         c = rnorm(n = 1000))
+  samp_data$b2 = factor(samp_data$b)
+  bcpath = glm(c ~ a + b, data = samp_data,
+               family = "gaussian")
+  apath = glm(b ~ a, data = samp_data,
+              family = "binomial")
+  expect_error(
+    mma(bcpath, apath,
+        ind_effects = "a-b",
+        boot = 10)
+  )
+})
+
 test_that("Error catching", {
   fit1 = glm(marijuana ~ home_meals + gender + age + asthma, data = nhanes_2010, family = "binomial")
   fit2 = glm(home_meals ~ gender + age + asthma, data = nhanes_2010, family = "gaussian")

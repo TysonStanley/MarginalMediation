@@ -155,10 +155,12 @@ all_used_vars <- function(forms){
   yes_no <- data %>% 
     sapply(function(x) length(unique(x)))
   
-    if (any(yes_no < 2)){
-      warning(paste("Variable", names(data)[, yes_no < 2], "is constant"), 
-              call. = FALSE) 
-  }
+  if (any(yes_no < 2))
+    warning(paste("Variable", names(data)[, yes_no < 2], "is constant"), call. = FALSE) 
+  
+  classes <- sapply(data, class)
+  if (any(classes == "logical"))
+    stop("Variables of type logical not supported. Change to numeric or factor variable.", .call = FALSE)
 }
 
 .nrows_checker <- function(model){
