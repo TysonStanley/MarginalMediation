@@ -24,7 +24,6 @@ set.seed(84322)
 <!-- badges: end -->
 
 
-
 # MarginalMediation: `v 0.7.1`  <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
 The `MarginalMediation` package provides the ability to perform **marginal mediation analysis**. It provides a useful statistical framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).

@@ -2,11 +2,13 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
+
 <https://www.r-pkg.org/badges/version/MarginalMediation>
 [![Rdoc](http://www.rdocumentation.org/badges/version/MarginalMediation)](http://www.rdocumentation.org/packages/MarginalMediation)
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)](https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)
 [![R build
 status](https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/badge.svg)](https://github.com/TysonStanley/MarginalMediation/actions)
+
 <!-- badges: end -->
 
 # MarginalMediation: `v 0.7.1` <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
