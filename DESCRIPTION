@@ -1,6 +1,6 @@
 Package: MarginalMediation
 Title: Marginal Mediation
-Version: 0.7.0
+Version: 0.7.1
 Authors@R: c(person(c("Tyson", "S"), "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"),
                     comment = c(ORCID = "0000-0002-2137-1391")),
              person("Angelo", "Canty", role = c("ctb"), 
@@ -35,4 +35,4 @@ VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-2
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
