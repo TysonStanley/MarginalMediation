@@ -1,7 +1,7 @@
 Package: MarginalMediation
 Title: Marginal Mediation
-Version: 0.7.1
-Authors@R: c(person(c("Tyson", "S"), "Barrett", email = "t.barrett@aggiemail.usu.edu", role = c("aut", "cre"),
+Version: 0.7.2
+Authors@R: c(person(c("Tyson", "S"), "Barrett", email = "t.barrett88@gmail.com", role = c("aut", "cre"),
                     comment = c(ORCID = "0000-0002-2137-1391")),
              person("Angelo", "Canty", role = c("ctb"), 
                     comment = "S original bootstrap method, http://statwww.epfl.ch/davison/BMA/library.html"),
