@@ -6,9 +6,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Marginal Mediation • MarginalMediation</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Marginal Mediation">
 <meta property="og:description" content="Provides the ability to perform &quot;Marginal Mediation&quot;--mediation
    wherein the indirect and direct effects are in terms of the average marginal effects 
@@ -16,15 +18,16 @@
    The style of the average marginal effects stems from Thomas Leeper's work on the &quot;margins&quot; package.
    This framework allows the use of categorical mediators and outcomes with little change in interpretation
    from the continuous mediators/outcomes. See &lt;doi:10.13140/RG.2.2.18465.92001&gt; for more details 
-   on the method (peer reviewed articles forthcoming).">
-<meta name="twitter:card" content="summary">
+   on the method.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
-    <div class="container template-article">
+<body data-spy="scroll" data-target="#toc">
+    
+
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -36,18 +39,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">MarginalMediation</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.7.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.7.2</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -76,108 +73,119 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
-  <div class="col-md-9 contents">
-    
+  <div class="contents col-md-9">
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<div id="marginalmediation-0-7-0" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#marginalmediation-0-7-0" class="anchor"></a>MarginalMediation: 0.7.0 <img src="../../Binary%20Mediators/MarginalMediation/man/figures/mma_hex.jpg" align="right" width="30%" height="30%">
+<div class="section level1">
+<div class="page-header"><h1 id="marginalmediation-v-072-">MarginalMediation: <code>v 0.7.2</code>
+<img src="reference/figures/mma_hex.jpg" align="right" width="30%" height="30%"><a class="anchor" aria-label="anchor" href="#marginalmediation-v-072-"></a>
 </h1></div>
-<p>The <code>MarginalMediation</code> package provides the ability to perform <strong>marginal mediation analysis</strong>. It provides a useful statistical framework from which to interpret the coefficients in a mediation analysis, especially when the mediator(s) and/or outcome is binary or a count (other types of outcomes will be added).</p>
+<p>The <code>MarginalMediation</code> package provides the ability to
+perform <strong>marginal mediation analysis</strong>. It provides a
+useful statistical framework from which to interpret the coefficients in
+a mediation analysis, especially when the mediator(s) and/or outcome is
+binary or a count (other types of outcomes will be added).</p>
 <p>You can install it via:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"MarginalMediation"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"MarginalMediation"</span><span class="op">)</span></code></pre></div>
 <p>or</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"tysonstanley/MarginalMediation"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"tysonstanley/MarginalMediation"</span><span class="op">)</span></code></pre></div>
 <p>The main function is <code><a href="reference/mma.html">mma()</a></code>:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="reference/mma.html">mma</a></span>(...,</a>
-<a class="sourceLine" id="cb3-2" title="2">    <span class="dt">ind_effects =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"apath-bpath"</span>))</a></code></pre></div>
-<p>where <code>...</code> consists of 2 or more model objects. The first is the <code>b</code> and <code>c'</code> path model, while the others are the <code>a</code> path models.</p>
-<p>The <code>ind_effects</code> is a vector of requested mediated paths. These estimates are in terms of the average marginal effects using the <code>a x b</code> method of estimating indirect paths. Any number of these can be included, although it is limited to the number of variables available in the models.</p>
-<div id="a-quick-example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#a-quick-example" class="anchor"></a>A Quick Example</h3>
-<p>Below is an example, where the theoretical backing of such a model is not very stable, but it is useful to show how to use the function and the output.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co">## Data for the example</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(furniture)</a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="co">#&gt; ── furniture 1.9.0 ─────────────────────────────────────────────────────────────── learn more at tysonbarrett.com ──</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="co">#&gt; ✔ furniture attached</span></a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="co">#&gt; ✔ No potential conflicts found</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/data">data</a></span>(nhanes_<span class="dv">2010</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co">## The MarginalMediation package</span></a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(MarginalMediation)</a></code></pre></div>
-<pre><code>#&gt; Loading MarginalMediation
-#&gt; ── MarginalMediation 0.7.0 ─────────────────────────────────────────────────────── learn more at tysonbarrett.com ──
-#&gt; ✔ MarginalMediation attached
-#&gt; ✔ No potential conflicts found</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">pathbc &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/glm">glm</a></span>(marijuana <span class="op">~</span><span class="st"> </span>home_meals <span class="op">+</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma, </a>
-<a class="sourceLine" id="cb7-2" title="2">              <span class="dt">data =</span> nhanes_<span class="dv">2010</span>, </a>
-<a class="sourceLine" id="cb7-3" title="3">              <span class="dt">family =</span> <span class="st">"binomial"</span>)</a>
-<a class="sourceLine" id="cb7-4" title="4">patha &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/glm">glm</a></span>(home_meals <span class="op">~</span><span class="st"> </span>gender <span class="op">+</span><span class="st"> </span>age <span class="op">+</span><span class="st"> </span>asthma,</a>
-<a class="sourceLine" id="cb7-5" title="5">             <span class="dt">data =</span> nhanes_<span class="dv">2010</span>, </a>
-<a class="sourceLine" id="cb7-6" title="6">             <span class="dt">family =</span> <span class="st">"gaussian"</span>)</a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="kw"><a href="reference/mma.html">mma</a></span>(pathbc, patha,</a>
-<a class="sourceLine" id="cb7-8" title="8">    <span class="dt">ind_effects =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"genderFemale-home_meals"</span>,</a>
-<a class="sourceLine" id="cb7-9" title="9">                    <span class="st">"age-home_meals"</span>,</a>
-<a class="sourceLine" id="cb7-10" title="10">                    <span class="st">"asthmaNo-home_meals"</span>),</a>
-<a class="sourceLine" id="cb7-11" title="11">    <span class="dt">boot =</span> <span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt; calculating a paths... b and c paths... Done.</span></a>
-<a class="sourceLine" id="cb7-14" title="14">                                                                                 </a>
-<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt; ┌───────────────────────────────┐</span></a>
-<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt; │  Marginal Mediation Analysis  │</span></a>
-<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; └───────────────────────────────┘</span></a>
-<a class="sourceLine" id="cb7-18" title="18"><span class="co">#&gt; A marginal mediation model with:</span></a>
-<a class="sourceLine" id="cb7-19" title="19"><span class="co">#&gt;    1 mediators</span></a>
-<a class="sourceLine" id="cb7-20" title="20"><span class="co">#&gt;    3 indirect effects</span></a>
-<a class="sourceLine" id="cb7-21" title="21"><span class="co">#&gt;    3 direct effects</span></a>
-<a class="sourceLine" id="cb7-22" title="22"><span class="co">#&gt;    500 bootstrapped samples</span></a>
-<a class="sourceLine" id="cb7-23" title="23"><span class="co">#&gt;    95% confidence interval</span></a>
-<a class="sourceLine" id="cb7-24" title="24"><span class="co">#&gt;    n = 1417 </span></a>
-<a class="sourceLine" id="cb7-25" title="25"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-26" title="26"><span class="co">#&gt; Formulas:</span></a>
-<a class="sourceLine" id="cb7-27" title="27"><span class="co">#&gt;    ◌ marijuana ~ home_meals + gender + age + asthma</span></a>
-<a class="sourceLine" id="cb7-28" title="28"><span class="co">#&gt;    ◌ home_meals ~ gender + age + asthma </span></a>
-<a class="sourceLine" id="cb7-29" title="29"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-30" title="30"><span class="co">#&gt; Regression Models: </span></a>
-<a class="sourceLine" id="cb7-31" title="31"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-32" title="32"><span class="co">#&gt;      marijuana ~ </span></a>
-<a class="sourceLine" id="cb7-33" title="33"><span class="co">#&gt;                           Est      SE   Est/SE P-Value</span></a>
-<a class="sourceLine" id="cb7-34" title="34"><span class="co">#&gt;         (Intercept)  -0.39400 0.38028 -1.03608 0.30017</span></a>
-<a class="sourceLine" id="cb7-35" title="35"><span class="co">#&gt;         home_meals   -0.04062 0.01363 -2.98051 0.00288</span></a>
-<a class="sourceLine" id="cb7-36" title="36"><span class="co">#&gt;         genderFemale  0.43161 0.11723  3.68169 0.00023</span></a>
-<a class="sourceLine" id="cb7-37" title="37"><span class="co">#&gt;         age           0.00276 0.01470  0.18754 0.85123</span></a>
-<a class="sourceLine" id="cb7-38" title="38"><span class="co">#&gt;         asthmaNo     -0.00717 0.15004 -0.04778 0.96189</span></a>
-<a class="sourceLine" id="cb7-39" title="39"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-40" title="40"><span class="co">#&gt;      home_meals ~ </span></a>
-<a class="sourceLine" id="cb7-41" title="41"><span class="co">#&gt;                           Est      SE   Est/SE P-Value</span></a>
-<a class="sourceLine" id="cb7-42" title="42"><span class="co">#&gt;         (Intercept)   6.56883 0.76462  8.59100 0.00000</span></a>
-<a class="sourceLine" id="cb7-43" title="43"><span class="co">#&gt;         genderFemale -1.34831 0.23910 -5.63913 0.00000</span></a>
-<a class="sourceLine" id="cb7-44" title="44"><span class="co">#&gt;         age          -0.05689 0.03017 -1.88565 0.05955</span></a>
-<a class="sourceLine" id="cb7-45" title="45"><span class="co">#&gt;         asthmaNo     -0.00428 0.31293 -0.01368 0.98909</span></a>
-<a class="sourceLine" id="cb7-46" title="46"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-47" title="47"><span class="co">#&gt; Unstandardized Mediated Effects: </span></a>
-<a class="sourceLine" id="cb7-48" title="48"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-49" title="49"><span class="co">#&gt;    Indirect Effects: </span></a>
-<a class="sourceLine" id="cb7-50" title="50"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-51" title="51"><span class="co">#&gt;      marijuana ~ </span></a>
-<a class="sourceLine" id="cb7-52" title="52"><span class="co">#&gt;                                    Indirect    Lower   Upper</span></a>
-<a class="sourceLine" id="cb7-53" title="53"><span class="co">#&gt;         genderFemale =&gt; home_meals  0.01312  0.00429 0.02562</span></a>
-<a class="sourceLine" id="cb7-54" title="54"><span class="co">#&gt;         age =&gt; home_meals           0.00055  0.00003 0.00139</span></a>
-<a class="sourceLine" id="cb7-55" title="55"><span class="co">#&gt;         asthmaNo =&gt; home_meals      0.00004 -0.00639 0.00672</span></a>
-<a class="sourceLine" id="cb7-56" title="56"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-57" title="57"><span class="co">#&gt;    Direct Effects: </span></a>
-<a class="sourceLine" id="cb7-58" title="58"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-59" title="59"><span class="co">#&gt;      marijuana ~ </span></a>
-<a class="sourceLine" id="cb7-60" title="60"><span class="co">#&gt;                        Direct    Lower   Upper</span></a>
-<a class="sourceLine" id="cb7-61" title="61"><span class="co">#&gt;         genderFemale  0.10430  0.04813 0.15967</span></a>
-<a class="sourceLine" id="cb7-62" title="62"><span class="co">#&gt;         age           0.00066 -0.00603 0.00848</span></a>
-<a class="sourceLine" id="cb7-63" title="63"><span class="co">#&gt;         asthmaNo     -0.00172 -0.06947 0.07061</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/mma.html">mma</a></span><span class="op">(</span><span class="va">...</span>,
+    ind_effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"apath-bpath"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>where <code>...</code> consists of 2 or more model objects. The first
+is the <code>b</code> and <code>c'</code> path model, while the others
+are the <code>a</code> path models.</p>
+<p>The <code>ind_effects</code> is a vector of requested mediated paths.
+These estimates are in terms of the average marginal effects using the
+<code>a x b</code> method of estimating indirect paths. Any number of
+these can be included, although it is limited to the number of variables
+available in the models.</p>
+<div class="section level3">
+<h3 id="a-quick-example">A Quick Example<a class="anchor" aria-label="anchor" href="#a-quick-example"></a>
+</h3>
+<p>Below is an example, where the theoretical backing of such a model is
+not very stable, but it is useful to show how to use the function and
+the output.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## Data for the example</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">furniture</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">nhanes_2010</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">## The MarginalMediation package</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">MarginalMediation</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ℹ Loading MarginalMediation</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── MarginalMediation 0.7.2 ─────────────────── learn more at tysonbarrett.com ──</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✓ MarginalMediation attached</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✓ No potential conflicts found</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pathbc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">marijuana</span> <span class="op">~</span> <span class="va">home_meals</span> <span class="op">+</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">asthma</span>, 
+              data <span class="op">=</span> <span class="va">nhanes_2010</span>, 
+              family <span class="op">=</span> <span class="st">"binomial"</span><span class="op">)</span>
+<span class="va">patha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">home_meals</span> <span class="op">~</span> <span class="va">gender</span> <span class="op">+</span> <span class="va">age</span> <span class="op">+</span> <span class="va">asthma</span>,
+             data <span class="op">=</span> <span class="va">nhanes_2010</span>, 
+             family <span class="op">=</span> <span class="st">"gaussian"</span><span class="op">)</span>
+<span class="fu"><a href="reference/mma.html">mma</a></span><span class="op">(</span><span class="va">pathbc</span>, <span class="va">patha</span>,
+    ind_effects <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"genderFemale-home_meals"</span>,
+                    <span class="st">"age-home_meals"</span>,
+                    <span class="st">"asthmaNo-home_meals"</span><span class="op">)</span>,
+    boot <span class="op">=</span> <span class="fl">500</span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; calculating a paths... b and c paths... Done.                                                                                 </span>
+<span class="co">#&gt; ┌───────────────────────────────┐</span>
+<span class="co">#&gt; │  Marginal Mediation Analysis  │</span>
+<span class="co">#&gt; └───────────────────────────────┘</span>
+<span class="co">#&gt; A marginal mediation model with:</span>
+<span class="co">#&gt;    1 mediators</span>
+<span class="co">#&gt;    3 indirect effects</span>
+<span class="co">#&gt;    3 direct effects</span>
+<span class="co">#&gt;    500 bootstrapped samples</span>
+<span class="co">#&gt;    95% confidence interval</span>
+<span class="co">#&gt;    n = 1417 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Formulas:</span>
+<span class="co">#&gt;    ◌ marijuana ~ home_meals + gender + age + asthma</span>
+<span class="co">#&gt;    ◌ home_meals ~ gender + age + asthma </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Regression Models: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;      marijuana ~ </span>
+<span class="co">#&gt;                           Est      SE   Est/SE P-Value</span>
+<span class="co">#&gt;         (Intercept)  -0.39400 0.38028 -1.03608 0.30017</span>
+<span class="co">#&gt;         home_meals   -0.04062 0.01363 -2.98051 0.00288</span>
+<span class="co">#&gt;         genderFemale  0.43161 0.11723  3.68169 0.00023</span>
+<span class="co">#&gt;         age           0.00276 0.01470  0.18754 0.85123</span>
+<span class="co">#&gt;         asthmaNo     -0.00717 0.15004 -0.04778 0.96189</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;      home_meals ~ </span>
+<span class="co">#&gt;                           Est      SE   Est/SE P-Value</span>
+<span class="co">#&gt;         (Intercept)   6.56883 0.76462  8.59100 0.00000</span>
+<span class="co">#&gt;         genderFemale -1.34831 0.23910 -5.63913 0.00000</span>
+<span class="co">#&gt;         age          -0.05689 0.03017 -1.88565 0.05955</span>
+<span class="co">#&gt;         asthmaNo     -0.00428 0.31293 -0.01368 0.98909</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Unstandardized Mediated Effects: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    Indirect Effects: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;      marijuana ~ </span>
+<span class="co">#&gt;                                    Indirect    Lower   Upper</span>
+<span class="co">#&gt;         genderFemale =&gt; home_meals  0.01312  0.00357 0.02435</span>
+<span class="co">#&gt;         age =&gt; home_meals           0.00055  0.00000 0.00143</span>
+<span class="co">#&gt;         asthmaNo =&gt; home_meals      0.00004 -0.00652 0.00596</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;    Direct Effects: </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;      marijuana ~ </span>
+<span class="co">#&gt;                        Direct    Lower   Upper</span>
+<span class="co">#&gt;         genderFemale  0.10430  0.04950 0.16045</span>
+<span class="co">#&gt;         age           0.00066 -0.00652 0.00793</span>
+<span class="co">#&gt;         asthmaNo     -0.00172 -0.07896 0.06809</span></code></pre></div>
 <p>The print method provides:</p>
 <ol style="list-style-type: decimal">
 <li>the individual regression results,</li>
@@ -186,61 +194,80 @@
 <li>the indirect effect with the confidence interval, and</li>
 <li>the direct effect with the confidence interval.</li>
 </ol>
-<p>The regressions are in their original (non-AME) units while the indirect and direct effects are in the AME units—the units of the outcome—in this case, risk of using marijuana.</p>
+<p>The regressions are in their original (non-AME) units while the
+indirect and direct effects are in the AME units—the units of the
+outcome—in this case, risk of using marijuana.</p>
 </div>
-<div id="conclusions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#conclusions" class="anchor"></a>Conclusions</h3>
+<div class="section level3">
+<h3 id="conclusions">Conclusions<a class="anchor" aria-label="anchor" href="#conclusions"></a>
+</h3>
 <p>Let me know if you find any bugs or want to discuss the method (<a href="mailto:t.barrett@aggiemail.usu.edu" class="email">t.barrett@aggiemail.usu.edu</a>).</p>
 </div>
 </div>
+
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=MarginalMediation">https://​cloud.r-project.org/​package=MarginalMediation</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=MarginalMediation" class="external-link">View on CRAN</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-2">GPL-2</a></li>
+<li><a href="https://www.r-project.org/Licenses/GPL-2" class="external-link">GPL-2</a></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing MarginalMediation</a></li>
+</ul>
+</div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Tyson S Barrett <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2137-1391" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li>Tyson S Barrett <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-2137-1391" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
-      <div class="dev-status">
-<h2>Dev status</h2>
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-pkg.org/badges/version/MarginalMediation"><img src="https://www.r-pkg.org/badges/version/MarginalMediation" alt="CRAN"></a></li>
-<li><a href="http://www.rdocumentation.org/packages/MarginalMediation"><img src="http://www.rdocumentation.org/badges/version/MarginalMediation" alt="Rdoc"></a></li>
-<li><a href="https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation"><img src="http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation" alt="Downloads"></a></li>
-<li><a href="https://travis-ci.org/TysonStanley/MarginalMediation"><img src="https://travis-ci.org/TysonStanley/MarginalMediation.svg?branch=master" alt="Build Status"></a></li>
+<li><a href="https://www.r-pkg.org/badges/version/MarginalMediation" class="external-link"><img src="https://www.r-pkg.org/badges/version/MarginalMediation" alt="CRAN"></a></li>
+<li><a href="https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation" alt="Downloads"></a></li>
+<li><a href="https://github.com/TysonStanley/MarginalMediation/actions" class="external-link"><img src="https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/TysonStanley/MarginalMediation/actions" class="external-link"><img src="https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
-</div>
 
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Tyson S Barrett.</p>
+  <p></p>
+<p>Developed by Tyson S Barrett.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a>
+2.0.2.</p>
 </div>
+
       </footer>
 </div>
+
+  
+
 
   
 

@@ -2,7 +2,7 @@
 title: "Marginal Mediation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Furniture}
+  %\VignetteIndexEntry{Marginal Mediation}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 date: "`r Sys.Date()`"
