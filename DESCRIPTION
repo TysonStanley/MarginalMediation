@@ -25,12 +25,12 @@ Imports: stats,
          purrr,
          tibble, 
          furniture,
-         betareg,
          stringr
 Suggests: testthat,
           knitr,
           rmarkdown,
-          margins
+          margins,
+          betareg
 VignetteBuilder: knitr
 Encoding: UTF-8
 License: GPL-2
