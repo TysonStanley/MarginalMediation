@@ -32,6 +32,8 @@ Suggests: testthat,
           margins,
           betareg
 VignetteBuilder: knitr
+URL: https://tysonbarrett.com/MarginalMediation/, https://github.com/TysonStanley/MarginalMediation
+BugReports: https://github.com/TysonStanley/MarginalMediation/issues
 Encoding: UTF-8
 License: GPL-2
 LazyData: true
