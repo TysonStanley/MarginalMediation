@@ -7,7 +7,7 @@
 [![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)](https://cranlogs.r-pkg.org/badges/grand-total/MarginalMediation)
 [![R build
 status](https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/badge.svg)](https://github.com/TysonStanley/MarginalMediation/actions)
-[![R-CMD-check](https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/badge.svg)](https://github.com/TysonStanley/MarginalMediation/actions)
+[![R-CMD-check](https://github.com/TysonStanley/MarginalMediation/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/TysonStanley/MarginalMediation/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # MarginalMediation: `v 0.7.3` <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
