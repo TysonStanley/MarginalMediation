@@ -33,6 +33,5 @@ Suggests: testthat,
           betareg
 VignetteBuilder: knitr
 Encoding: UTF-8
-License: GPL-2
-LazyData: true
+License: GPL-3
 RoxygenNote: 7.3.3
