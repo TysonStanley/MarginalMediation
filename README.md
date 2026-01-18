@@ -1,5 +1,6 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 <!-- badges: start -->
 
 [![CRAN](https://www.r-pkg.org/badges/version/MarginalMediation)](https://www.r-pkg.org/badges/version/MarginalMediation)
@@ -9,7 +10,7 @@ status](https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/
 [![R-CMD-check](https://github.com/TysonStanley/MarginalMediation/workflows/R-CMD-check/badge.svg)](https://github.com/TysonStanley/MarginalMediation/actions)
 <!-- badges: end -->
 
-# MarginalMediation: `v 0.7.2` <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
+# MarginalMediation: `v 0.7.3` <img src="man/figures/mma_hex.jpg" align="right" width="30%" height="30%"/>
 
 The `MarginalMediation` package provides the ability to perform
 **marginal mediation analysis**. It provides a useful statistical
@@ -33,8 +34,7 @@ remotes::install_github("tysonstanley/MarginalMediation")
 The main function is `mma()`:
 
 ``` r
-mma(...,
-    ind_effects = c("apath-bpath"))
+mma(..., ind_effects = c("apath-bpath"))
 ```
 
 where `...` consists of 2 or more model objects. The first is the `b`
@@ -64,22 +64,31 @@ library(MarginalMediation)
 ```
 
     #> ℹ Loading MarginalMediation
-    #> ── MarginalMediation 0.7.2 ─────────────────── learn more at tysonbarrett.com ──
-    #> ✓ MarginalMediation attached
-    #> ✓ No potential conflicts found
+    #> Warning: package 'testthat' was built under R version 4.5.2
+    #> ── MarginalMediation 0.7.3 ─────────────────── learn more at tysonbarrett.com ──
+    #> ✔ MarginalMediation attached
+    #> ✔ No potential conflicts found
 
 ``` r
-pathbc <- glm(marijuana ~ home_meals + gender + age + asthma, 
-              data = nhanes_2010, 
-              family = "binomial")
-patha <- glm(home_meals ~ gender + age + asthma,
-             data = nhanes_2010, 
-             family = "gaussian")
-mma(pathbc, patha,
-    ind_effects = c("genderFemale-home_meals",
-                    "age-home_meals",
-                    "asthmaNo-home_meals"),
-    boot = 500)
+pathbc <- glm(
+  marijuana ~ home_meals + gender + age + asthma, 
+  data = nhanes_2010, 
+  family = "binomial"
+)
+patha <- glm(
+  home_meals ~ gender + age + asthma,
+  data = nhanes_2010, 
+  family = "gaussian"
+)
+mma(
+  pathbc, 
+  patha,
+  ind_effects = c(
+    "genderFemale-home_meals",
+    "age-home_meals",
+    "asthmaNo-home_meals"),
+  boot = 500
+)
 #> 
 #> calculating a paths... b and c paths... Done.                                                                                 
 #> ┌───────────────────────────────┐
@@ -144,8 +153,3 @@ The print method provides:
 The regressions are in their original (non-AME) units while the indirect
 and direct effects are in the AME units—the units of the outcome—in this
 case, risk of using marijuana.
-
-### Conclusions
-
-Let me know if you find any bugs or want to discuss the method
-(<t.barrett@aggiemail.usu.edu>).

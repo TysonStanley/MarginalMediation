@@ -1,3 +1,7 @@
+# Version 0.7.3
+
+Fixed documentation for `mma()`.
+
 # Version 0.7.2
 
 Updated email for maintainer.
