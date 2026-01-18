@@ -9,7 +9,7 @@ frames(model, ci_type = "perc", boot = 100, ci = 0.95)
 \arguments{
 \item{model}{the model object}
 
-\item{ci_type}{the type of boostrapped confidence interval; options are "perc", "basic", "bca"}
+\item{ci_type}{the type of bootstrapped confidence interval; options are "perc", "basic", "bca"}
 
 \item{boot}{the number of bootstrapped samples; default is 100}
 

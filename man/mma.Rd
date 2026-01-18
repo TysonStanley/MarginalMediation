@@ -64,7 +64,7 @@ Bartus, T. (2005). Estimation of marginal effects using margeff.
 The Stata Journal, 5(3), 309–329.
 
 MacKinnon, D. (2008). Introduction to Statistical Mediation Analysis. 
-Taylor \& Francis, LLC.
+Taylor & Francis, LLC.
 }
 \author{
 Tyson S. Barrett

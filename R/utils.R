@@ -1,6 +1,6 @@
 #' @title Average Marginal Effects
 #' @author Tyson S. Barrett
-#' @description Internal function for \code{mma()}. Based on the same strategy as 
+#' @description Core function for \code{mma()}. Based on the same strategy as 
 #' \code{margins} by T. Leeper.
 #' 
 #' @param model the model object

@@ -5,7 +5,7 @@
 #' \code{margins::margins()}.
 #' 
 #' @param model the model object
-#' @param ci_type the type of boostrapped confidence interval; options are "perc", "basic", "bca"
+#' @param ci_type the type of bootstrapped confidence interval; options are "perc", "basic", "bca"
 #' @param boot the number of bootstrapped samples; default is 100
 #' @param ci the confidence interval; the default is .975 which is the 95\% confidence interval.
 #' 

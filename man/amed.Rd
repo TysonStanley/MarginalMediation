@@ -10,7 +10,7 @@ amed(model)
 \item{model}{the model object}
 }
 \description{
-Internal function for \code{mma()}. Based on the same strategy as 
+Core function for \code{mma()}. Based on the same strategy as 
 \code{margins} by T. Leeper.
 }
 \author{
